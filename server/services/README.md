@@ -17,7 +17,6 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 </div>
 
 <br />
-<br />
 
 ## Index
 
@@ -201,15 +200,89 @@ export default resolver;
 
 ---
 
-W.I.P.
+If you need to create a query or a mutation for a specific Model, you've come to the right place ✔️
+Fortunately, the project uses `graphql-tools` to merge schemas and resolvers together automatically, but unfortunately our CLI does not support yet the Model specific Query/Mutation, so we'll have to do it ourselves. Still it is very easy to do:
+1. Go to the folder of your model in your micro-service, under `schema/Models/<MODEL_NAME>`
+2. Add a `queries` or `mutations` folder and add a sub-folder with your query or mutation name
+3. Add two files inside; one called `<OP_NAME>.graphql` and the other one called `<OP_NAME>.resolver.ts` (the `.resolver` is important, don't omit it!)
+4. In the graphql file you have to extend the query/mutation type to include your operation, meanwhile the resolver has to be a function that can catch the operation and resolve it! Here's an example:
+```graphql
+extend type Query {
+  """
+  Get me query
+  """
+  me: User
+}
 
+```
+
+```typescript
+import { User } from '@prisma/client';
+
+import { getUserById } from '@src/services/userService';
+
+const resolver = {
+  Query: {
+    me: async (_, __, context): Promise<User | null> => {
+      return getUserById(context?.userData?.userId ?? -1);
+    },
+  },
+};
+
+export default resolver;
+```
 <br />
 
 ## How to link two models in the same subgraph
 
 ---
 
-W.I.P.
+In GraphQL, the models can connect between eachother with relationships like in a relational database (1:1, 1:N, N:N), so let's explore how to create this link in GalactaGraph:
+1. [OPTIONAL] Create a new model following our handy [guide](#how-to-create-a-service-with-a-model)
+2. In the `schema.prisma` file, connect the two models as you see fit (Example in 1:1)
+
+```graphql
+
+model User {
+  userId         Int      @id @default(autoincrement())
+  
+  ...
+  
+  profile       Profile
+  
+  ...
+}
+
+model Profile {
+  profileId     Int      @id @default(autoincrement())
+  
+  ...
+  
+  user          User
+  
+  ...
+}
+
+```
+
+3. Generate, migrate and seed accordingly
+3. Update your `<MODEL_NAME>.graphql` files to reflect the change
+4. Your `resolver.ts` files will have to resolve the newly added field, let's see an example:
+
+```typescript
+...
+User: {
+    ...
+    profile: async ({ userId }: IUserRef): Promise<Profile | null> => {
+      return getProfileByUserId(parseInt(userId));
+    },
+  },
+...
+
+```
+
+5. Create your functions in the `<MODEL_NAME>Service.ts` files (or anywhere you want really) and return the correct data!
+6. Fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
 
 <br />
 
@@ -217,7 +290,100 @@ W.I.P.
 
 ---
 
-W.I.P.
+One of the best features of a Federated API is that you can communicate between subgraphs with ease, and with GalactaGraph the process has been streamlined even more! You can find a clear example at the [federation-project repo](https://github.com/emanuele-moricci/federation-project), but if you want a clear-cut bullet list, here it is:
+1. [OPTIONAL] Create a new model following our handy [guide](#how-to-create-a-service-with-a-model)
+2. In the `schema.prisma` file, connect the two models as you see fit. In the case of the 1:1 or 1:N example you can use the <MODEL_NAME>Id like this:
+
+```graphql
+model User {
+  userId         Int      @id @default(autoincrement())
+  
+  ...
+
+  languageId     Int
+  
+  ...
+}
+```
+
+3. Now update your `<MODEL_NAME>.graphql` file adding the actual model, like so:
+
+```graphql
+
+type User ... {
+  ...
+  
+  """
+  user language
+  """
+  language: Language
+  
+  ...
+}
+
+```
+
+4. The remote model needs to be extended in the first one. To do this we can use the `Entry.graphql` file:
+
+```graphql
+
+...
+
+extend type Language @key(fields: "languageId") {
+  # the language id
+  languageId: ID! @external
+
+  # every user with a given language
+  users: [User]
+}
+
+```
+
+5. Now, since the scope of the relation in this example is to add the ability to see every user for a language, we'll resolve everything in the micro-service that hosts the User Model. In your `<MODEL_NAME>.resolver.ts` there's some code to add:
+
+```typescript
+
+...
+
+const resolver = {
+  Query: {
+    User: async (_source, args): Promise<User[]> => {
+      return getAllUsers(args);
+    },
+  },
+  User: {
+    __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
+      return getUserById(parseInt(userId));
+    },
+    
+    ...
+    
+    language: ({ languageId }: IUserRef): Language => ({
+      __typename: 'Language',
+      languageId: languageId,
+    }),
+    
+    ...
+  },
+  // EXTENSIONS
+  Language: {
+    users: async ({ languageId }: ILanguageRef): Promise<User[]> => {
+      return getUsersByLanguageId(parseInt(languageId));
+    },
+  },
+  
+  ...
+};
+
+export default resolver;
+
+```
+
+6. As you can see, we resolver the User->language and Language->users fields for the subgraph and leave the Federation to merge them all together. To resolve a Model from a different Subgraph as per example we need to buonce back an object like this: 
+`{ __typename: '<MODEL_NAME>' <MODEL_NAME>Id: <MODEL_NAME>Id }`
+> Of course you need to create your service functions to add the logic!
+7. Create your functions in the `<MODEL_NAME>Service.ts` files (or anywhere you want really) and return the correct data!
+8. Fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
 
 <br />
 
