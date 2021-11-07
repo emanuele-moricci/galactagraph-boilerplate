@@ -391,7 +391,34 @@ export default resolver;
 
 ---
 
-W.I.P.
+This is a bit tricky but not impossible, essentially you need to follow the previous guide to link two Models from different subgraphs, with only one major difference.
+When it's time to resolve the Query, you need to pass an array of `{ __typename, id }`, like so:
+
+```typescript
+
+const resolver = {
+  Query: {},
+  Profile: {
+    
+    ...
+    
+    groups: ({ groups }: IProfileRef): Group[] =>
+      groups.map(id => ({
+        __typename: 'Group',
+        groupId: id,
+      })),
+  },
+  // EXTENSIONS
+  Group: {
+    members: async ({ groupId }: IGroupRef): Promise<Profile[]> => {
+      return getMembersOfGroup(parseInt(groupId));
+    },
+  },
+  
+  ...
+};
+
+```
 
 <br />
 
@@ -399,7 +426,12 @@ W.I.P.
 
 ---
 
-W.I.P.
+Unfortunately the Federation structure is still new and, even if it was adopted by big players like Netflix, there still are some drawbacks that we have to be aware of:
+1. The Federation structure handles Queries perfectly, making them easy to do and maintain. The same thing cannot be said for mutations though, since we cannot merge migrations from different subgraphs, adding complexity to the client source that is calling the API. For example, if we want to create a User and a Profile we cannot do it in a single Mutation, but we need to call first the `CreateUserMutation` and then the `CreateProfileWithUserIdMutation`.
+2. The third operation, Subscriptions is not supported as of now, although somebody managed to create custom solutions to circle around the problem.
+3. Code re-usability is a major issue, since every subgraph will undoubtedly share some types, utility functions or just general code. GalactaGraph solves this using a private package to share code, but it's more a work-around than a solution.
+4. Starting the entire federation when it has 5+ services can become a chore manually, so custom starting scripts (like GalactaGraph has) are a MUST.
+5. Linking models depending on the scope is a way of thinking and it's not easy to resolve on-the-fly. The Apollo Team has a great [article](https://www.apollographql.com/docs/federation/enterprise-guide/federated-schema-design/) about this very problem.
 
 <br />
 
@@ -407,4 +439,8 @@ W.I.P.
 
 ---
 
-W.I.P.
+The GalactaGraph boilerplate has a kinda strict folder structure with rules that assure the correct function of the CLI, scripts and Schema&Resolvers mergers. Let's look at the rules that NEED to be followed to ensure that nothing breaks:
+- You may see several comments that ask you not to be removed, like `[IMPORT NEW VALUE] // <- DO NOT REMOVE - ...`; this lines are used by the CLI to find the right spot to generate queries/migrations/models ecc... Please do not touch them! 🚯
+- The schema generated with Codegen is handled by the [@graphql-tools](https://www.graphql-tools.com/docs/introduction) library to remove redundant code. To ensure this, the files that are used to generate the usable/publishable code are `*.graphql` and `*.resolver.ts`. Please use these extensions when you want to add a type or resolver to your micro-service
+- To ensure that starting, building, testing and dockerizing the entire federation is as easy as pushing a button, GalactaGraph created a handful of `.bash` scripts that need to remain untouched unless you know what you're doing
+
