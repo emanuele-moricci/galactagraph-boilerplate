@@ -1,0 +1,31 @@
+extend type Mutation {
+  """
+  register
+  """
+  register(input: registerInput): registerPayload
+}
+
+"""
+Register input
+"""
+input registerInput {
+  """
+  The user email.
+  """
+  email: String!
+
+  """
+  The user password.
+  """
+  password: String!
+}
+
+"""
+Register payload
+"""
+type registerPayload {
+  """
+  The user token.
+  """
+  token: String!
+}

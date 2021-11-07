@@ -1,0 +1,17 @@
+# build folders&files
+node_modules
+dist
+lib
+*.tgz
+
+# testing
+coverage
+
+# enviroment
+.env
+.env.test
+.env.docker.test
+
+# other
+.DS_Store
+*.log

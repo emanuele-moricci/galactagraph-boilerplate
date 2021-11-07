@@ -1,0 +1,3 @@
+RUN cp /app/services/{{ parsedServiceName }}/.env.docker.test /app/services/{{ parsedServiceName }}/.env
+RUN mv /app/services/{{ parsedServiceName }}/.env.docker.test /app/services/{{ parsedServiceName }}/.env.test
+# [ADD NEW ENV CLONE COMMANDS ABOVE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly

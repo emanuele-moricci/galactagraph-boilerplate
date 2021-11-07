@@ -1,0 +1,77 @@
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""The User Model: table that stores the user info."""
+type User @key(fields: "userId") {
+  """user id"""
+  userId: ID!
+
+  """user email"""
+  email: String!
+
+  """user password"""
+  password: String!
+
+  """created at"""
+  created_at: DateTime!
+
+  """updated at"""
+  updated_at: DateTime!
+
+  """deleted row"""
+  deleted: Boolean!
+}
+
+"""Login input"""
+input loginInput {
+  """The user email."""
+  email: String!
+
+  """The user password."""
+  password: String!
+}
+
+"""Login payload"""
+type loginPayload {
+  """The user token."""
+  token: String!
+}
+
+"""Register input"""
+input registerInput {
+  """The user email."""
+  email: String!
+
+  """The user password."""
+  password: String!
+}
+
+"""Register payload"""
+type registerPayload {
+  """The user token."""
+  token: String!
+}
+
+extend type Query {
+  """Get all Users query"""
+  User(
+    """Starting record"""
+    skip: Int
+
+    """Records shown"""
+    take: Int = 25
+  ): [User]
+
+  """Get me query"""
+  me: User
+}
+
+extend type Mutation {
+  """login"""
+  login(input: loginInput): loginPayload
+
+  """register"""
+  register(input: registerInput): registerPayload
+}

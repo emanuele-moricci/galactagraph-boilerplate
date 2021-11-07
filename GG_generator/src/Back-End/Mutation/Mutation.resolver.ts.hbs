@@ -1,0 +1,12 @@
+const resolver = {
+  Mutation: {
+    {{ firstLower MutationName }}: {
+      resolve: async (_, { input }): Promise<any> => {
+        // CHANGE THE RETURN TYPE AND ADD THE LOGIC!
+        return "WIP"
+      },
+    },
+  },
+};
+
+export default resolver;

@@ -1,0 +1,24 @@
+extend type Mutation {
+  """
+  {{ MutationDescription }}
+  """
+  {{ firstLower MutationName }}(input: {{ firstLower MutationName }}Input): {{ firstLower MutationName }}Payload
+}
+
+"""
+{{ firstLower MutationName }} input
+"""
+input {{ firstLower MutationName }}Input {
+  """
+  Fill the mutation object input
+  """
+}
+
+"""
+{{ firstLower MutationName }} payload
+"""
+type {{ firstLower MutationName }}Payload {
+  """
+  Fill the mutation return payload
+  """
+}

@@ -1,0 +1,42 @@
+/* eslint-disable no-underscore-dangle */
+import { ApolloServer, gql } from 'apollo-server-express';
+
+import getApolloServerContext from '@config/apollo/apolloServerTestContext';
+import prismaContext from '@config/prisma/prismaContext';
+import schema from '@fed-schema/schema';
+
+const GETALL_{{ allCapsPlural ModelName }}_QUERY = gql`
+  query getAll{{ capitalPlural ModelName }} {
+    {{ capital ModelName }} {
+      __typename
+      {{ firstLower ModelName }}Id
+    }
+  }
+`;
+
+describe('getAll{{ capitalPlural ModelName }} test', () => {
+  let server: ApolloServer;
+
+  beforeAll(() => {
+    server = new ApolloServer({
+      schema: schema,
+      context: async ({ req }) => await getApolloServerContext(req),
+    });
+  });
+
+  afterAll(async () => {
+    prismaContext.prisma.{{ firstLower ModelName }}.deleteMany();
+    await prismaContext.prisma.$disconnect();
+  });
+
+  it('should pass', async () => {
+    const result = await server.executeOperation({
+      query: GETALL_{{ allCapsPlural ModelName }}_QUERY,
+    });
+
+    expect(result.data).toBeDefined();
+    expect(result?.data?.{{ capital ModelName }}).toBeDefined();
+    const getAll{{ capitalPlural ModelName }} = result?.data?.{{ capital ModelName }};
+    expect(getAll{{ capitalPlural ModelName }}.length).toBeGreaterThan(0);
+  });
+});

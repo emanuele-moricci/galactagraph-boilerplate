@@ -1,0 +1,26 @@
+import prismaContext from '@config/prisma/prismaContext'; 
+import { {{capital ModelName}} } from '@prisma/client';
+
+/**
+ * Function that returns all of the {{capitalPlural ModelName}} present in the database.
+ *
+ * @async
+ * @function getAll{{ capitalPlural ModelName }}.
+ * @returns {Promise<{{capital ModelName}}[]>} The {{capital ModelName}} List.
+ */
+export const getAll{{capitalPlural ModelName}} = async (): Promise<{{capital ModelName}}[]> => {
+  return await prismaContext.prisma.{{firstLower ModelName}}.findMany();
+};
+
+/**
+ * Function that returns a {{capital ModelName}} by its ID.
+ *
+ * @param {number} {{firstLower ModelName}}Id The {{firstLower ModelName}} ID.
+ *
+ * @async
+ * @function get{{capital ModelName}}ById.
+ * @returns {Promise<{{capital ModelName}} | null>} The found {{capital ModelName}}.
+ */
+export const get{{capital ModelName}}ById = async ({{firstLower ModelName}}Id: number): Promise<{{capital ModelName}} | null> => {
+  return await prismaContext.prisma.{{firstLower ModelName}}.findUnique({ where: { {{firstLower ModelName}}Id } });
+};

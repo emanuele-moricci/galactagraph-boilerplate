@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: federation-gateway
+    build:
+      context: '.'
+      target: base
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - dev_vm
+  db:
+    container_name: db
+    image: postgres:13
+    restart: always
+    ports:
+      - '5435:5432'
+    volumes:
+      - ./bin/create-multiple-postgresql-databases:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: ${POSTGRESQL_DATABASES}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+    networks:
+      - dev_vm
+networks:
+  dev_vm:
+    name: dev_vm
+    driver: bridge

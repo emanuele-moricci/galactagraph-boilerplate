@@ -1,0 +1,22 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+model User {
+  userId         Int      @id @default(autoincrement())
+
+  email          String   @unique
+  password       String
+
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  deleted        Boolean  @default(false)
+}
+
+// [ADD NEW PRISMA TYPES ABOVE] <- DO NOT REMOVE - Needed for the generator to create prisma types seamlessly

@@ -1,0 +1,31 @@
+extend type Mutation {
+  """
+  login
+  """
+  login(input: loginInput): loginPayload
+}
+
+"""
+Login input
+"""
+input loginInput {
+  """
+  The user email.
+  """
+  email: String!
+
+  """
+  The user password.
+  """
+  password: String!
+}
+
+"""
+Login payload
+"""
+type loginPayload {
+  """
+  The user token.
+  """
+  token: String!
+}

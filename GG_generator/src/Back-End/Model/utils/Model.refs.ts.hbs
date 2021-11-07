@@ -1,0 +1,6 @@
+export interface I{{ capital ModelName }}Ref {
+  __typename: '{{ capital ModelName }}';
+  {{ firstLower ModelName }}Id: string;
+}
+
+// [ADD NEW REFERENCE TYPES ABOVE] <- DO NOT REMOVE - Needed for the generator to create refs types seamlessly

@@ -1,0 +1,9 @@
+model {{ capital ModelName }} {
+  {{ firstLower ModelName }}Id     Int      @id @default(autoincrement())
+
+  created_at                       DateTime @default(now())
+  updated_at                       DateTime @updatedAt
+  deleted                          Boolean  @default(false)
+}
+
+// [ADD NEW PRISMA TYPES ABOVE] <- DO NOT REMOVE - Needed for the generator to create prisma types seamlessly
