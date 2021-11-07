@@ -48,7 +48,8 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 6. [How to Re-Use code](#how-to-re-use-code)
 7. [How to Start](#how-to-start)
 8. [How to Test](#how-to-test)
-9. [License](#license)
+9. [How-To Guides](#how-to-guides)
+10. [License](#license)
 
 </h3>
 <br />
@@ -315,6 +316,32 @@ This project has a local package called `federation-utils`, under `GG_utilities`
 - Go into the `env.test` and `env.docker.test` file and change the `DATABASE_URL` connection string. Add the database name to the `POSTGRESQL_DATABASES` key in the `.env.docker.test` file in the gateway
 - Create your test under the micro-service folder `__tests__/(integration or unit)` with the pattern `*.test.ts or *.unit.test.ts`
 - Go to the root of the project and fire the testing command: `yarn federation:test` or `yarn federation:docker:test`
+
+<br />
+
+## How-to GUIDES
+
+<p style=margin-left:20px>
+GalactaGraph can take care of a lot of code by itself, but it cannot be of much help if you don't know some stuff first, here are some guides to help you get started:
+
+- [Apollo Federation](https://www.apollographql.com/docs/federation/quickstart/)
+- [Express](https://expressjs.com/en/starter/installing.html)
+- [GraphQL Codegen](https://www.graphql-code-generator.com/docs/getting-started/index)
+- [Prisma ORM](https://www.prisma.io/docs/getting-started/quickstart)
+
+</p>
+<br />
+<p style=margin-left:20px>
+Aside from that, there can be moments where you need to bind two models from different subgraphs, with different relations, add new non-model mutations, create new GraphQL fields with resolvers ecc...
+</p>
+<p style=margin-left:20px>
+For that you can find everything you need either in my personal study project, or in this README file:
+</p>
+
+- [the-federation-project](https://github.com/emanuele-moricci/federation-project)
+- [README Guide](https://github.com/emanuele-moricci/galactagraph-boilerplate/blob/main/server/services/README.md)
+
+---
 
 <br />
 
