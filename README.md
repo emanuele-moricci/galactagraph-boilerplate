@@ -341,8 +341,6 @@ For that you can find everything you need either in my personal study project, o
 - [the-federation-project](https://github.com/emanuele-moricci/federation-project)
 - [README Guide](https://github.com/emanuele-moricci/galactagraph-boilerplate/blob/main/server/services/README.md)
 
----
-
 <br />
 
 ## License
