@@ -41,6 +41,18 @@ module.exports = {
   actions: (data) => {
     const cwd = process.cwd();
 
+    // Getting the Federation Graph configuration
+    const fs = require("fs");
+    let apollo_graph = "example_graph@current";
+    try {
+      const data = fs.readFileSync(`${path.join(cwd, "/.env")}`, "utf8");
+      const apollo_graph_line = data.match(/.*APOLLO_GRAPH_REF.*/gi);
+      apollo_graph = apollo_graph_line[0].split("=")[1];
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+
     const serviceName = (
       data.ServiceName.startsWith("federation-")
         ? data.ServiceName
@@ -84,6 +96,7 @@ module.exports = {
         abortOnFail: true,
         data: {
           parsedServiceName: serviceName,
+          federationGraph: apollo_graph,
         },
       },
       // Adds a default Nodemon configuration file
