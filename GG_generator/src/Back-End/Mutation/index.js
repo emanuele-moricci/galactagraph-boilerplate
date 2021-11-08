@@ -2,8 +2,28 @@ const path = require("path");
 const { firstLower } = require("../../Utils/formatUtils");
 
 module.exports = {
-  description: "Add a non-model Mutation",
+  description: "Add a Model OR Generic Mutation",
   prompts: [
+    {
+      type: "input",
+      name: "MutationModel",
+      message:
+        "Write the name of the Model that uses this Mutation, leave empty if it's a general Mutation",
+      default: "",
+      validate: (value) => {
+        if (!value) return true;
+
+        const fs = require("fs");
+        const cwd = process.cwd();
+
+        const models = fs
+          .readdirSync(`${path.join(cwd, "/src/graphql/schema/Models")}`)
+          .filter((d) => !d.includes("."))
+          .map((d) => d.toLowerCase());
+
+        return models.includes(value.toLowerCase()) ? true : "Model not found";
+      },
+    },
     {
       type: "input",
       name: "MutationName",
@@ -27,7 +47,10 @@ module.exports = {
 
     const firstLowerMutationName = firstLower(data.MutationName);
 
-    const rootPath = `${path.join(cwd, "/src/graphql/schema/Mutation")}`;
+    const schemaPath = `${path.join(cwd, "/src/graphql/schema/")}`;
+    const rootPath = data.MutationModel
+      ? `${path.join(schemaPath, `/Models/${data.MutationModel}/mutations`)}`
+      : `${path.join(schemaPath, "/Mutation")}`;
     const mutationPath = `${rootPath}/${firstLowerMutationName}`;
 
     /**
