@@ -1,9 +1,27 @@
-import { getAll{{ capitalPlural ModelName }} } from '@services/{{ firstLower ModelName }}Service';
+import { {{#if wantQuery}} getAll{{ capitalPlural ModelName }}, {{/if}}get{{capital ModelName}}ById{{#if wantMutation}}, create{{ capital ModelName }} {{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
 
 describe('{{ firstLower ModelName }}Service tests', () => {
+  {{#if wantQuery}}
   it('should return every {{ firstLower ModelName }}', async () => {
     const {{ firstLowerPlural ModelName }} = await getAll{{ capitalPlural ModelName }}();
     expect({{ firstLowerPlural ModelName }}).toBeDefined();
     expect({{ firstLowerPlural ModelName }}.length).toBeGreaterThan(0);
   });
+  {{/if}}
+
+  it('should return the first {{ firstLower ModelName }} in the database', async () => {
+    const {{ firstLower ModelName }}Id = 1;
+
+    const {{ firstLower ModelName }} = await get{{capital ModelName}}ById({{ firstLower ModelName }}Id);
+    expect({{ firstLower ModelName }}).toBeDefined();
+    expect({{ firstLower ModelName }}.{{ firstLower ModelName }}Id).toEqual({{ firstLower ModelName }}Id);
+  });
+
+  {{#if wantMutation}}
+  it('should create a new {{ capital ModelName }}', async () => {
+    const {{ firstLower ModelName }} = await create{{capital ModelName}}({});
+    expect({{ firstLower ModelName }}).toBeDefined();
+    expect({{ firstLower ModelName }}.{{ firstLower ModelName }}Id).toBeGreaterThan(0);
+  });
+  {{/if}}
 });

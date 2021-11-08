@@ -22,6 +22,31 @@ module.exports = {
       type: "input",
       name: "ModelDescription",
       message: "Write a small description",
+      validate: (value) => {
+        if (/.+/.test(value)) {
+          return true;
+        }
+
+        return "The description is required";
+      },
+    },
+    {
+      type: "confirm",
+      name: "wantQuery",
+      default: true,
+      message: 'Do you want a "getAll" query?',
+    },
+    {
+      type: "confirm",
+      name: "wantMutation",
+      default: true,
+      message: 'Do you want a "create" mutation?',
+    },
+    {
+      type: "confirm",
+      name: "wantTests",
+      default: true,
+      message: "Do you want a to generate Jest unit/integration tests?",
     },
   ],
   actions: (data) => {
@@ -103,32 +128,47 @@ module.exports = {
         templateFile: `${__dirname}/database/Model.seederFunction.ts.hbs`,
         abortOnFail: true,
       },
+    ];
+
+    if (data.wantTests) {
       // JEST Testing
-      {
+      actions.push({
         type: "add",
         path: `${testPath}/unit/services/${firstLowerModelName}Service.unit.test.ts`,
         templateFile: `${__dirname}/tests/Model.unit.test.ts.hbs`,
         abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${testPath}/integration/getAll${pluralizedCapitalModelName}.test.ts`,
-        templateFile: `${__dirname}/tests/Model.integration.test.ts.hbs`,
-        abortOnFail: true,
-      },
-    ];
+      });
+
+      if (data.wantQuery) {
+        actions.push({
+          type: "add",
+          path: `${testPath}/integration/getAll${pluralizedCapitalModelName}.test.ts`,
+          templateFile: `${__dirname}/tests/Model.integration.test.query.ts.hbs`,
+          abortOnFail: true,
+        });
+      }
+
+      if (data.wantMutation) {
+        actions.push({
+          type: "add",
+          path: `${testPath}/integration/create${capitalizedModelName}.test.ts`,
+          templateFile: `${__dirname}/tests/Model.integration.test.mutation.ts.hbs`,
+          abortOnFail: true,
+        });
+      }
+    }
 
     actions.push({
       type: "prettify",
       data: { path: `${componentPath}/${capitalizedModelName}/**` },
     });
 
-    actions.push({
-      type: "execCommand",
-      data: {
-        command: `npx prisma migrate reset --force --skip-seed && npx prisma generate && npx prisma migrate dev --name init_${firstLowerModelName}_model && npx prisma db seed`,
-      },
-    });
+    // actions.push({
+    //   type: "execCommand",
+    //   data: {
+    //     command: `npx prisma migrate reset --force --skip-seed && npx prisma generate && npx prisma migrate dev --name init_${firstLowerModelName}_model && npx prisma db seed`,
+    //   },
+    // });
 
     actions.push({
       type: "signalSuccess",
