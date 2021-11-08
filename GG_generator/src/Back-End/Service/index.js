@@ -145,13 +145,13 @@ module.exports = {
       {
         type: "add",
         path: `${configPath}/apolloConfig.ts`,
-        templateFile: `${__dirname}/src/config/apollo/Service.apolloConfig.ts.hbs`,
+        templateFile: `${__dirname}/src/config/Service.apolloConfig.ts.hbs`,
         abortOnFail: true,
       },
       {
         type: "add",
         path: `${configPath}/prismaConfig.ts`,
-        templateFile: `${__dirname}/src/config/prisma/Service.prismaConfig.ts.hbs`,
+        templateFile: `${__dirname}/src/config/Service.prismaConfig.ts.hbs`,
         abortOnFail: true,
       },
       // Adds the graphql schema&resolver files
