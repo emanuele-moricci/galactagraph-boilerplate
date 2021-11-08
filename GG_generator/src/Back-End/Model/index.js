@@ -163,12 +163,12 @@ module.exports = {
       data: { path: `${componentPath}/${capitalizedModelName}/**` },
     });
 
-    // actions.push({
-    //   type: "execCommand",
-    //   data: {
-    //     command: `npx prisma migrate reset --force --skip-seed && npx prisma generate && npx prisma migrate dev --name init_${firstLowerModelName}_model && npx prisma db seed`,
-    //   },
-    // });
+    actions.push({
+      type: "execCommand",
+      data: {
+        command: `npx prisma migrate reset --force --skip-seed && npx prisma generate && npx prisma migrate dev --name init_${firstLowerModelName}_model && npx prisma db seed`,
+      },
+    });
 
     actions.push({
       type: "signalSuccess",
