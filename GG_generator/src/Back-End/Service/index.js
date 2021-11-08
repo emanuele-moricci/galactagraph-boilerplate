@@ -144,38 +144,14 @@ module.exports = {
       // Adds the apollo&prisma config files
       {
         type: "add",
-        path: `${configPath}/apollo/apolloServerContext.ts`,
-        templateFile: `${__dirname}/src/config/apollo/Service.apolloServerContext.ts.hbs`,
+        path: `${configPath}/apolloConfig.ts`,
+        templateFile: `${__dirname}/src/config/apollo/Service.apolloConfig.ts.hbs`,
         abortOnFail: true,
       },
       {
         type: "add",
-        path: `${configPath}/apollo/apolloServerTestContext.ts`,
-        templateFile: `${__dirname}/src/config/apollo/Service.apolloServerTestContext.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${configPath}/apollo/IApolloServerContext.ts`,
-        templateFile: `${__dirname}/src/config/apollo/Service.IApolloServerContext.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${configPath}/prisma/IPrismaContext.ts`,
-        templateFile: `${__dirname}/src/config/prisma/Service.IPrismaContext.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${configPath}/prisma/prismaClient.ts`,
-        templateFile: `${__dirname}/src/config/prisma/Service.prismaClient.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${configPath}/prisma/prismaContext.ts`,
-        templateFile: `${__dirname}/src/config/prisma/Service.prismaContext.ts.hbs`,
+        path: `${configPath}/prismaConfig.ts`,
+        templateFile: `${__dirname}/src/config/prisma/Service.prismaConfig.ts.hbs`,
         abortOnFail: true,
       },
       // Adds the graphql schema&resolver files

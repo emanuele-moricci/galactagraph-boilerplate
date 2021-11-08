@@ -1,4 +1,4 @@
-import prismaContext from '@config/prisma/prismaContext';
+import { prismaContext } from '@config/prismaConfig';
 import { User } from '@prisma/client';
 
 import bcrypt from 'bcryptjs';

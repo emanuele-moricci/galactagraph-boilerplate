@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { ApolloServer, gql } from 'apollo-server-express';
 
-import getApolloServerContext from '@config/apollo/apolloServerTestContext';
-import prismaContext from '@config/prisma/prismaContext';
+import { getApolloTestServerContext } from '@config/apolloConfig';
+import { prismaContext } from '@config/prismaConfig';
 import schema from '@fed-schema/schema';
 
 const REGISTER_USER = gql`
@@ -30,7 +30,7 @@ describe('register test', () => {
   beforeAll(() => {
     server = new ApolloServer({
       schema: schema,
-      context: async ({ req }) => await getApolloServerContext({ req }),
+      context: async ({ req }) => await getApolloTestServerContext({ req }),
     });
   });
 
@@ -60,7 +60,7 @@ describe('register test', () => {
     const authServer = new ApolloServer({
       schema: schema,
       context: async () =>
-        await getApolloServerContext({
+        await getApolloTestServerContext({
           headers: { authorization: `Bearer ${token}` },
         }),
     });
