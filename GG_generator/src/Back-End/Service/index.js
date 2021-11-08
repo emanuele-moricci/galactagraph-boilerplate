@@ -271,7 +271,6 @@ module.exports = {
           - Generate the yarn packages;
           - Generate the Prisma Context;
           - Migrate + Seed the Database;
-          - Link the new micro-service with the Gateway commands;
           - Add a new Model with the 'Model Generator';
           - Fire it on standalone mode and Publish the new apollo federation config;
           - Start the whole federated engine to check if everything works;`,
