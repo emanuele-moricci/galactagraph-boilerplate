@@ -51,6 +51,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 9. [How-To Guides](#how-to-guides)
 10. [Migrating versions](#migrating-versions)
     - [v.2.0.0](#v200)
+    - [v.3.0.0](#v300)
 11. [License](#license)
 
 </h3>
@@ -365,6 +366,17 @@ The migration from `v1.0.0` to `v2.0.0` should not be that bad to undertake. Let
 - Take every service you created and change their `/config` folders (+ relative dependencies) to the new streamlined structure
 - You can also copy and paste the federation-auth service or do a DIFF to check what changed (namely the new `@auth` directive)
 - Re-install the `federation-utils` package in every micro-service
+
+You should be done now ✨
+
+### v3.0.0
+The migration from `v2.0.0` to `v3.0.0` majorly pertains the `federation-utils` project:
+- You can safely copy and paste over the generator and utilities package. 
+- Before using the new publishing system, find the `update-federation-utils.sh` file and add every micro-service to stay up-to-date. 
+- Now align your version of the package and create a new patch/minor/major with the new commands
+- Update your `user.resolver` and `userService` if you feel that the password blanking logics should be in the resolver
+- Blank your `entry.graphql` files, they now reside in the `federation-utils` package
+- Align your `schema.ts` files with the new versions
 
 You should be done now ✨
 
