@@ -1,12 +1,14 @@
 {
   "name": "federation-utils",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
+    "prebuild": "rm -rf lib/",
     "build": "tsc",
+    "postbuild": "cp ./src/graphql/common.graphql ./lib/graphql/common.graphql",
     "move": "rm ../server/bin/federation-utils/* && mv -f *.tgz ../server/bin/federation-utils/",
     "trigger:update": "../server/bin/update-federation-utils.sh",
     "publish:local": "yarn build && yarn pack && yarn move && yarn trigger:update",
