@@ -1,6 +1,6 @@
 {
   "name": "federation-utils",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,10 @@
     "build": "tsc",
     "move": "rm ../server/bin/federation-utils/* && mv -f *.tgz ../server/bin/federation-utils/",
     "trigger:update": "../server/bin/update-federation-utils.sh",
-    "publish:local": "yarn version --patch && yarn build && yarn pack && yarn move && yarn trigger:update"
+    "publish:local": "yarn build && yarn pack && yarn move && yarn trigger:update",
+    "patch:local": "yarn version --patch && yarn publish:local",
+    "minor:local": "yarn version --minor && yarn publish:local",
+    "major:local": "yarn version --major && yarn publish:local"
   },
   "files": [
     "lib/**/*"
