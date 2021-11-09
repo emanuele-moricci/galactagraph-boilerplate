@@ -203,6 +203,8 @@ The boilerplate comes pre-configured with a federation-auth microservice and the
 
 </p>
 
+<br />
+
 ### 🛂 **_Built-in Authorization_** [V. 2.0.0]
 
 <p style=margin-left:20px>
