@@ -6,6 +6,8 @@ import { isAuthenticated, isAdmin, alwaysAllow } from './security/Shielding';
 
 import { PaginationAndSearchArgs } from './types/QueryArgs';
 
+import authDirective from './directives/auth';
+
 // EXPORTS
 export {
   cryptObject,
@@ -17,4 +19,5 @@ export {
   isAuthenticated,
   isAdmin,
   alwaysAllow,
+  authDirective,
 };

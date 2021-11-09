@@ -19,6 +19,10 @@ module.exports = function (plop) {
     return text.charAt(0).toLowerCase() + text.slice(1);
   });
 
+  plop.setHelper("allCaps", function (text) {
+    return text.toUpperCase();
+  });
+
   plop.setHelper("capitalPlural", function (text) {
     const pluralize = require("pluralize");
     const pluarlized = pluralize(text);

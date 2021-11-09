@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { IPrismaContext } from 'src/config/prisma/IPrismaContext';
+import { IPrismaContext } from 'src/config/prismaConfig';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -16,6 +16,7 @@ export type Scalars = {
   DateTime: any;
   _Any: any;
 };
+
 
 
 
@@ -233,6 +234,10 @@ export type ResolversParentTypes = ResolversObject<{
   registerPayload: RegisterPayload;
 }>;
 
+export type AuthDirectiveArgs = {  };
+
+export type AuthDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = AuthDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type ExtendsDirectiveArgs = {  };
 
 export type ExtendsDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = ExtendsDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
@@ -305,6 +310,7 @@ export type Resolvers<ContextType = IPrismaContext> = ResolversObject<{
  */
 export type IResolvers<ContextType = IPrismaContext> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = IPrismaContext> = ResolversObject<{
+  auth?: AuthDirectiveResolver<any, any, ContextType>;
   extends?: ExtendsDirectiveResolver<any, any, ContextType>;
 }>;
 

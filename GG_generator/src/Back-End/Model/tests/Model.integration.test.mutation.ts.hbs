@@ -1,0 +1,44 @@
+/* eslint-disable no-underscore-dangle */
+import { ApolloServer, gql } from 'apollo-server-express';
+
+import { getApolloTestServerContext } from '@config/apolloConfig';
+import { prismaContext } from '@config/prismaConfig';
+import schema from '@fed-schema/schema';
+
+const CREATE_{{ allCaps ModelName }} = gql`
+  mutation create{{ capital ModelName }}($input: create{{ capital ModelName }}Input) {
+    create{{ capital ModelName }}(input: $input) {
+      {{ firstLower ModelName }}Id
+    }
+  }
+`;
+
+describe('create{{ capital ModelName }} test', () => {
+  let server: ApolloServer;
+
+  beforeAll(() => {
+    server = new ApolloServer({
+      schema: schema,
+      context: async ({ req }) => await getApolloTestServerContext(req),
+    });
+  });
+
+  afterAll(async () => {
+    prismaContext.prisma.{{ firstLower ModelName }}.deleteMany();
+    await prismaContext.prisma.$disconnect();
+  });
+
+  it('should pass', async () => {
+    const result = await server.executeOperation({
+      query: CREATE_{{ allCaps ModelName }},
+      variables: {
+        input: { },
+      },
+    });
+
+    expect(result.data?.create{{ capital ModelName }}).toBeDefined();
+    const {{ firstLower ModelName }}Id = result.data?.create{{ capital ModelName }}.{{ firstLower ModelName }}Id;
+    expect({{ firstLower ModelName }}Id).toBeDefined();
+    expect({{ firstLower ModelName }}Id).not.toBeNull();
+  });
+});

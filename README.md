@@ -195,11 +195,19 @@ Now, this is nowhere near enough, but it's a great starting point to build your 
 ### 🤝 **_Built-in Authentication_**
 
 <p style=margin-left:20px>
-The middleware comes pre-configured with a federation-auth microservice and the necessary logic on the gateway to share a JWT token between gateway and every part of the subgraph.
+The boilerplate comes pre-configured with a federation-auth microservice and the necessary logic on the gateway to share a JWT token between gateway and every part of the subgraph.
 </p>
 <p style=margin-left:20px>
 
 > This code, under the `federation-auth` folder, is set-up to give you a simple `User` model with email, password and audit data, and with the `login` and `register` mutations ready-to-go. Learn more about JWT authentication [here](https://jwt.io/)
+
+</p>
+
+### 🛂 **_Built-in Authorization_** [V. 2.0.0]
+
+<p style=margin-left:20px>
+
+The boilerplate also has a handy `@auth` directive already configured and injected in every service that let's you easily add authorization to your GraphQL API on a per-field basis! The directive is already set-up to respond to the token in the header, so that you can immediately start to use it on your model fields that need protection!
 
 </p>
 

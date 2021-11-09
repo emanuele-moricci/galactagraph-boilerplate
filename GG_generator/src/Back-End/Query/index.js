@@ -2,8 +2,28 @@ const path = require("path");
 const { firstLower } = require("../../Utils/formatUtils");
 
 module.exports = {
-  description: "Add a non-model Query",
+  description: "Add a Model OR Generic Query",
   prompts: [
+    {
+      type: "input",
+      name: "QueryModel",
+      message:
+        "Write the name of the Model that uses this Query, leave empty if it's a general Query",
+      default: "",
+      validate: (value) => {
+        if (!value) return true;
+
+        const fs = require("fs");
+        const cwd = process.cwd();
+
+        const models = fs
+          .readdirSync(`${path.join(cwd, "/src/graphql/schema/Models")}`)
+          .filter((d) => !d.includes("."))
+          .map((d) => d.toLowerCase());
+
+        return models.includes(value.toLowerCase()) ? true : "Model not found";
+      },
+    },
     {
       type: "input",
       name: "QueryName",
@@ -27,7 +47,10 @@ module.exports = {
 
     const firstLowerQueryName = firstLower(data.QueryName);
 
-    const rootPath = `${path.join(cwd, "/src/graphql/schema/Query")}`;
+    const schemaPath = `${path.join(cwd, "/src/graphql/schema/")}`;
+    const rootPath = data.QueryModel
+      ? `${path.join(schemaPath, `/Models/${data.QueryModel}/queries`)}`
+      : `${path.join(schemaPath, "/Query")}`;
     const queryPath = `${rootPath}/${firstLowerQueryName}`;
 
     /**

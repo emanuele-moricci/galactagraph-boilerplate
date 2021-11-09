@@ -5,7 +5,7 @@ type User @key(fields: "userId") {
   """
   user id
   """
-  userId: ID!
+  userId: ID! @auth
 
   """
   user email
