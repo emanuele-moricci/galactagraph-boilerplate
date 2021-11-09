@@ -1,13 +1,13 @@
 {
   "name": "federation-utils",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
-    "move": "mv *.tgz ../server/bin/federation-utils/federation-utils.tgz",
+    "move": "mv -f *.tgz ../server/bin/federation-utils/federation-utils.tgz",
     "publish:local": "yarn version --patch && yarn build && yarn pack && yarn move"
   },
   "files": [
