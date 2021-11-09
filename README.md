@@ -374,4 +374,4 @@ You should be done now ✨
 
 ---
 
-This project is licensed under the MIT license, Copyright (c) 2019 Maximilian Stoiber. For more information see the `LICENSE` file.
+This project is licensed under the MIT license, Copyright (c) 2021 Emanuele Moricci. For more information see the `LICENSE` file.
