@@ -1,12 +1,21 @@
-import resolvers from './resolvers';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import path from 'path';
+
+// PACKAGE IMPORTS
+import resolvers from './graphql/resolvers';
 
 import { cryptObject, decryptObject } from './security/Hashing';
 import { verifyToken, signToken } from './security/JWT';
-import { isAuthenticated, isAdmin, alwaysAllow } from './security/Shielding';
 
-import { PaginationAndSearchArgs } from './types/QueryArgs';
+import { PaginationAndSearchArgs } from './graphql/QueryArgs';
 
 import authDirective from './directives/auth';
+
+const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
+  recursive: true,
+  extensions: ['graphql'],
+  ignoreIndex: true,
+});
 
 // EXPORTS
 export {
@@ -16,8 +25,6 @@ export {
   resolvers,
   verifyToken,
   signToken,
-  isAuthenticated,
-  isAdmin,
-  alwaysAllow,
   authDirective,
+  typeDefs as commonTypeDefs,
 };

@@ -5,8 +5,6 @@ import bcrypt from 'bcryptjs';
 
 import { PaginationAndSearchArgs } from 'federation-utils';
 
-const getSecureUser = (user: User): User => ({ ...user, password: '' });
-
 /**
  * Function that returns all of the Users present in the database.
  *
@@ -21,7 +19,7 @@ export const getAllUsers = async ({
   skip,
 }: PaginationAndSearchArgs): Promise<User[]> => {
   const users = await prismaContext.prisma.user.findMany({ take, skip });
-  return users.map(u => getSecureUser(u));
+  return users;
 };
 
 /**
@@ -40,7 +38,7 @@ export const getUserById = async (userId: number): Promise<User | null> => {
     },
   });
 
-  return user ? getSecureUser(user) : null;
+  return user;
 };
 
 /**
@@ -66,7 +64,7 @@ export const getUserByEmailAndPassword = async (
   if (!(await bcrypt.compare(password, user.password)))
     throw new Error('[PASSWORD] Error');
 
-  return getSecureUser(user);
+  return user;
 };
 
 /**
@@ -88,5 +86,5 @@ export const createUser = async (input): Promise<User> => {
     data: { ...input, password: hashedPass },
   });
 
-  return getSecureUser(user);
+  return user;
 };

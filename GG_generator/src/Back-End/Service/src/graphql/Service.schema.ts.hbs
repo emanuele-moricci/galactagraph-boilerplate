@@ -6,7 +6,12 @@ import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 
 import path from "path";
 
-import { resolvers as customResolvers, authDirective } from 'federation-utils';
+import {
+  resolvers as customResolvers,
+  authDirective,
+  commonTypeDefs,
+} from 'federation-utils';
+import { GraphQLSchema } from 'graphql';
 
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, "."), {
@@ -14,7 +19,7 @@ const typeDefs = loadFilesSync(path.join(__dirname, "."), {
   extensions: ["graphql"],
   ignoreIndex: true,
 });
-const mergedTypeDefs = mergeTypeDefs(typeDefs);
+const mergedTypeDefs = mergeTypeDefs([commonTypeDefs, typeDefs]);
 
 // RESOLVERS
 const resolvers = loadFilesSync(path.join(__dirname, "."), {

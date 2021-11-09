@@ -1,14 +1,20 @@
 {
   "name": "federation-utils",
-  "version": "1.0.18",
+  "version": "1.0.23",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
+    "prebuild": "rm -rf lib/",
     "build": "tsc",
-    "move": "mv -f *.tgz ../server/bin/federation-utils/federation-utils.tgz",
-    "publish:local": "yarn version --patch && yarn build && yarn pack && yarn move"
+    "postbuild": "cp ./src/graphql/common.graphql ./lib/graphql/common.graphql",
+    "move": "rm ../server/bin/federation-utils/* && mv -f *.tgz ../server/bin/federation-utils/",
+    "trigger:update": "../server/bin/update-federation-utils.sh",
+    "publish:local": "yarn build && yarn pack && yarn move && yarn trigger:update",
+    "patch:local": "yarn version --patch && yarn publish:local",
+    "minor:local": "yarn version --minor && yarn publish:local",
+    "major:local": "yarn version --major && yarn publish:local"
   },
   "files": [
     "lib/**/*"
@@ -27,6 +33,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@graphql-tools/load-files": "^6.5.2",
     "ansi-regex": "^5.0.1",
     "browserslist": "^4.16.5",
     "cli": "^1.0.0",
