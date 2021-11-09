@@ -3919,9 +3919,9 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-federation-utils@../../bin/federation-utils/federation-utils.tgz:
+federation-utils@../../bin/federation-utils/federation-utils-v1.0.18.tgz:
   version "1.0.18"
-  resolved "../../bin/federation-utils/federation-utils.tgz#a8b806f5166e5f263b09cac7503177ddd1eebb1b"
+  resolved "../../bin/federation-utils/federation-utils-v1.0.18.tgz#b71e6a03b21c7d9a5f5a4add2093e2f5afcc9375"
   dependencies:
     ansi-regex "^5.0.1"
     browserslist "^4.16.5"
