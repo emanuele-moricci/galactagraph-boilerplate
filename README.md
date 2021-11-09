@@ -49,7 +49,9 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 7. [How to Start](#how-to-start)
 8. [How to Test](#how-to-test)
 9. [How-To Guides](#how-to-guides)
-10. [License](#license)
+10. [Migrating versions](#migrating-versions)
+    - [v.2.0.0](#v200)
+11. [License](#license)
 
 </h3>
 <br />
@@ -350,6 +352,21 @@ For that you can find everything you need either in my personal study project, o
 
 - [the-federation-project](https://github.com/emanuele-moricci/federation-project)
 - [README Guide](https://github.com/emanuele-moricci/galactagraph-boilerplate/blob/main/server/services/README.md)
+
+<br />
+
+## Migrating versions
+
+---
+
+### v2.0.0
+The migration from `v1.0.0` to `v2.0.0` should not be that bad to undertake. Let's look at it together:
+- You can safely copy and paste over the gateway, generator and utilities package. Remember to check for errors and re-install, pack and start the three projects.
+- Take every service you created and change their `/config` folders (+ relative dependencies) to the new streamlined structure
+- You can also copy and paste the federation-auth service or do a DIFF to check what changed (namely the new `@auth` directive)
+- Re-install the `federation-utils` package in every micro-service
+
+You should be done now ✨
 
 <br />
 
