@@ -10,7 +10,7 @@ type User @key(fields: "userId") {
   """
   user email
   """
-  email: String!
+  email: String! @auth
 
   """
   user password

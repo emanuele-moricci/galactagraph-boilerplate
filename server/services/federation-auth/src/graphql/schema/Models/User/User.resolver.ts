@@ -14,6 +14,7 @@ const resolver = {
     __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
       return await getUserById(parseInt(userId));
     },
+    password: (): string => '',
   },
 };
 
