@@ -80,23 +80,20 @@ model User {
 
 ```
 
-In the `schema/Models` you'll find the new folder with the configured Model schema and resolver functions.
+In the `schema/Models` you'll find the new folder with the configured Model schema and resolver functions. The files will change depending on what you choose in the generator wizard. You can choose to have a pre-made 'getAll' query, 'create' mutation and unit&integration tests to cover your changes.
 
 ```typescript
 
 ...
 
 const resolver = {
-  Query: {
-    User: async (_source, args, _context, _info): Promise<User[]> => {
-      return await getAllUsers(args);
-    },
-  },
+  ...
   User: {
     __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
       return await getUserById(parseInt(userId));
     },
   },
+  ...
 };
 
 export default resolver;
@@ -108,12 +105,11 @@ export default resolver;
 
 <br />
 
-## How to Create a non-model Query or Mutation
+## How to Create a Query or Mutation
 
 ---
 
-Not every query or mutation is going to be directly tied to a Model, like a login mutation for example.
-Fortunately, the project uses `graphql-tools` to merge schemas and resolvers together automatically, so adding a new Mutation or Query is a breeze 🌬️
+The project uses `graphql-tools` to merge schemas and resolvers together automatically, so adding a new Mutation or Query with the CLI is a breeze 🌬️
 
 1. First thing first, we have to open up our terminal of choice and go to the micro-service root with `cd server/services/<MICRO_SERVICE_NAME>`
 2. Now we can fire up our CLI with `federation-generator` and choose either the Query or Mutation generators.
@@ -121,7 +117,8 @@ Fortunately, the project uses `graphql-tools` to merge schemas and resolvers tog
 
 ### QUERY GENERATOR
 
-The query generator will create a .graphql and a resolver.ts file under `schema/Query/<QUERY_NAME>`, it is now up to you to fill the resolver logic and change the query output!
+The query generator will create a .graphql and a resolver.ts file under `schema/Query/<QUERY_NAME>` or `schema/Models/<MODEL_NAME>/queries/<QUERY_NAME>`, depending if you want a model or non-model query. 
+It is now up to you now to fill the resolver logic and change the query output!
 
 ```graphql
 
@@ -150,7 +147,8 @@ export default resolver;
 
 ### MUTATION GENERATOR
 
-The mutation generator will create a .graphql and a resolver.ts file under `schema/Mutation/<MUTATION_NAME>`, it is now up to you to fill the resolver logic and change the mutation input and payload properties!
+The mutation generator will create a .graphql and a resolver.ts file under `schema/Mutation/<MUTATION_NAME>` or `schema/Models/<MODEL_NAME>/mutations/<MUTATION_NAME>`, depending if you want a model or non-model mutation. 
+It is now up to you now to fill the resolver logic and change the mutation input and payload properties!
 
 ```graphql
 
@@ -190,45 +188,6 @@ const resolver = {
         // CHANGE THE RETURN TYPE AND ADD THE LOGIC!
         return 'WIP';
       },
-    },
-  },
-};
-
-export default resolver;
-```
-
-<br />
-
-## How to Create a model Query or Mutation
-
----
-
-If you need to create a query or a mutation for a specific Model, you've come to the right place ✔️
-Fortunately, the project uses `graphql-tools` to merge schemas and resolvers together automatically, but unfortunately our CLI does not support yet the Model specific Query/Mutation, so we'll have to do it ourselves. Still it is very easy to do:
-
-1. Go to the folder of your model in your micro-service, under `schema/Models/<MODEL_NAME>`
-2. Add a `queries` or `mutations` folder and add a sub-folder with your query or mutation name
-3. Add two files inside; one called `<OP_NAME>.graphql` and the other one called `<OP_NAME>.resolver.ts` (the `.resolver` is important, don't omit it!)
-4. In the graphql file you have to extend the query/mutation type to include your operation, meanwhile the resolver has to be a function that can catch the operation and resolve it! Here's an example:
-
-```graphql
-extend type Query {
-  """
-  Get me query
-  """
-  me: User
-}
-```
-
-```typescript
-import { User } from '@prisma/client';
-
-import { getUserById } from '@src/services/userService';
-
-const resolver = {
-  Query: {
-    me: async (_, __, context): Promise<User | null> => {
-      return getUserById(context?.userData?.userId ?? -1);
     },
   },
 };
