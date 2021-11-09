@@ -3936,6 +3936,23 @@ federation-utils@../../bin/federation-utils/federation-utils-v1.0.18.tgz:
     tmpl "^1.0.5"
     ws "^7.4.6"
 
+federation-utils@../../bin/federation-utils/federation-utils-v1.0.19.tgz:
+  version "1.0.19"
+  resolved "../../bin/federation-utils/federation-utils-v1.0.19.tgz#73d47b4d576ae57049a8d2063df63db13e80ccda"
+  dependencies:
+    ansi-regex "^5.0.1"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "^16.0.1"
+    graphql-middleware "^6.1.11"
+    graphql-scalars "^1.13.1"
+    graphql-shield "^7.5.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
+
 figures@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
