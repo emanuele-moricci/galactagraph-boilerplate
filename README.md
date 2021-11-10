@@ -288,9 +288,7 @@ These are the currently available generators
 This project has a local package called `federation-utils`, under `GG_utilities`. Shared code can be added there, and a new tarball can be created and updated on every project with the following procedure:
 
 - Edit your **utils** project
-- Fire up the command `yarn publish:local`
-- [OPTIONAL] if the config doesn't have it yet, add the package with `yarn add ../../bin/federation-utils/federation-utils.tgz`
-- In the gateway and every service, fire up the command `yarn install` to update the package reference
+- Fire up the command `yarn patch:local` or `yarn minor:local` or yarn `major:local`
 
 <br />
 
