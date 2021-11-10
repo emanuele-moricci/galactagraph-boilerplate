@@ -52,6 +52,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 10. [Migrating versions](#migrating-versions)
     - [v.2.0.0](#v200)
     - [v.3.0.0](#v300)
+    - [v.3.0.5](#v305)
 11. [License](#license)
 
 </h3>
@@ -375,6 +376,16 @@ The migration from `v2.0.0` to `v3.0.0` majorly pertains the `federation-utils` 
 - Update your `user.resolver` and `userService` if you feel that the password blanking logics should be in the resolver
 - Blank your `entry.graphql` files, they now reside in the `federation-utils` package
 - Align your `schema.ts` files with the new versions
+
+You should be done now ✨
+
+### v3.0.5
+The migration from `v3.0.0` to `v3.0.5` fixes various bugs and cleanes some code:
+- You can safely copy and paste over the generator package. 
+- Change every call for `rover` with `npx -p @apollo/rover@0.3.0 rover` in the package.json files and check those files with the new versions to add/remove dependencies
+- Change the `prismaMocks.ts` files to match the new version
+- Change the `codegen.yml` files to match the new version
+- Change the `server/package.json` files to match the new version
 
 You should be done now ✨
 
