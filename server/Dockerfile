@@ -18,16 +18,6 @@ COPY bin /app/bin
 # micro-services preparation
 RUN cp /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env
 RUN mv /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env.test
-RUN cp /app/services/federation-common/.env.docker.test /app/services/federation-common/.env
-RUN mv /app/services/federation-common/.env.docker.test /app/services/federation-common/.env.test
-RUN cp /app/services/federation-profile/.env.docker.test /app/services/federation-profile/.env
-RUN mv /app/services/federation-profile/.env.docker.test /app/services/federation-profile/.env.test
-RUN cp /app/services/federation-group/.env.docker.test /app/services/federation-group/.env
-RUN mv /app/services/federation-group/.env.docker.test /app/services/federation-group/.env.test
-RUN cp /app/services/federation-post/.env.docker.test /app/services/federation-post/.env
-RUN mv /app/services/federation-post/.env.docker.test /app/services/federation-post/.env.test
-RUN cp /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env
-RUN mv /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env.test
 # [ADD NEW ENV CLONE COMMANDS ABOVE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly
 # wait-for-it
 RUN chmod +x /app/bin/wait-for-it.sh
