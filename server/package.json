@@ -15,13 +15,14 @@
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/gateway.js",
     "docker:up": "docker-compose up -d --build",
     "docker:down": "docker compose down",
-    "federation:dev": "./bin/start-federation-dev.sh",
-    "federation:test": "./bin/start-federation-test.sh",
-    "federation:docker": "./bin/start-federation-docker.sh --db-clean",
+    "federation:dev": "./bin/federation-bash/start-federation-dev.sh",
+    "federation:test": "./bin/federation-bash/start-federation-test.sh",
+    "federation:docker": "./bin/federation-bash/start-federation-docker.sh --db-clean",
     "federation:docker:test": "yarn docker:up && docker exec federation-gateway ./bin/wait-for-it.sh db:5435 -- yarn federation:test & yarn docker:down",
-    "federation:publish": "./bin/publish-federation.sh"
+    "federation:publish": "./bin/federation-bash/publish-federation.sh"
   },
   "devDependencies": {
+    "@apollo/rover": "0.3.0",
     "@graphql-codegen/cli": "1.21.5",
     "@graphql-codegen/typescript": "1.22.1",
     "@graphql-codegen/typescript-resolvers": "1.19.2",
@@ -47,7 +48,6 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "federation-utils": "./bin/federation-utils/federation-utils.tgz",
     "@apollo/gateway": "^0.42.3",
     "@graphql-codegen/core": "^1.17.10",
     "@graphql-codegen/plugin-helpers": "^1.18.7",
@@ -66,6 +66,7 @@
     "dotenv-cli": "^4.0.0",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
+    "federation-utils": "./bin/federation-utils/federation-utils-v1.0.23.tgz",
     "graphql": "^15.7.0",
     "graphql-depth-limit": "^1.1.0",
     "graphql-middleware": "^6.1.10",
