@@ -13,6 +13,7 @@
     "dev": "nodemon",
     "build": "tsc -p tsconfig.json",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/gateway.js",
+    "fix": "prettier --config .prettierrc --write .",
     "docker:up": "docker-compose up -d --build",
     "docker:down": "docker compose down",
     "federation:dev": "./bin/federation-bash/start-federation-dev.sh",
@@ -20,6 +21,11 @@
     "federation:docker": "./bin/federation-bash/start-federation-docker.sh --db-clean",
     "federation:docker:test": "yarn docker:up && docker exec federation-gateway ./bin/wait-for-it.sh db:5435 -- yarn federation:test & yarn docker:down",
     "federation:publish": "./bin/federation-bash/publish-federation.sh"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn fix . && git add -A ."
+    }
   },
   "devDependencies": {
     "@apollo/rover": "0.3.0",
@@ -34,7 +40,7 @@
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
@@ -73,6 +79,7 @@
     "graphql-shield": "^7.5.0",
     "hosted-git-info": "^2.8.9",
     "hpp": "^0.2.3",
+    "husky": "^7.0.4",
     "jsonwebtoken": "^8.5.1",
     "object-path": "^0.11.8",
     "path-parse": "^1.0.7",
