@@ -1272,6 +1272,24 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
+federation-utils@../../bin/federation-utils/federation-utils-v1.0.23.tgz:
+  version "1.0.23"
+  resolved "../../bin/federation-utils/federation-utils-v1.0.23.tgz#816cfda25e29b4b772bdce30e448071f5b9584aa"
+  dependencies:
+    "@graphql-tools/load-files" "^6.5.2"
+    ansi-regex "^5.0.1"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "^16.0.1"
+    graphql-middleware "^6.1.11"
+    graphql-scalars "^1.13.1"
+    graphql-shield "^7.5.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
+
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
