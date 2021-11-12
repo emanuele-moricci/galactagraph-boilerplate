@@ -64,5 +64,10 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['**/generated/*'],
+  ignorePatterns: [
+    '**/generated/*',
+    '*.lock',
+    '**/.husky/**/*',
+    '**/package.json',
+  ],
 };
