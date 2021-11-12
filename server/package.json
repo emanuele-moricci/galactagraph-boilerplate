@@ -13,7 +13,7 @@
     "dev": "nodemon",
     "build": "tsc -p tsconfig.json",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/gateway.js",
-    "format": "prettier --config .prettierrc --write . & eslint --config .eslintrc.js --fix .",
+    "format": "npx prettier --config .prettierrc --write . & npx eslint --config .eslintrc.js --fix .",
     "docker:up": "docker-compose up -d --build",
     "docker:down": "docker compose down",
     "federation:dev": "./bin/federation-bash/start-federation-dev.sh",

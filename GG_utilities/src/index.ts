@@ -10,12 +10,14 @@ import { verifyToken, signToken } from './security/JWT';
 import { PaginationAndSearchArgs } from './graphql/QueryArgs';
 
 import authDirective from './directives/auth';
+import { rateTypeDefs, rateDirective } from './directives/rate';
 
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
   recursive: true,
   extensions: ['graphql'],
   ignoreIndex: true,
 });
+const commonTypeDefs = [typeDefs, rateTypeDefs];
 
 // EXPORTS
 export {
@@ -26,5 +28,6 @@ export {
   verifyToken,
   signToken,
   authDirective,
-  typeDefs as commonTypeDefs,
+  rateDirective,
+  commonTypeDefs,
 };

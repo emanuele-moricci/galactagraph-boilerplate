@@ -39,7 +39,7 @@
     "cli": "^1.0.0",
     "dataloader": "^2.0.0",
     "federation-utils": "../../bin/federation-utils/federation-utils-v1.0.23.tgz",
-    "graphql": "^16.0.1",
+    "graphql": "^15.5.0",
     "graphql-middleware": "^6.1.11",
     "graphql-rate-limit-directive": "^2.0.0",
     "graphql-scalars": "^1.13.1",

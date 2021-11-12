@@ -1,5 +1,6 @@
 import { GraphQLResolverMap } from 'apollo-graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
+import { rateLimitDirective } from 'graphql-rate-limit-directive';
 
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
@@ -13,13 +14,21 @@ import {
 } from 'federation-utils';
 import { GraphQLSchema } from 'graphql';
 
+// RATE LIMITING
+const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
+  rateLimitDirective();
+
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
   recursive: true,
   extensions: ['graphql'],
   ignoreIndex: true,
 });
-const mergedTypeDefs = mergeTypeDefs([commonTypeDefs, typeDefs]);
+const mergedTypeDefs = mergeTypeDefs([
+  rateLimitDirectiveTypeDefs,
+  commonTypeDefs,
+  typeDefs,
+]);
 
 // RESOLVERS
 const resolvers = loadFilesSync(path.join(__dirname, '.'), {
@@ -37,6 +46,7 @@ let schema = buildSubgraphSchema({
 
 // DIRECTIVES
 schema = authDirective(schema) as unknown as GraphQLSchema;
+schema = rateLimitDirectiveTransformer(schema);
 
 const directedSchema = schema;
 export default directedSchema;

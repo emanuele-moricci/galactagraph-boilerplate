@@ -69,5 +69,7 @@ module.exports = {
     '*.lock',
     '**/.husky/**/*',
     '**/package.json',
+    '**/*.graphql',
+    '**/*.prisma',
   ],
 };
