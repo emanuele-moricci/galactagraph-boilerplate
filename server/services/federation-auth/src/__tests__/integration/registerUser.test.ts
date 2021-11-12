@@ -23,14 +23,14 @@ const ME_QUERY = gql`
 `;
 
 describe('register test', () => {
-  const email: string = 'jestregister@test.com';
+  const email = 'jestregister@test.com';
   let token: string | null;
   let server: ApolloServer;
 
   beforeAll(() => {
     server = new ApolloServer({
-      schema: schema,
-      context: async ({ req }) => await getApolloTestServerContext({ req }),
+      schema,
+      context: async ({ req }) => getApolloTestServerContext({ req }),
     });
   });
 
@@ -44,7 +44,7 @@ describe('register test', () => {
       query: REGISTER_USER,
       variables: {
         input: {
-          email: email,
+          email,
           password: 'Jest!120',
         },
       },
@@ -58,9 +58,9 @@ describe('register test', () => {
 
   it('should return "me"', async () => {
     const authServer = new ApolloServer({
-      schema: schema,
+      schema,
       context: async () =>
-        await getApolloTestServerContext({
+        getApolloTestServerContext({
           headers: { authorization: `Bearer ${token}` },
         }),
     });

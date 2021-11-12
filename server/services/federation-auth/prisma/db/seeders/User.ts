@@ -2,9 +2,10 @@ import bcrypt from 'bcryptjs';
 import faker from 'faker';
 
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
-async function seedUsers() {
+async function seedUsers(): Promise<void> {
   const salt = await bcrypt.genSalt(
     parseInt(process.env.AUTH_CRYPT_SALT ?? '10')
   );

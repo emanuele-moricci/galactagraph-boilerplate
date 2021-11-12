@@ -3,16 +3,17 @@ import { User } from '@prisma/client';
 import { getAllUsers, getUserById } from '@src/services/userService';
 
 import { IUserRef } from '@fed-schema/Utils/refs';
+import { PaginationAndSearchArgs } from 'federation-utils';
 
 const resolver = {
   Query: {
-    User: async (_source, args, _context, _info): Promise<User[]> => {
-      return await getAllUsers(args);
+    User: async (_, args: PaginationAndSearchArgs): Promise<User[]> => {
+      return getAllUsers(args);
     },
   },
   User: {
     __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
-      return await getUserById(parseInt(userId));
+      return getUserById(parseInt(userId));
     },
     password: (): string => '',
   },

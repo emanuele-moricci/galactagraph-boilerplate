@@ -1,4 +1,3 @@
-
 export interface IUserRef {
   __typename: 'User';
   userId: string;

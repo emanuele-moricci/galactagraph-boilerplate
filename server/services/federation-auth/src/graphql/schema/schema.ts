@@ -38,4 +38,5 @@ let schema = buildSubgraphSchema({
 // DIRECTIVES
 schema = authDirective(schema) as unknown as GraphQLSchema;
 
-export default schema;
+const directedSchema = schema;
+export default directedSchema;
