@@ -11,12 +11,9 @@ import {
   resolvers as customResolvers,
   authDirective,
   commonTypeDefs,
+  rateDirective,
 } from 'federation-utils';
 import { GraphQLSchema } from 'graphql';
-
-// RATE LIMITING
-const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
-  rateLimitDirective();
 
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
@@ -24,11 +21,7 @@ const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
   extensions: ['graphql'],
   ignoreIndex: true,
 });
-const mergedTypeDefs = mergeTypeDefs([
-  rateLimitDirectiveTypeDefs,
-  commonTypeDefs,
-  typeDefs,
-]);
+const mergedTypeDefs = mergeTypeDefs([commonTypeDefs, typeDefs]);
 
 // RESOLVERS
 const resolvers = loadFilesSync(path.join(__dirname, '.'), {
@@ -46,7 +39,7 @@ let schema = buildSubgraphSchema({
 
 // DIRECTIVES
 schema = authDirective(schema) as unknown as GraphQLSchema;
-schema = rateLimitDirectiveTransformer(schema);
+schema = rateDirective(schema);
 
 const directedSchema = schema;
 export default directedSchema;

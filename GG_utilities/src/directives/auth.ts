@@ -16,7 +16,12 @@ const authDirectiveTransformer = (schema: any) => {
       const authDirective = getDirective(schema, fieldConfig, 'auth')?.[0];
       if (authDirective) {
         const { resolve = defaultFieldResolver } = fieldConfig;
-        fieldConfig.resolve = async function (source, args, context, info) {
+        fieldConfig.resolve = async function (
+          source: any,
+          args: any,
+          context: any,
+          info: any
+        ) {
           const result = await resolve(source, args, context, info);
           checkAuthentication(context);
           return result;
