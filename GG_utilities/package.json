@@ -9,7 +9,7 @@
     "prebuild": "rm -rf lib/",
     "build": "tsc",
     "postbuild": "cp ./src/graphql/common.graphql ./lib/graphql/common.graphql",
-    "move": "rm ../server/bin/federation-utils/* && mv -f *.tgz ../server/bin/federation-utils/",
+    "move": "rm -rf ../server/bin/federation-utils/* && mv -f *.tgz ../server/bin/federation-utils/",
     "trigger:update": "../server/bin/federation-bash/update-federation-utils.sh",
     "publish:local": "yarn build && yarn pack && yarn move && yarn trigger:update",
     "patch:local": "yarn version --patch && yarn publish:local",
