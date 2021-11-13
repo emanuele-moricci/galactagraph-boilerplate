@@ -1,6 +1,5 @@
 import { GraphQLResolverMap } from 'apollo-graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { rateLimitDirective } from 'graphql-rate-limit-directive';
 
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
