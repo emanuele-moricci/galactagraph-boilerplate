@@ -3939,9 +3939,9 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-federation-utils@../../bin/federation-utils/federation-utils-v1.0.28.tgz:
-  version "1.0.28"
-  resolved "../../bin/federation-utils/federation-utils-v1.0.28.tgz#db16163265132b15e9823707141e433ca7b23ac6"
+federation-utils@../../bin/federation-utils/federation-utils-v1.0.29.tgz:
+  version "1.0.29"
+  resolved "../../bin/federation-utils/federation-utils-v1.0.29.tgz#59fbc31bbd92ba1827c1a0d57e5940993eaa84e5"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
@@ -4823,6 +4823,8 @@ is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz#ef9e31386f031a7f0d643af82fde50c457ef00cb"
   integrity sha1-754xOG8DGn8NZDr4L95QxFfvAMs=
+  dependencies:
+    number-is-nan "^1.0.0"
 
 is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
@@ -6247,6 +6249,11 @@ nullthrows@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
   integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
+
+number-is-nan@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
+  integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
 nwsapi@^2.2.0:
   version "2.2.0"

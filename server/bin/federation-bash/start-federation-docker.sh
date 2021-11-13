@@ -17,7 +17,7 @@ fi;
 CMD=( concurrently "yarn start" );
 for dir in ./services/*; do 
   if [[ ${dir} != *"README"* ]]; then
-    CMD+=("\"cd ${dir} && yarn dev\""); 
+    CMD+=("\"cd ${dir} && yarn build && yarn start\""); 
   fi;
 done
 

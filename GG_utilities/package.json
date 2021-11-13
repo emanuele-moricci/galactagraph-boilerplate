@@ -1,6 +1,6 @@
 {
   "name": "federation-utils",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -39,7 +39,6 @@
     "browserslist": "^4.16.5",
     "cli": "^1.0.0",
     "dataloader": "^2.0.0",
-    "federation-utils": "../../bin/federation-utils/federation-utils-v1.0.28.tgz",
     "graphql": "^15.0.0",
     "graphql-rate-limit-directive": "^2.0.0",
     "graphql-scalars": "1.12.0",
