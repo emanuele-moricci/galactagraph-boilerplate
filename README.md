@@ -53,6 +53,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
     - [v.2.0.0](#v200)
     - [v.3.0.0](#v300)
     - [v.3.0.5](#v305)
+    - [v.4.0.0](#v400)
 11. [License](#license)
 
 </h3>
@@ -189,6 +190,7 @@ Security is a mandatory part of any GraphQL application, and GalactaGraph comes 
 - Request URL Encoding for XSS Attacks
 - Anti-Parameter Pollution middleware
 - Anti-DDos middleware
+- Query Rate Limiting (v4.0.0)
 
 <p style=margin-left:20px>
 Now, this is nowhere near enough, but it's a great starting point to build your own security policies on top of it.
@@ -214,6 +216,17 @@ The boilerplate comes pre-configured with a federation-auth microservice and the
 <p style=margin-left:20px>
 
 The boilerplate also has a handy `@auth` directive already configured and injected in every service that let's you easily add authorization to your GraphQL API on a per-field basis! The directive is already set-up to respond to the token in the header, so that you can immediately start to use it on your model fields that need protection!
+
+</p>
+
+<br />
+
+### 🐶 **_Pre-Commit hooks with Prettier and ESLint_** [V. 4.0.0]
+
+<p style=margin-left:20px>
+
+This project comes packed in with the [Husky package](https://github.com/typicode/husky) already configured to check and format every file on pre-commit.
+This way, you'll always be able to format the codebase based on your Prettier and ESLint configurations!
 
 </p>
 
@@ -361,7 +374,7 @@ For that you can find everything you need either in my personal study project, o
 
 ### v2.0.0
 The migration from `v1.0.0` to `v2.0.0` should not be that bad to undertake. Let's look at it together:
-- You can safely copy and paste over the gateway, generator and utilities package. Remember to check for errors and re-install, pack and start the three projects.
+- You can safely copy and paste over the gateway, generator and utilities package. Remember to check for errors and re-install, pack and start the three projects
 - Take every service you created and change their `/config` folders (+ relative dependencies) to the new streamlined structure
 - You can also copy and paste the federation-auth service or do a DIFF to check what changed (namely the new `@auth` directive)
 - Re-install the `federation-utils` package in every micro-service
@@ -370,8 +383,8 @@ You should be done now ✨
 
 ### v3.0.0
 The migration from `v2.0.0` to `v3.0.0` majorly pertains the `federation-utils` project:
-- You can safely copy and paste over the generator and utilities package. 
-- Before using the new publishing system, find the `update-federation-utils.sh` file and add every micro-service to stay up-to-date. 
+- You can safely copy and paste over the generator and utilities package
+- Before using the new publishing system, find the `update-federation-utils.sh` file and add every micro-service to stay up-to-date
 - Now align your version of the package and create a new patch/minor/major with the new commands
 - Update your `user.resolver` and `userService` if you feel that the password blanking logics should be in the resolver
 - Blank your `entry.graphql` files, they now reside in the `federation-utils` package
@@ -381,11 +394,26 @@ You should be done now ✨
 
 ### v3.0.5
 The migration from `v3.0.0` to `v3.0.5` fixes various bugs and cleanes some code:
-- You can safely copy and paste over the generator package. 
+- You can safely copy and paste over the generator package
 - Change every call for `rover` with `npx -p @apollo/rover@0.3.0 rover` in the package.json files and check those files with the new versions to add/remove dependencies
 - Change the `prismaMocks.ts` files to match the new version
 - Change the `codegen.yml` files to match the new version
 - Change the `server/package.json` files to match the new version
+
+You should be done now ✨
+
+### v4.0.0
+The migration from `v3.0.5` to `v4.0.0` fixes various bugs, cleanes some code and adds some new stuff:
+> The new version has several small fixes, so we'd suggest you to check your codebase and the boilerplate with a DIFF tool to avoid missing some stuff
+
+- You can safely override the new `server/bin` folder to your old one
+- You can safely copy and paste over the generator and utils packages
+- Check every package.json with the new versions and rebuild them
+- Add the new .husky folder + gateway package.json configuration like in the boilerplate
+- Check your ESLint, Prettier and TSConfig files
+- Under the GG_utilities folder, fire up the command `yarn publish:local` to update the package with the new directive
+- Align the `schema.ts` files to match the new version
+- Align the `Dockerfile` to match the new version
 
 You should be done now ✨
 
