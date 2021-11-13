@@ -24,8 +24,6 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation) - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
-  - [Index](#index)
   - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
   - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
     - [QUERY GENERATOR](#query-generator)
