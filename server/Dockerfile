@@ -16,16 +16,15 @@ COPY src /app/src
 COPY services /app/services
 COPY bin /app/bin
 # micro-services preparation
-RUN cp /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env
-RUN mv /app/services/federation-auth/.env.docker.test /app/services/federation-auth/.env.test
-# [ADD NEW ENV CLONE COMMANDS ABOVE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly
+RUN for dir in ./services/*; do cp $dir/.env.docker.test $dir/.env; done
+RUN for dir in ./services/*; do cp $dir/.env.docker.test $dir/.env.test; done
 # wait-for-it
 RUN chmod +x /app/bin/wait-for-it.sh
 # [END] > copy source files
 
 RUN yarn install --frozen-lockfile
 
-RUN chmod +x /app/bin/start-federation-docker.sh
-RUN chmod +x /app/bin/start-federation-test.sh
+RUN chmod +x /app/bin/federation-bash/start-federation-docker.sh
+RUN chmod +x /app/bin/federation-bash/start-federation-test.sh
 RUN yarn build
 CMD [ "yarn", "federation:docker" ]

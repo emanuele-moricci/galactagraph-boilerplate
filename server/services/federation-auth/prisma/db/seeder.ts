@@ -1,4 +1,3 @@
-
 import { PrismaClient } from '@prisma/client';
 
 import seedUsers from './seeders/User';
@@ -8,7 +7,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await seedUsers();
-// [ADD NEW SEEDERS ABOVE] <- DO NOT REMOVE - Needed for the generator to create seeders seamlessly
+  // [ADD NEW SEEDERS ABOVE] <- DO NOT REMOVE - Needed for the generator to create seeders seamlessly
 }
 
 main()

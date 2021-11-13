@@ -24,8 +24,7 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation)
-        - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
+- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation) - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
   - [Index](#index)
   - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
   - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
@@ -116,7 +115,7 @@ The project uses `graphql-tools` to merge schemas and resolvers together automat
 
 ### QUERY GENERATOR
 
-The query generator will create a .graphql and a resolver.ts file under `schema/Query/<QUERY_NAME>` or `schema/Models/<MODEL_NAME>/queries/<QUERY_NAME>`, depending if you want a model or non-model query. 
+The query generator will create a .graphql and a resolver.ts file under `schema/Query/<QUERY_NAME>` or `schema/Models/<MODEL_NAME>/queries/<QUERY_NAME>`, depending if you want a model or non-model query.
 It is now up to you now to fill the resolver logic and change the query output!
 
 ```graphql
@@ -146,7 +145,7 @@ export default resolver;
 
 ### MUTATION GENERATOR
 
-The mutation generator will create a .graphql and a resolver.ts file under `schema/Mutation/<MUTATION_NAME>` or `schema/Models/<MODEL_NAME>/mutations/<MUTATION_NAME>`, depending if you want a model or non-model mutation. 
+The mutation generator will create a .graphql and a resolver.ts file under `schema/Mutation/<MUTATION_NAME>` or `schema/Models/<MODEL_NAME>/mutations/<MUTATION_NAME>`, depending if you want a model or non-model mutation.
 It is now up to you now to fill the resolver logic and change the mutation input and payload properties!
 
 ```graphql

@@ -47,5 +47,5 @@ extend type Query {
     Records shown
     """
     take: Int = 25
-  ): [User]
+  ): [User] @rateLimit(limit: 20, duration: 5)
 }

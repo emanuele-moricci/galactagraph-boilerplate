@@ -51,7 +51,9 @@ export function bounceAuthToFederation(url) {
  * @function loadContext.
  * @returns {Promise<object | null>} The authentication context.
  */
-export const loadContext = async ({ req }): Promise<object | null> => {
+export const loadContext = async ({
+  req,
+}): Promise<Record<string, unknown> | null> => {
   const token = req?.headers?.authorization
     ? req.headers.authorization.split(' ')[1]
     : null;

@@ -21,6 +21,7 @@ import getSecureServer from '@config/security';
 
 import { blue } from 'chalk';
 import dotenv from 'dotenv-safe';
+
 dotenv.config();
 
 const startServer = async () => {
