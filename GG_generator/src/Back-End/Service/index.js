@@ -194,9 +194,12 @@ module.exports = {
       {
         type: "modify",
         path: `${cwd}/docker-compose.yml`,
-        pattern: /\/\/.*\[ADD NEW DOCKER CONTAINERS HERE\].*/gi,
+        pattern: /#\ .*\[ADD NEW DOCKER CONTAINERS HERE\].*/gi,
         templateFile: `${__dirname}/docker/Service.docker-compose.yml.hbs`,
         abortOnFail: true,
+        data: {
+          parsedServiceName: serviceName,
+        },
       },
     ];
 
