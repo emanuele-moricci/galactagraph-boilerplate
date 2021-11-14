@@ -1,6 +1,6 @@
 const path = require("path");
 const pluralize = require("pluralize");
-const { firstLower, capital } = require("../../Utils/formatUtils");
+const { firstLower, capital } = require("../Utils/formatUtils");
 
 module.exports = {
   description: "Add an empty Model",

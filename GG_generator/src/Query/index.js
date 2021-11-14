@@ -1,5 +1,5 @@
 const path = require("path");
-const { firstLower } = require("../../Utils/formatUtils");
+const { firstLower } = require("../Utils/formatUtils");
 
 module.exports = {
   description: "Add a Model OR Generic Query",

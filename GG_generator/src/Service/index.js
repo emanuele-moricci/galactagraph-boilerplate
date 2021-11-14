@@ -1,5 +1,5 @@
 const path = require("path");
-const { firstLower, capital } = require("../../Utils/formatUtils");
+const { firstLower, capital } = require("../Utils/formatUtils");
 
 module.exports = {
   description: "Add a new Micro-Service",
