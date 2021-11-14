@@ -16,7 +16,6 @@
     "test:integration": "yarn test:prepare && dotenv -e ./.env.test jest int -i",
     "test:watch": "yarn test:prepare && dotenv -e ./.env.test jest --watch",
     "test:coverage": "yarn test:prepare && dotenv -e ./.env.test jest --coverage",
-    "lint:fix": "eslint --fix .",
     "apollo:update": "yarn generate && yarn publish:schema",
     "publish:schema": "rover subgraph publish GalactaGraph@current --name federation-auth --schema src/graphql/generated/schema.graphql --routing-url http://localhost:4001/graphql --convert",
     "publish:schema:docker": "rover subgraph publish GalactaGraph@current --name federation-auth --schema src/graphql/generated/schema.graphql --routing-url http://host.docker.internal:4001/graphql --convert",
