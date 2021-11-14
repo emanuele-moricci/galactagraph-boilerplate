@@ -2,4 +2,4 @@
 
 source ..
 
-for dir in ./services/*; do (cd "$dir" ; yarn add -D @apollo/rover@0.3.0 && yarn apollo:update); done
+for dir in ./services/*; do (cd "$dir" ; yarn apollo:update); done

@@ -14,13 +14,12 @@
     "build": "tsc -p tsconfig.json",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/gateway.js",
     "format": "npx prettier --config .prettierrc --write . & npx eslint --config .eslintrc.js --fix .",
-    "docker:up": "docker-compose up -d --build",
+    "docker:up": "docker-compose up -d --build && ./bin/federation-bash/prepare-federation-docker.sh",
     "docker:down": "docker compose down",
     "federation:dev": "./bin/federation-bash/start-federation-dev.sh",
     "federation:test": "./bin/federation-bash/start-federation-test.sh",
-    "federation:docker": "./bin/federation-bash/start-federation-docker.sh --db-clean",
-    "federation:docker:test": "yarn docker:up && docker exec federation-gateway ./bin/wait-for-it.sh db:5435 -- yarn federation:test & yarn docker:down",
-    "federation:publish": "./bin/federation-bash/publish-federation.sh"
+    "federation:publish": "./bin/federation-bash/publish-federation.sh",
+    "federation:docker:test": "yarn docker:up && docker exec federation-gateway ./bin/wait-for-it.sh db:5435 -- yarn federation:test & yarn docker:down"
   },
   "lint-staged": {
     "*": [
@@ -29,7 +28,6 @@
     ]
   },
   "devDependencies": {
-    "@apollo/rover": "0.3.0",
     "@graphql-codegen/cli": "1.21.5",
     "@graphql-codegen/typescript": "1.22.1",
     "@graphql-codegen/typescript-resolvers": "1.19.2",

@@ -14,14 +14,11 @@ fi;
 
 # Federation Microservices start-up [START]
 
-CMD=( concurrently "yarn start" );
 for dir in ./services/*; do 
   if [[ ${dir} != *"README"* ]]; then
-    CMD+=("\"cd ${dir} && yarn build && yarn start\""); 
+    (cd "$dir" ; yarn publish:schema:docker);
   fi;
 done
-
-"${CMD[@]}"
 
 # Federation Microservices start-up [END]
 
