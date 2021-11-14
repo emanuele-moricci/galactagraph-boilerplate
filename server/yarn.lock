@@ -4026,6 +4026,11 @@ expect@^26.6.2:
     jest-message-util "^26.6.2"
     jest-regex-util "^26.0.0"
 
+express-rate-limit@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-5.5.1.tgz#110c23f6a65dfa96ab468eda95e71697bc6987a2"
+  integrity sha512-MTjE2eIbHv5DyfuFz4zLYWxpqVhEhkTiwFGuB74Q9CSou2WHO52nlE5y3Zlg6SIsiYUIPj6ifFxnkPz6O3sIUg==
+
 express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
@@ -4178,28 +4183,9 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-federation-utils@../../bin/federation-utils/federation-utils-v1.0.29.tgz:
-  version "1.0.29"
-  resolved "../../bin/federation-utils/federation-utils-v1.0.29.tgz#59fbc31bbd92ba1827c1a0d57e5940993eaa84e5"
-  dependencies:
-    "@graphql-tools/load-files" "^6.5.2"
-    "@graphql-tools/utils" "^8.5.3"
-    ansi-regex "^5.0.1"
-    browserslist "^4.16.5"
-    cli "^1.0.0"
-    dataloader "^2.0.0"
-    graphql "^15.0.0"
-    graphql-rate-limit-directive "^2.0.0"
-    graphql-scalars "1.12.0"
-    jsonwebtoken "^8.5.1"
-    path-parse "^1.0.7"
-    tmpl "^1.0.5"
-    ws "^7.4.6"
-
 federation-utils@./bin/federation-utils/federation-utils-v1.0.29.tgz:
   version "1.0.29"
-  uid "59fbc31bbd92ba1827c1a0d57e5940993eaa84e5"
-  resolved "./bin/federation-utils/federation-utils-v1.0.29.tgz#59fbc31bbd92ba1827c1a0d57e5940993eaa84e5"
+  resolved "./bin/federation-utils/federation-utils-v1.0.29.tgz#3846d028670774452b6cc5510929eba0a2127b73"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
@@ -4622,6 +4608,13 @@ graphql-middleware@^6.1.10:
   dependencies:
     "@graphql-tools/delegate" "^8.4.2"
     "@graphql-tools/schema" "^8.3.1"
+
+graphql-query-complexity@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.11.0.tgz#6078e72a39a410bb5285673077565ec8ee127c6b"
+  integrity sha512-1Ns64a41XYLehYFxZwoEn7i7myUQPd/fLRZPZ73ULjln4VBWMwptzB8LiPWNaRHsTjLMkecZPeqmuKYNXrFIGA==
+  dependencies:
+    lodash.get "^4.4.2"
 
 graphql-rate-limit-directive@^2.0.0:
   version "2.0.0"
@@ -5209,8 +5202,6 @@ is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz#ef9e31386f031a7f0d643af82fde50c457ef00cb"
   integrity sha1-754xOG8DGn8NZDr4L95QxFfvAMs=
-  dependencies:
-    number-is-nan "^1.0.0"
 
 is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
@@ -6907,11 +6898,6 @@ nullthrows@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
   integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
-
-number-is-nan@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
-  integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
 nwsapi@^2.2.0:
   version "2.2.0"

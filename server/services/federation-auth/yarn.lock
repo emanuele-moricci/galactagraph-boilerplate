@@ -3941,7 +3941,7 @@ fbjs@^3.0.0:
 
 federation-utils@../../bin/federation-utils/federation-utils-v1.0.29.tgz:
   version "1.0.29"
-  resolved "../../bin/federation-utils/federation-utils-v1.0.29.tgz#59fbc31bbd92ba1827c1a0d57e5940993eaa84e5"
+  resolved "../../bin/federation-utils/federation-utils-v1.0.29.tgz#3846d028670774452b6cc5510929eba0a2127b73"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
@@ -4823,8 +4823,6 @@ is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz#ef9e31386f031a7f0d643af82fde50c457ef00cb"
   integrity sha1-754xOG8DGn8NZDr4L95QxFfvAMs=
-  dependencies:
-    number-is-nan "^1.0.0"
 
 is-fullwidth-code-point@^2.0.0:
   version "2.0.0"

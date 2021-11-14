@@ -24,15 +24,15 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-  - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
-  - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
-    - [QUERY GENERATOR](#query-generator)
-    - [MUTATION GENERATOR](#mutation-generator)
-  - [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
-  - [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
-  - [N:N Relationships bewteen different subgraphs](#nn-relationships-bewteen-different-subgraphs)
-  - [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
-  - [Do's and Don'ts](#dos-and-donts)
+- [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
+- [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
+  - [QUERY GENERATOR](#query-generator)
+  - [MUTATION GENERATOR](#mutation-generator)
+- [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
+- [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
+- [N:N Relationships bewteen different subgraphs](#nn-relationships-bewteen-different-subgraphs)
+- [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
+- [Do's and Don'ts](#dos-and-donts)
 
 </h3>
 

@@ -71,5 +71,6 @@ module.exports = {
     '**/package.json',
     '**/*.graphql',
     '**/*.prisma',
+    '**/*.md',
   ],
 };
