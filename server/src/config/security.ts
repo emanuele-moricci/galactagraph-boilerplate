@@ -10,6 +10,8 @@
  * This file is needed to add some Gateway-Level security measures to prevent malicious attacks
  * And strengthen the security and stability of the server.
  * 
+ * P.S. See the OWASP NodeJS cheatsheet for more details: https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html
+ * 
  */
 import express from 'express';
 import { ApolloGateway } from '@apollo/gateway';
@@ -18,6 +20,8 @@ import { GraphQLError } from 'graphql';
 
 import { loadContext } from '@src/config/communication';
 
+import helmet from 'helmet';
+import csp from 'helmet-csp';
 import hpp from 'hpp';
 import { inspect } from 'util';
 import toobusy from 'toobusy-js';
@@ -36,6 +40,28 @@ export default async (gateway: ApolloGateway): Promise<IServerSecurity> => {
    * P.S. The app creation has to be BEFORE the *server.start()* line to prevent runtime errors.
    */
   const app = express();
+
+  /**
+   * The Helmet configuration to strenghten the API Gateway from malicious attacks.
+   * This configuration blocks iFrames, prevents XSS attacks, Clickjacking and improves the Content Security Policies.
+   */
+  app.use(
+    helmet({
+      frameguard: {
+        action: 'sameorigin',
+      },
+    })
+  );
+  app.use(
+    csp({
+      directives: {
+        defaultSrc: ["'self'"], // default value for all directives that are absent
+        scriptSrc: ["'self'"], // helps prevent XSS attacks
+        frameAncestors: ["'none'"], // helps prevent Clickjacking attacks
+        styleSrc: ["'none'"],
+      },
+    })
+  );
 
   /**
    * The GraphQL Query Complexity calculator.
