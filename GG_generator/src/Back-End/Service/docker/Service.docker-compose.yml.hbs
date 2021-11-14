@@ -1,0 +1,16 @@
+{{ parsedServiceName }}:
+    container_name: {{ parsedServiceName }}
+    build:
+      context: './services/{{ parsedServiceName }}'
+      target: base
+    ports:
+      - '{{ ServicePort }}:{{ ServicePort }}'
+    depends_on:
+      - db
+      - federation-gateway
+    links:
+      - db
+      - federation-gateway
+    networks:
+      - dev_vm
+  # [ADD NEW DOCKER CONTAINERS HERE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly

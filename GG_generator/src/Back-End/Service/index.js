@@ -64,7 +64,6 @@ module.exports = {
     const srcPath = `${servicePath}/src`;
     const configPath = `${servicePath}/src/config`;
     const schemaPath = `${servicePath}/src/graphql/schema`;
-    const binPath = `${path.join(cwd, "/bin")}`;
 
     const actions = [
       // Adds the Prisma schema
@@ -183,6 +182,20 @@ module.exports = {
         type: "add",
         path: `${schemaPath}/Utils/refs.ts`,
         templateFile: `${__dirname}/src/graphql/Service.refs.ts.hbs`,
+        abortOnFail: true,
+      },
+      // Adds/Modifies the docker files
+      {
+        type: "add",
+        path: `${servicePath}/Dockerfile`,
+        templateFile: `${__dirname}/docker/Service.Dockerfile.hbs`,
+        abortOnFail: true,
+      },
+      {
+        type: "modify",
+        path: `${cwd}/docker-compose.yml`,
+        pattern: /\/\/.*\[ADD NEW DOCKER CONTAINERS HERE\].*/gi,
+        templateFile: `${__dirname}/docker/Service.docker-compose.yml.hbs`,
         abortOnFail: true,
       },
     ];
