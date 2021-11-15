@@ -54,6 +54,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
     - [v.3.0.0](#v300)
     - [v.3.0.5](#v305)
     - [v.4.0.0](#v400)
+    - [v.5.0.0](#v500)
 11. [License](#license)
 
 </h3>
@@ -152,6 +153,7 @@ federation-service/
 |    ├─── graphql/       # The service main structure
 |    |    ├─── generated/...
 |    |    └─── schema/   # Collection of Models/Resolvers
+|    |         ├─── Extensions/ # Here you can link models from different subgraphs
 |    |         ├─── Models/
 |    |         |    ├─── ExampleModel/
 |    |         |    |    ├─── ExampleModel.graphql
@@ -167,7 +169,7 @@ federation-service/
 
 <br />
 
-### 🐳 **_Ready-to-use Dockerfile with docker-compose.yml_**
+### 🐳 **_Ready-to-use Dockerfiles with docker-compose.yml_**
 
 <p style=margin-left:20px>
 Docker is a great tool to run your applications in a containerized environment, solving several problems and allowing you to share the container world-wide without any additional OS-specific configuration.
@@ -175,6 +177,9 @@ Docker is a great tool to run your applications in a containerized environment, 
 <p style=margin-left:20px>
 GalactaGraph takes care of the Dockerfile and docker-compose.yml files, so you can start your micro-service in a containerized environment in just a few seconds.
 When generating a new service with the CLI tool, the necessary lines of code are scaffolded for you on the fly!
+
+This way you can start the entire eco-system instance with every service+gateway in their own container, allowing you to leverage other tools like Kubernetes or ECS to scale and manage your application. (v5.0.0)
+
 </p>
 
 <br />
@@ -191,9 +196,12 @@ Security is a mandatory part of any GraphQL application, and GalactaGraph comes 
 - Anti-Parameter Pollution middleware
 - Anti-DDos middleware
 - Query Rate Limiting (v4.0.0)
+- Server Rate Limiting (v5.0.0)
+- Query Complexity Evaluator using [graphql-query-complexity](https://github.com/slicknode/graphql-query-complexity) (v5.0.0)
+- Helmet HTTP Headers middleware (v5.0.0)
 
 <p style=margin-left:20px>
-Now, this is nowhere near enough, but it's a great starting point to build your own security policies on top of it.
+This is a great starting point to build your own security policies on top of our Security Layer.
 </p>
 
 <br />
@@ -273,12 +281,13 @@ After succesfully installing the utility, go to the **root** of your federation 
 
 These are the currently available generators
 
-| Name     |           Description            | Root          |
-| -------- | :------------------------------: | ------------- |
-| Model    | Adds a Prisma model w/ resolvers | Micro-service |
-| Mutation | Adds a Prisma query w/ resolver  | Micro-service |
-| Query    |  Adds a Prisma mutation w/ res.  | Micro-service |
-| Service  |  Adds a new configured service   | Gateway       |
+| Name                |               Description               | Root          |
+| ------------------- | :-------------------------------------: | ------------- |
+| Model               |    Adds a Prisma model w/ resolvers     | Micro-service |
+| Extension (v.5.0.0) | Links two model from different services | Gateway       |
+| Mutation            |     Adds a Prisma query w/ resolver     | Micro-service |
+| Query               |     Adds a Prisma mutation w/ res.      | Micro-service |
+| Service             |      Adds a new configured service      | Gateway       |
 
 <br />
 
@@ -373,7 +382,9 @@ For that you can find everything you need either in my personal study project, o
 ---
 
 ### v2.0.0
+
 The migration from `v1.0.0` to `v2.0.0` should not be that bad to undertake. Let's look at it together:
+
 - You can safely copy and paste over the gateway, generator and utilities package. Remember to check for errors and re-install, pack and start the three projects
 - Take every service you created and change their `/config` folders (+ relative dependencies) to the new streamlined structure
 - You can also copy and paste the federation-auth service or do a DIFF to check what changed (namely the new `@auth` directive)
@@ -382,7 +393,9 @@ The migration from `v1.0.0` to `v2.0.0` should not be that bad to undertake. Let
 You should be done now ✨
 
 ### v3.0.0
+
 The migration from `v2.0.0` to `v3.0.0` majorly pertains the `federation-utils` project:
+
 - You can safely copy and paste over the generator and utilities package
 - Before using the new publishing system, find the `update-federation-utils.sh` file and add every micro-service to stay up-to-date
 - Now align your version of the package and create a new patch/minor/major with the new commands
@@ -393,7 +406,9 @@ The migration from `v2.0.0` to `v3.0.0` majorly pertains the `federation-utils` 
 You should be done now ✨
 
 ### v3.0.5
+
 The migration from `v3.0.0` to `v3.0.5` fixes various bugs and cleanes some code:
+
 - You can safely copy and paste over the generator package
 - Change every call for `rover` with `npx -p @apollo/rover@0.3.0 rover` in the package.json files and check those files with the new versions to add/remove dependencies
 - Change the `prismaMocks.ts` files to match the new version
@@ -403,7 +418,9 @@ The migration from `v3.0.0` to `v3.0.5` fixes various bugs and cleanes some code
 You should be done now ✨
 
 ### v4.0.0
+
 The migration from `v3.0.5` to `v4.0.0` fixes various bugs, cleanes some code and adds some new stuff:
+
 > The new version has several small fixes, so we'd suggest you to check your codebase and the boilerplate with a DIFF tool to avoid missing some stuff
 
 - You can safely override the new `server/bin` folder to your old one
@@ -416,6 +433,62 @@ The migration from `v3.0.5` to `v4.0.0` fixes various bugs, cleanes some code an
 - Align the `Dockerfile` to match the new version
 
 You should be done now ✨
+
+### v5.0.0
+
+The migration from `v4.0.0` to `v5.0.0` adds new security functionalities, changes the docker flow and divides the extensions resolvers and graphql files:
+
+> The new version has several changes, so we'd suggest you to check your codebase and the boilerplate with a DIFF tool to avoid missing some stuff
+
+- You can safely override the new `server/bin` folder to your old one
+- You can safely copy and paste over the generator package
+- Check every package.json with the new versions and rebuild them (remove the @apollo/rover package and install it globally!)
+- Add the Dockerfiles in every micro-service as per the new version
+- Update the gateway/security file with the new version
+- Re-install the `federation-utils` package in every micro-service from the new source (fire up the command `yarn publish:local` from the package)
+- Check every service to find all the old links between models and updated them to the new version. Example:
+
+```typescript
+const resolver = {
+  User: {
+    ...
+
+    language: ({ languageId }: IUserRef): Language => ({
+      __typename: 'Language',
+      languageId: languageId,
+    }),
+
+    ...
+  },
+
+  ...
+
+  Language: {
+    users: async ({ languageId }: ILanguageRef): Promise<User[]> => {
+      return getUsersByLanguageId(parseInt(languageId));
+    },
+  },
+
+  ...
+};
+
+// ^^^^^^^^^^^ MOVE THE LANGUAGE LINES TO A NEW 'Extensions/Language/Language.resolver.ts' FILE
+
+```
+
+```graphql
+
+extend type Language @key(fields: "languageId") {
+  # the language id
+  languageId: ID! @external
+
+  # every user with a given language
+  users: [User]
+}
+
+// ^^^^^^^^^^^ REMOVE THIS CODE FROM 'entry.graphql' AND ADD IT TO A NEW 'Extensions/Language/Language.graphql' FILE
+
+```
 
 <br />
 

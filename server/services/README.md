@@ -24,15 +24,17 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-- [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
-- [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
-  - [QUERY GENERATOR](#query-generator)
-  - [MUTATION GENERATOR](#mutation-generator)
-- [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
-- [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
-- [N:N Relationships bewteen different subgraphs](#nn-relationships-bewteen-different-subgraphs)
-- [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
-- [Do's and Don'ts](#dos-and-donts)
+- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation) - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
+  - [Index](#index)
+  - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
+  - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
+    - [QUERY GENERATOR](#query-generator)
+    - [MUTATION GENERATOR](#mutation-generator)
+  - [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
+  - [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
+  - [N:N Relationships bewteen different subgraphs](#nn-relationships-bewteen-different-subgraphs)
+  - [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
+  - [Do's and Don'ts](#dos-and-donts)
 
 </h3>
 
@@ -268,7 +270,7 @@ model User {
 }
 ```
 
-3. Now update your `<MODEL_NAME>.graphql` file adding the actual model, like so:
+3. Now update your `<MODEL_NAME>.graphql` file adding the actual model with the chosen relationship, like so:
 
 ```graphql
 
@@ -285,102 +287,11 @@ type User ... {
 
 ```
 
-4. The remote model needs to be extended in the first one. To do this we can use the `Entry.graphql` file:
-
-```graphql
-
-...
-
-extend type Language @key(fields: "languageId") {
-  # the language id
-  languageId: ID! @external
-
-  # every user with a given language
-  users: [User]
-}
-
-```
-
-5. Now, since the scope of the relation in this example is to add the ability to see every user for a language, we'll resolve everything in the micro-service that hosts the User Model. In your `<MODEL_NAME>.resolver.ts` there's some code to add:
-
-```typescript
-
-...
-
-const resolver = {
-  Query: {
-    User: async (_source, args): Promise<User[]> => {
-      return getAllUsers(args);
-    },
-  },
-  User: {
-    __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
-      return getUserById(parseInt(userId));
-    },
-
-    ...
-
-    language: ({ languageId }: IUserRef): Language => ({
-      __typename: 'Language',
-      languageId: languageId,
-    }),
-
-    ...
-  },
-  // EXTENSIONS
-  Language: {
-    users: async ({ languageId }: ILanguageRef): Promise<User[]> => {
-      return getUsersByLanguageId(parseInt(languageId));
-    },
-  },
-
-  ...
-};
-
-export default resolver;
-
-```
-
-6. As you can see, we resolver the User->language and Language->users fields for the subgraph and leave the Federation to merge them all together. To resolve a Model from a different Subgraph as per example we need to buonce back an object like this:
-   `{ __typename: '<MODEL_NAME>' <MODEL_NAME>Id: <MODEL_NAME>Id }`
-   > Of course you need to create your service functions to add the logic!
+4. Go to the Gateway Root in the command line and fire up the `federation-generator` command. Choose the `Extension` generator and follow the prompt to link the two models.
+5. Now open the generated files, namely the `*.resolver.ts` and `*.graphql` files created under the `Externals/<MODEL_NAME>` folder.
+6. As you can see, we resolve the Model1->Model2 and Model2->Model1 fields in the first model subgraph and leave the Federation to merge them all together. Now to finish the procedure, add your own Resolver+Service code!
 7. Create your functions in the `<MODEL_NAME>Service.ts` files (or anywhere you want really) and return the correct data!
 8. Fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
-
-<br />
-
-## N:N Relationships bewteen different subgraphs
-
----
-
-This is a bit tricky but not impossible, essentially you need to follow the previous guide to link two Models from different subgraphs, with only one major difference.
-When it's time to resolve the Query, you need to pass an array of `{ __typename, id }`, like so:
-
-```typescript
-
-const resolver = {
-  Query: {},
-  Profile: {
-
-    ...
-
-    groups: ({ groups }: IProfileRef): Group[] =>
-      groups.map(id => ({
-        __typename: 'Group',
-        groupId: id,
-      })),
-  },
-  // EXTENSIONS
-  Group: {
-    members: async ({ groupId }: IGroupRef): Promise<Profile[]> => {
-      return getMembersOfGroup(parseInt(groupId));
-    },
-  },
-
-  ...
-};
-
-```
 
 <br />
 
@@ -392,7 +303,7 @@ Unfortunately the Federation structure is still new and, even if it was adopted 
 
 1. The Federation structure handles Queries perfectly, making them easy to do and maintain. The same thing cannot be said for mutations though, since we cannot merge migrations from different subgraphs, adding complexity to the client source that is calling the API. For example, if we want to create a User and a Profile we cannot do it in a single Mutation, but we need to call first the `CreateUserMutation` and then the `CreateProfileWithUserIdMutation`.
 2. The third operation, Subscriptions is not supported as of now, although somebody managed to create custom solutions to circle around the problem.
-3. Code re-usability is a major issue, since every subgraph will undoubtedly share some types, utility functions or just general code. GalactaGraph solves this using a private package to share code, but it's more a work-around than a solution.
+3. Code re-usability is a major issue, since every subgraph will undoubtedly share some types, utility functions or just general code. GalactaGraph solves this using a private package to share code, but it's more of a work-around than a solution.
 4. Starting the entire federation when it has 5+ services can become a chore manually, so custom starting scripts (like GalactaGraph has) are a MUST.
 5. Linking models depending on the scope is a way of thinking and it's not easy to resolve on-the-fly. The Apollo Team has a great [article](https://www.apollographql.com/docs/federation/enterprise-guide/federated-schema-design/) about this very problem.
 
