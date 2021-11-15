@@ -80,7 +80,7 @@ module.exports = {
     actions.push({
       type: "signalSuccess",
       data: {
-        callToAction: "Now you can write the actual resolver logic! Hurray!",
+        callToAction: "🎉 Now you can write the actual resolver logic! Hurray!",
       },
     });
 
