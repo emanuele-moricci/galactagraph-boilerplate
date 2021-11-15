@@ -10,18 +10,15 @@ COPY package*.json yarn.lock /app/
 COPY tsconfig.json /app/tsconfig.json
 # environment files
 COPY .env.docker.test /app/.env
+COPY .env.docker.test /app/.env.test
 COPY .env.example /app/.env.example
-# src & bin
-COPY src /app/src
+# bin & prisma & src
 COPY bin /app/bin
-# wait-for-it
-RUN chmod +x /app/bin/wait-for-it.sh
+COPY prisma /app/prisma
+COPY src /app/src
 # [END] > copy source files
 
 RUN yarn install --frozen-lockfile
 
-RUN chmod +x /app/bin/federation-bash/prepare-federation-docker.sh
-RUN chmod +x /app/bin/federation-bash/start-federation-test.sh
 RUN yarn build
-
-CMD [ "yarn", "start" ]
+CMD yarn generate:reset && yarn start

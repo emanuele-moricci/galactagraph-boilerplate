@@ -1,12 +1,14 @@
 module.exports = function (plop) {
   // GENERATORS
-  let serviceGenerator = require("./Back-End/Service/index.js");
-  let modelGenerator = require("./Back-End/Model/index.js");
-  let queryGenerator = require("./Back-End/Query/index.js");
-  let mutationGenerator = require("./Back-End/Mutation/index.js");
+  let serviceGenerator = require("./Service/index.js");
+  let modelGenerator = require("./Model/index.js");
+  let extensionGenerator = require("./Extension/index.js");
+  let queryGenerator = require("./Query/index.js");
+  let mutationGenerator = require("./Mutation/index.js");
 
   plop.setGenerator("service", serviceGenerator);
   plop.setGenerator("model", modelGenerator);
+  plop.setGenerator("extension", extensionGenerator);
   plop.setGenerator("query", queryGenerator);
   plop.setGenerator("mutation", mutationGenerator);
 
@@ -39,6 +41,13 @@ module.exports = function (plop) {
     const pluralize = require("pluralize");
     const pluarlized = pluralize(text);
     return pluarlized.toUpperCase();
+  });
+
+  plop.setHelper("eq", function (arg1, arg2) {
+    return arg1 == arg2;
+  });
+  plop.setHelper("or", function () {
+    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
   });
 
   // CUSTOM ACTIONS

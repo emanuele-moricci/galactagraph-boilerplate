@@ -14,6 +14,22 @@ services:
       - db
     networks:
       - dev_vm
+  federation-auth:
+    container_name: federation-auth
+    build:
+      context: './services/federation-auth'
+      target: base
+    ports:
+      - '4001:4001'
+    depends_on:
+      - db
+      - federation-gateway
+    links:
+      - db
+      - federation-gateway
+    networks:
+      - dev_vm
+  # [ADD NEW DOCKER CONTAINERS HERE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly
   db:
     container_name: db
     image: postgres:13

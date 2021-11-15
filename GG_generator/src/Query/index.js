@@ -1,5 +1,5 @@
 const path = require("path");
-const { firstLower } = require("../../Utils/formatUtils");
+const { firstLower } = require("../Utils/formatUtils");
 
 module.exports = {
   description: "Add a Model OR Generic Query",
@@ -80,7 +80,7 @@ module.exports = {
     actions.push({
       type: "signalSuccess",
       data: {
-        callToAction: "Now you can write the actual resolver logic! Hurray!",
+        callToAction: "🎉 Now you can write the actual resolver logic! Hurray!",
       },
     });
 

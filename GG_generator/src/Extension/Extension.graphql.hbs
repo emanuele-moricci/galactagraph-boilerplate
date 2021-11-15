@@ -1,0 +1,22 @@
+type {{ capital home }} @key(fields: "{{ firstLower home }}Id") {
+{{#if (or (eq many "homeMany") (eq many "bothMany"))}}
+  # {{ firstLower home}} {{ firstLowerPlural external }}
+  {{ firstLowerPlural external }}: [{{ capital external }}]
+{{else}}
+  # {{ firstLower home}} {{ firstLower external }}
+  {{ firstLower external }}: {{ capital external }}
+{{/if}}
+}
+
+extend type {{ capital external }} @key(fields: "{{ firstLower external }}Id") {
+  # the {{ firstLower external }} id
+  {{ firstLower external }}Id: ID! @external
+
+{{#if (or (eq many "extMany") (eq many "bothMany"))}}
+  # the {{ firstLower external }} {{ firstLowerPlural home}}
+  {{ firstLowerPlural home }}: [{{ capital home }}]
+{{else}}
+  # the {{ firstLower external }} {{ firstLower home}}
+  {{ firstLower home }}: {{ capital home }}
+{{/if}}
+}

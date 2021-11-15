@@ -16,10 +16,10 @@
     "test:integration": "yarn test:prepare && dotenv -e ./.env.test jest int -i",
     "test:watch": "yarn test:prepare && dotenv -e ./.env.test jest --watch",
     "test:coverage": "yarn test:prepare && dotenv -e ./.env.test jest --coverage",
-    "lint:fix": "eslint --fix .",
-    "apollo:update": "yarn add @apollo/rover@0.3.0 && yarn generate && yarn publish:schema",
-    "publish:schema": "npx -p @apollo/rover@0.3.0 rover subgraph publish {{ federationGraph }} --name {{ parsedServiceName }} --schema src/graphql/generated/schema.graphql --routing-url http://localhost:{{ ServicePort }}/graphql --convert",
-    "generate": "graphql-codegen --config codegen.yml && npx -p @apollo/rover@0.3.0 rover subgraph introspect http://localhost:{{ ServicePort }}/graphql > ./src/graphql/generated/schema.graphql",
+    "apollo:update": "yarn generate && yarn publish:schema",
+    "publish:schema": "rover subgraph publish {{ federationGraph }} --name {{ parsedServiceName }} --schema src/graphql/generated/schema.graphql --routing-url http://localhost:{{ ServicePort }}/graphql --convert",
+    "publish:schema:docker": "rover subgraph publish {{ federationGraph }} --name {{ parsedServiceName }} --schema src/graphql/generated/schema.graphql --routing-url http://host.docker.internal:{{ ServicePort }}/graphql --convert",
+    "generate": "graphql-codegen --config codegen.yml && rover subgraph introspect http://localhost:{{ ServicePort }}/graphql > ./src/graphql/generated/schema.graphql",
     "generate:migration": "npx prisma migrate dev",
     "generate:seed": "npx prisma db seed",
     "generate:reset": "npx prisma migrate reset --force"
@@ -54,7 +54,6 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@apollo/rover": "0.3.0",
     "@apollo/subgraph": "^0.1.2",
     "@graphql-codegen/core": "^1.17.10",
     "@graphql-codegen/plugin-helpers": "^1.18.7",
@@ -69,7 +68,7 @@
     "dotenv-cli": "^4.0.0",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
-    "federation-utils": "../../bin/federation-utils/",
+    "federation-utils": "./bin/federation-utils/",
     "graphql": "^15.5.0",
     "graphql-middleware": "^6.1.10",
     "graphql-scalars": "^1.12.0"

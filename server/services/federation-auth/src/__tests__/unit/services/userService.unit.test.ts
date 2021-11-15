@@ -25,7 +25,6 @@ describe('userService tests', () => {
     const user = await getUserByEmailAndPassword(email, password);
 
     expect(user.email).toEqual(email);
-    expect(user.password).toEqual('');
   });
 
   it('should create a user', async () => {
@@ -38,6 +37,5 @@ describe('userService tests', () => {
     });
 
     expect(user.email).toEqual(email);
-    expect(user.password).toEqual('');
   });
 });
