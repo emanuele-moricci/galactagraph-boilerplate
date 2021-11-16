@@ -8,11 +8,11 @@ import path from 'path';
 
 import {
   resolvers as customResolvers,
-  authDirective,
+  // authDirective,
   commonTypeDefs,
-  rateDirective,
+  //  rateDirective,
 } from 'federation-utils';
-import { GraphQLSchema } from 'graphql';
+// import { GraphQLSchema } from 'graphql';
 
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
@@ -31,14 +31,14 @@ const resolvers = loadFilesSync(path.join(__dirname, '.'), {
 const mergedResolvers = mergeResolvers([...resolvers, customResolvers]);
 
 // SCHEMA
-let schema = buildSubgraphSchema({
+const schema = buildSubgraphSchema({
   typeDefs: mergedTypeDefs,
   resolvers: mergedResolvers as GraphQLResolverMap<any>,
 });
 
-// DIRECTIVES
-schema = authDirective(schema) as unknown as GraphQLSchema;
-schema = rateDirective(schema);
+// DIRECTIVES - Commented for now as they do not work yet in a federated environment
+// schema = authDirective(schema) as unknown as GraphQLSchema;
+// schema = rateDirective(schema);
 
 const directedSchema = schema;
 export default directedSchema;

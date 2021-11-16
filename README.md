@@ -195,7 +195,7 @@ Security is a mandatory part of any GraphQL application, and GalactaGraph comes 
 - Request URL Encoding for XSS Attacks
 - Anti-Parameter Pollution middleware
 - Anti-DDos middleware
-- Query Rate Limiting (v4.0.0)
+- Query Rate Limiting (v4.0.0) (UNAVAILABLE FOR NOW)
 - Server Rate Limiting (v5.0.0)
 - Query Complexity Evaluator using [graphql-query-complexity](https://github.com/slicknode/graphql-query-complexity) (v5.0.0)
 - Helmet HTTP Headers middleware (v5.0.0)
@@ -219,7 +219,7 @@ The boilerplate comes pre-configured with a federation-auth microservice and the
 
 <br />
 
-### 🛂 **_Built-in Authorization_** [V. 2.0.0]
+### 🛂 **_Built-in Authorization_** [V. 2.0.0] (UNAVAILABLE FOR NOW)
 
 <p style=margin-left:20px>
 
