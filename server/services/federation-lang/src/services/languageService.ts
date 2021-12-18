@@ -1,7 +1,6 @@
 import { prismaContext } from '@config/prismaConfig';
 import { Language } from '@prisma/client';
 
-
 /**
  * Function that returns all of the Languages present in the database.
  *
@@ -10,9 +9,8 @@ import { Language } from '@prisma/client';
  * @returns {Promise<Language[]>} The Language List.
  */
 export const getAllLanguages = async (): Promise<Language[]> => {
-  return await prismaContext.prisma.language.findMany();
+  return prismaContext.prisma.language.findMany();
 };
-
 
 /**
  * Function that returns a Language by its ID.
@@ -23,7 +21,10 @@ export const getAllLanguages = async (): Promise<Language[]> => {
  * @function getLanguageById.
  * @returns {Promise<Language | null>} The found Language.
  */
-export const getLanguageById = async (languageId: number): Promise<Language | null> => {
-  return await prismaContext.prisma.language.findUnique({ where: { languageId } });
+export const getLanguageById = async (
+  languageId: number
+): Promise<Language | null> => {
+  return prismaContext.prisma.language.findUnique({
+    where: { languageId },
+  });
 };
-

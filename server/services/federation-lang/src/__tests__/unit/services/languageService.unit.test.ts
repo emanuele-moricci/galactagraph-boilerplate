@@ -1,4 +1,7 @@
-import {  getAllLanguages, getLanguageById } from '@src/services/languageService';
+import {
+  getAllLanguages,
+  getLanguageById,
+} from '@src/services/languageService';
 
 describe('languageService tests', () => {
   it('should return every language', async () => {
@@ -14,5 +17,4 @@ describe('languageService tests', () => {
     expect(language).toBeDefined();
     expect(language.languageId).toEqual(languageId);
   });
-
 });

@@ -19,8 +19,8 @@ describe('getAllLanguages test', () => {
 
   beforeAll(() => {
     server = new ApolloServer({
-      schema: schema,
-      context: async ({ req }) => await getApolloTestServerContext(req),
+      schema,
+      context: async ({ req }) => getApolloTestServerContext(req),
     });
   });
 
