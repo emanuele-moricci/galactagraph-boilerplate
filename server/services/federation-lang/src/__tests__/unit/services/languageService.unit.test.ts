@@ -15,6 +15,6 @@ describe('languageService tests', () => {
 
     const language = await getLanguageById(languageId);
     expect(language).toBeDefined();
-    expect(language.languageId).toEqual(languageId);
+    expect(language?.languageId).toEqual(languageId);
   });
 });

@@ -8,7 +8,7 @@ const resolver = {
   {{#if wantQuery}}
   Query: {
     {{ capital ModelName }}: async (_source, _args, _context, _info): Promise<{{ capital ModelName }}[]> => {
-      return await getAll{{ capitalPlural ModelName }}();
+      return getAll{{ capitalPlural ModelName }}();
     },
   },
   {{/if}}
@@ -16,7 +16,7 @@ const resolver = {
   Mutation: {
     create{{ capital ModelName }}: {
       resolve: async (_, { input }): Promise<{{ capital ModelName }}> => {
-        return await create{{ capital ModelName }}(input);
+        return create{{ capital ModelName }}(input);
       },
     },
   },
@@ -25,7 +25,7 @@ const resolver = {
     __resolveReference: async ({
       {{ firstLower ModelName }}Id,
     }: I{{ capital ModelName }}Ref): Promise<{{ capital ModelName }} | null> => {
-      return await get{{capital ModelName}}ById(parseInt({{ firstLower ModelName }}Id));
+      return get{{capital ModelName}}ById(parseInt({{ firstLower ModelName }}Id));
     }
   },
 };

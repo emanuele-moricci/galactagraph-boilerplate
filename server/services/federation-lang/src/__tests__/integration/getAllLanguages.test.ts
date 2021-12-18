@@ -10,6 +10,9 @@ const GETALL_LANGUAGES_QUERY = gql`
     Language {
       __typename
       languageId
+      code
+      name
+      native
     }
   }
 `;

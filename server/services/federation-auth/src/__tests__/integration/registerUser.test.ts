@@ -46,6 +46,7 @@ describe('register test', () => {
         input: {
           email,
           password: 'Jest!120',
+          languageId: 1,
         },
       },
     });
