@@ -8,13 +8,11 @@ generator client {
   binaryTargets = ["native", "linux-musl"]
 }
 
-model User {
-  userId Int @id @default(autoincrement())
-
-  email    String @unique
-  password String
-
-  languageId Int
+model Language {
+  languageId Int    @id @default(autoincrement())
+  code       String @db.VarChar(2)
+  name       String
+  native     String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

@@ -42,6 +42,27 @@ export const getUserById = async (userId: number): Promise<User | null> => {
 };
 
 /**
+ * Function that returns a list of Users with the same language.
+ *
+ * @param {number} languageId The language ID.
+ *
+ * @async
+ * @function getUsersByLanguageId.
+ * @returns {Promise<User[]>} The Users list.
+ */
+export const getUsersByLanguageId = async (
+  languageId: number
+): Promise<User[]> => {
+  const users = await prismaContext.prisma.user.findMany({
+    where: {
+      languageId,
+    },
+  });
+
+  return users;
+};
+
+/**
  * Function that returns a User by its unique email.
  *
  * @param {string} email The user email.

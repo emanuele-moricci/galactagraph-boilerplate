@@ -22,7 +22,6 @@
   },
   "lint-staged": {
     "*": [
-      "yarn format",
       "git add ."
     ]
   },

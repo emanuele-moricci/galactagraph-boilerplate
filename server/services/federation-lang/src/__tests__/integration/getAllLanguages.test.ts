@@ -1,0 +1,42 @@
+/* eslint-disable no-underscore-dangle */
+import { ApolloServer, gql } from 'apollo-server-express';
+
+import { getApolloTestServerContext } from '@config/apolloConfig';
+import { prismaContext } from '@config/prismaConfig';
+import schema from '@fed-schema/schema';
+
+const GETALL_LANGUAGES_QUERY = gql`
+  query getAllLanguages {
+    Language {
+      __typename
+      languageId
+    }
+  }
+`;
+
+describe('getAllLanguages test', () => {
+  let server: ApolloServer;
+
+  beforeAll(() => {
+    server = new ApolloServer({
+      schema: schema,
+      context: async ({ req }) => await getApolloTestServerContext(req),
+    });
+  });
+
+  afterAll(async () => {
+    prismaContext.prisma.language.deleteMany();
+    await prismaContext.prisma.$disconnect();
+  });
+
+  it('should pass', async () => {
+    const result = await server.executeOperation({
+      query: GETALL_LANGUAGES_QUERY,
+    });
+
+    expect(result.data).toBeDefined();
+    expect(result?.data?.Language).toBeDefined();
+    const getAllLanguages = result?.data?.Language;
+    expect(getAllLanguages.length).toBeGreaterThan(0);
+  });
+});

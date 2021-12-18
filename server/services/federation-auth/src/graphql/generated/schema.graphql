@@ -19,6 +19,9 @@ scalar DateTime
 
 """The User Model: table that stores the user info."""
 type User @key(fields: "userId") {
+  """user language"""
+  language: Language
+
   """user id"""
   userId: ID!
 
@@ -66,6 +69,11 @@ input registerInput {
 type registerPayload {
   """The user token."""
   token: String!
+}
+
+extend type Language @key(fields: "languageId") {
+  languageId: ID! @external
+  users: [User]
 }
 
 extend type Query {

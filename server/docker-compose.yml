@@ -29,6 +29,21 @@ services:
       - federation-gateway
     networks:
       - dev_vm
+  federation-lang:
+    container_name: federation-lang
+    build:
+      context: './services/federation-lang'
+      target: base
+    ports:
+      - '4002:4002'
+    depends_on:
+      - db
+      - federation-gateway
+    links:
+      - db
+      - federation-gateway
+    networks:
+      - dev_vm
   # [ADD NEW DOCKER CONTAINERS HERE] <- DO NOT REMOVE - Needed for the generator to create micro-service commands seamlessly
   db:
     container_name: db
