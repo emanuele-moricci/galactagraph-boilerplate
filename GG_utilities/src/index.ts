@@ -4,20 +4,18 @@ import path from 'path';
 // PACKAGE IMPORTS
 import resolvers from './graphql/resolvers';
 
+import { isAuthenticated } from './security/Authorization';
 import { cryptObject, decryptObject } from './security/Hashing';
 import { verifyToken, signToken } from './security/JWT';
 
 import { PaginationAndSearchArgs } from './graphql/QueryArgs';
-
-import authDirective from './directives/auth';
-import { rateTypeDefs, rateDirective } from './directives/rate';
 
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
   recursive: true,
   extensions: ['graphql'],
   ignoreIndex: true,
 });
-const commonTypeDefs = [typeDefs, rateTypeDefs];
+const commonTypeDefs = [typeDefs];
 
 // EXPORTS
 export {
@@ -27,7 +25,6 @@ export {
   resolvers,
   verifyToken,
   signToken,
-  authDirective,
-  rateDirective,
+  isAuthenticated,
   commonTypeDefs,
 };

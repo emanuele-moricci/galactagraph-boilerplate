@@ -3909,9 +3909,9 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-federation-utils@./bin/federation-utils/federation-utils-v1.0.30.tgz:
-  version "1.0.30"
-  resolved "./bin/federation-utils/federation-utils-v1.0.30.tgz#c32b11aaa289b2c727f2c07416e66b64f038e05b"
+federation-utils@./bin/federation-utils/federation-utils-v1.0.33.tgz:
+  version "1.0.33"
+  resolved "./bin/federation-utils/federation-utils-v1.0.33.tgz#be97a4b8a87b734fd61f0e860d79388ca1851687"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
@@ -3919,7 +3919,25 @@ federation-utils@./bin/federation-utils/federation-utils-v1.0.30.tgz:
     browserslist "^4.16.5"
     cli "^1.0.0"
     dataloader "^2.0.0"
-    graphql "^15.0.0"
+    graphql "16.0.1"
+    graphql-rate-limit-directive "^2.0.0"
+    graphql-scalars "1.12.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
+
+federation-utils@./bin/federation-utils/federation-utils-v1.0.34.tgz:
+  version "1.0.34"
+  resolved "./bin/federation-utils/federation-utils-v1.0.34.tgz#05d8bedd8b46a42f287253eaef4a73179c156f38"
+  dependencies:
+    "@graphql-tools/load-files" "^6.5.2"
+    "@graphql-tools/utils" "^8.5.3"
+    ansi-regex "^5.0.1"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "15.5.3"
     graphql-rate-limit-directive "^2.0.0"
     graphql-scalars "1.12.0"
     jsonwebtoken "^8.5.1"
@@ -4336,6 +4354,16 @@ graphql-ws@^5.4.1:
   version "5.5.5"
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.5.5.tgz#f375486d3f196e2a2527b503644693ae3a8670a9"
   integrity sha512-hvyIS71vs4Tu/yUYHPvGXsTgo0t3arU820+lT5VjZS2go0ewp2LqyCgxEN56CzOG7Iys52eRhHBiD1gGRdiQtw==
+
+graphql@15.5.3:
+  version "15.5.3"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.3.tgz#c72349017d5c9f5446a897fe6908b3186db1da00"
+  integrity sha512-sM+jXaO5KinTui6lbK/7b7H/Knj9BpjGxZ+Ki35v7YbUJxxdBCUqNM0h3CRVU1ZF9t5lNiBzvBCSYPvIwxPOQA==
+
+graphql@16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.0.1.tgz#93a13cd4e0e38ca8d0832e79614c8578bfd34f10"
+  integrity sha512-oPvCuu6dlLdiz8gZupJ47o1clgb72r1u8NDBcQYjcV6G/iEdmE11B1bBlkhXRvV0LisP/SXRFP7tT6AgaTjpzg==
 
 graphql@^15.0.0, graphql@^15.5.0:
   version "15.7.2"
@@ -6206,6 +6234,11 @@ nullthrows@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
   integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
+
+number-is-nan@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
+  integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
 nwsapi@^2.2.0:
   version "2.2.0"
