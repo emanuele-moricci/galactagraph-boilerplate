@@ -6,13 +6,7 @@ import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
 
 import path from 'path';
 
-import {
-  resolvers as customResolvers,
-  // authDirective,
-  commonTypeDefs,
-  //  rateDirective,
-} from 'federation-utils';
-// import { GraphQLSchema } from 'graphql';
+import { resolvers as customResolvers, commonTypeDefs } from 'federation-utils';
 
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
@@ -36,9 +30,4 @@ const schema = buildSubgraphSchema({
   resolvers: mergedResolvers as GraphQLResolverMap<any>,
 });
 
-// DIRECTIVES - Commented for now as they do not work yet in a federated environment
-// schema = authDirective(schema) as unknown as GraphQLSchema;
-// schema = rateDirective(schema);
-
-const directedSchema = schema;
-export default directedSchema;
+export default schema;
