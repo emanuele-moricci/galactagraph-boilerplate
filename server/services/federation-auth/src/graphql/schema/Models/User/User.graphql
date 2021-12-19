@@ -5,12 +5,12 @@ type User @key(fields: "userId") {
   """
   user id
   """
-  userId: ID! @auth
+  userId: ID!
 
   """
   user email
   """
-  email: String! @auth
+  email: String!
 
   """
   user password
@@ -47,5 +47,5 @@ extend type Query {
     Records shown
     """
     take: Int = 25
-  ): [User] @rateLimit(limit: 20, duration: 5)
+  ): [User]
 }
