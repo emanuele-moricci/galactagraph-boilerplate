@@ -33,6 +33,7 @@
     "@graphql-codegen/typescript": "1.22.1",
     "@graphql-codegen/typescript-resolvers": "1.19.2",
     "@types/dotenv-safe": "^8.1.1",
+    "@types/faker": "^5.5.9",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.33",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
@@ -43,6 +44,7 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "faker": "^5.5.3",
     "jest": "^26.6.3",
     "jest-mock-extended": "^1.0.15",
     "nodemon": "^2.0.7",
@@ -51,9 +53,7 @@
     "ts-jest": "^26.5.3",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.11.0",
-    "typescript": "^4.2.3",
-    "@types/faker": "^5.5.9",
-    "faker": "^5.5.3"
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "@apollo/subgraph": "^0.1.2",
@@ -75,8 +75,9 @@
     "express": "^4.17.1",
     "federation-utils": "./bin/federation-utils/federation-utils-v1.0.30.tgz",
     "graphql": "^15.5.0",
-    "graphql-middleware": "^6.1.10",
+    "graphql-middleware": "^6.1.13",
     "graphql-scalars": "^1.12.0",
+    "graphql-shield": "^7.5.0",
     "set-value": "^4.0.1",
     "ws": "^7.4.6"
   }
