@@ -18,6 +18,11 @@ input registerInput {
   The user password.
   """
   password: String!
+
+  """
+  The user language.
+  """
+  languageId: Int!
 }
 
 """

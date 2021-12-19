@@ -119,6 +119,8 @@ export type RegisterInput = {
   email: Scalars['String'];
   /** The user password. */
   password: Scalars['String'];
+  /** The user language. */
+  languageId: Scalars['Int'];
 };
 
 /** Register payload */
