@@ -1,6 +1,6 @@
 import { {{ capital ModelName }} } from '@prisma/client';
 
-import { {{#if wantQuery}} getAll{{ capitalPlural ModelName }}, create{{ capital ModelName }} {{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
+import { {{#if wantQuery}}getAll{{ capitalPlural ModelName }}{{/if}}{{#if (and wantQuery wantMutation)}}, {{/if}}{{#if wantMutation}}create{{ capital ModelName }}{{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
 
 const resolver = {
   {{#if wantQuery}}

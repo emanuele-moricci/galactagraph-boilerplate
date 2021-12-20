@@ -49,6 +49,9 @@ module.exports = function (plop) {
   plop.setHelper("or", function () {
     return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
   });
+  plop.setHelper("and", function () {
+    return Array.prototype.every.call(arguments, Boolean);
+  });
 
   // CUSTOM ACTIONS
   plop.setActionType("prettify", (_, config) => {
