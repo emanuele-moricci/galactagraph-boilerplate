@@ -1,0 +1,17 @@
+import { {{ capital ModelName }} } from '@prisma/client';
+
+import { {{/if}}get{{capital ModelName}}ById{{#if wantMutation}} } from '@src/services/{{ firstLower ModelName }}Service';
+
+import { I{{ capital ModelName }}Ref } from '@fed-schema/Utils/refs';
+
+const resolver = {
+  {{ capital ModelName }}: {
+    __resolveReference: async ({
+      {{ firstLower ModelName }}Id,
+    }: I{{ capital ModelName }}Ref): Promise<{{ capital ModelName }} | null> => {
+      return get{{capital ModelName}}ById(parseInt({{ firstLower ModelName }}Id));
+    }
+  },
+};
+
+export default resolver;

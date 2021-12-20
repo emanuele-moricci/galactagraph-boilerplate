@@ -1,8 +1,11 @@
-import { GraphQLResolverMap } from 'apollo-graphql';
+import { addResolversToSchema, GraphQLResolverMap } from 'apollo-graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
+
+import { applyMiddleware } from 'graphql-middleware';
+import permissions from './permissions';
 
 import path from 'path';
 
@@ -25,9 +28,22 @@ const resolvers = loadFilesSync(path.join(__dirname, '.'), {
 const mergedResolvers = mergeResolvers([...resolvers, customResolvers]);
 
 // SCHEMA
-const schema = buildSubgraphSchema({
+let schema = buildSubgraphSchema({
   typeDefs: mergedTypeDefs,
-  resolvers: mergedResolvers as GraphQLResolverMap<any>,
+  resolvers: mergedResolvers as GraphQLResolverMap,
 });
 
-export default schema;
+// PERMISSIONS
+schema = applyMiddleware(schema, permissions);
+
+// REFERENCES
+const references = loadFilesSync(path.join(__dirname, '.'), {
+  recursive: true,
+  extensions: ['reference.ts'],
+  ignoreIndex: true,
+}).reduce((acc, curr) => ({ ...acc, ...curr }), {});
+addResolversToSchema(schema, references);
+
+// EXPORT
+const enhancedSchema = schema;
+export default enhancedSchema;
