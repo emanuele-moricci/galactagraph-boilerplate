@@ -7,11 +7,11 @@ const argv = require("minimist")(args);
 const chalk = require("chalk");
 const { font } = require("ascii-art");
 
-font("FEDERATION | GENERATOR", "doom", (_, rendered) => {
+font("GALACTAGRAPH | GENERATOR", "doom", (_, rendered) => {
   console.log(
     chalk.cyan(rendered) +
       chalk.grey(
-        "❗️ For this command to work you HAVE to be on the root of a federation project, under /services/*. If your path is incorrect please abort now. \n"
+        "❗️ For this command to work you HAVE to be on the root of a GalactaGraph project, under /services/*. If your path is incorrect please abort now. \n"
       )
   );
   Plop.launch(

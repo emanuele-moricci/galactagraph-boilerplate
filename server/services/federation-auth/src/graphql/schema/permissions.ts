@@ -1,5 +1,5 @@
 import { shield } from 'graphql-shield';
-import { isAuthenticated } from 'federation-utils';
+import { isAuthenticated } from 'galactagraph-utils';
 
 const permissions = shield({
   User: isAuthenticated,

@@ -1,6 +1,6 @@
 import IPrismaContext, { prismaContext } from '@config/prismaConfig';
 
-import { decryptObject, verifyToken } from 'federation-utils';
+import { decryptObject, verifyToken } from 'galactagraph-utils';
 
 interface IApolloServerContext {
   prismaContext: IPrismaContext;

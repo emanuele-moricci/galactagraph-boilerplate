@@ -20,8 +20,8 @@ RUN chmod +x /app/bin/wait-for-it.sh
 
 RUN yarn install --frozen-lockfile
 
-RUN chmod +x /app/bin/federation-bash/prepare-federation-docker.sh
-RUN chmod +x /app/bin/federation-bash/start-federation-test.sh
+RUN chmod +x /app/bin/galactagraph-bash/prepare-federation-docker.sh
+RUN chmod +x /app/bin/galactagraph-bash/start-federation-test.sh
 RUN yarn build
 
 CMD [ "yarn", "start" ]

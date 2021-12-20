@@ -10,7 +10,7 @@
     "build": "tsc",
     "postbuild": "cp ./src/graphql/common.graphql ./lib/graphql/common.graphql",
     "move": "rm -rf ../server/bin/galactagraph-utils/* && mv -f *.tgz ../server/bin/galactagraph-utils/",
-    "trigger:update": "../server/bin/galactagraph-bash/update-galactagraph-utils.sh",
+    "trigger:update": "../server/bin/galactagraph-bash/update-federation-utils.sh",
     "publish:local": "yarn build && yarn pack && yarn move && yarn trigger:update",
     "patch:local": "yarn version --patch && yarn publish:local",
     "minor:local": "yarn version --minor && yarn publish:local",

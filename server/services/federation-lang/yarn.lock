@@ -3890,24 +3890,6 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-federation-utils@./bin/federation-utils/federation-utils-v1.0.34.tgz:
-  version "1.0.34"
-  resolved "./bin/federation-utils/federation-utils-v1.0.34.tgz#05d8bedd8b46a42f287253eaef4a73179c156f38"
-  dependencies:
-    "@graphql-tools/load-files" "^6.5.2"
-    "@graphql-tools/utils" "^8.5.3"
-    ansi-regex "^5.0.1"
-    browserslist "^4.16.5"
-    cli "^1.0.0"
-    dataloader "^2.0.0"
-    graphql "15.5.3"
-    graphql-rate-limit-directive "^2.0.0"
-    graphql-scalars "1.12.0"
-    jsonwebtoken "^8.5.1"
-    path-parse "^1.0.7"
-    tmpl "^1.0.5"
-    ws "^7.4.6"
-
 figures@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -4079,6 +4061,26 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
+
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz:
+  version "1.1.0"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz#7432a76118ef7f6342fb28dc6bdb87b00504298e"
+  dependencies:
+    "@graphql-tools/load-files" "^6.5.2"
+    "@graphql-tools/utils" "^8.5.3"
+    ansi-regex "^5.0.1"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "^15.0.0"
+    graphql-middleware "^6.1.13"
+    graphql-rate-limit-directive "^2.0.0"
+    graphql-scalars "1.12.0"
+    graphql-shield "^7.5.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
 
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"

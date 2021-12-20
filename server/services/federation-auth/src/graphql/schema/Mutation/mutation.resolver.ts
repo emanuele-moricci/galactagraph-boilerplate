@@ -10,7 +10,7 @@ import {
   getUserByEmailAndPassword,
 } from '@src/services/userService';
 
-import { signToken } from 'federation-utils';
+import { signToken } from 'galactagraph-utils';
 
 const resolver = {
   Mutation: {

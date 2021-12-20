@@ -9,7 +9,10 @@ import permissions from './permissions';
 
 import path from 'path';
 
-import { resolvers as customResolvers, commonTypeDefs } from 'federation-utils';
+import {
+  resolvers as customResolvers,
+  commonTypeDefs,
+} from 'galactagraph-utils';
 
 // TYPE DEFINITIONS
 const typeDefs = loadFilesSync(path.join(__dirname, '.'), {
