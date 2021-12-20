@@ -1,4 +1,4 @@
-import { rule, shield } from 'graphql-shield';
+import { shield } from 'graphql-shield';
 
 const permissions = shield({});
 
