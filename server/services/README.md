@@ -24,7 +24,8 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation) - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
+- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation)
+        - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
   - [Index](#index)
   - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
   - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
@@ -32,7 +33,6 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
     - [MUTATION GENERATOR](#mutation-generator)
   - [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
   - [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
-  - [N:N Relationships bewteen different subgraphs](#nn-relationships-bewteen-different-subgraphs)
   - [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
   - [Do's and Don'ts](#dos-and-donts)
 
@@ -47,7 +47,7 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 This boilerplate contains a CLI project that is set-up to remove the burden of repetition when creating models and services. Let's see how to use it for the most common case: creating a Service with a Model 🚀
 
 1. First thing first, we have to open up our terminal of choice and go to the gateway root with `cd server/`
-2. Now it's time to fire up our CLI with `federation-generator` (the main guide tells you how to install this package)
+2. Now it's time to fire up our CLI with `galactagraph-generator` (the main guide tells you how to install this package)
 3. A handy and sparkly interface will show up asking you what you want to generate. Choose the `service` generator
 4. Go through the guided wizard to create your tailored service and wait for the generation to complete ♻️
 5. Now that we have our shiny new service, it's time to add some things:
@@ -78,13 +78,14 @@ model User {
 
 ```
 
-In the `schema/Models` you'll find the new folder with the configured Model schema and resolver functions. The files will change depending on what you choose in the generator wizard. You can choose to have a pre-made 'getAll' query, 'create' mutation and unit&integration tests to cover your changes.
+In the `schema/Models` you'll find the new folder with the configured Model schema, a resolver file and a reference file. The files will change depending on what you choose in the generator wizard. You can choose to have a pre-made 'getAll' query, 'create' mutation and unit&integration tests to cover your changes.
+<br /> This is an example of the reference file. It contains the resolver that links the newly generated model with the whole Graph.
 
 ```typescript
 
 ...
 
-const resolver = {
+const reference = {
   ...
   User: {
     __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
@@ -94,12 +95,10 @@ const resolver = {
   ...
 };
 
-export default resolver;
+export default reference;
 
 
 ```
-
-<h2></h2>
 
 <br />
 
@@ -110,7 +109,7 @@ export default resolver;
 The project uses `graphql-tools` to merge schemas and resolvers together automatically, so adding a new Mutation or Query with the CLI is a breeze 🌬️
 
 1. First thing first, we have to open up our terminal of choice and go to the micro-service root with `cd server/services/<MICRO_SERVICE_NAME>`
-2. Now we can fire up our CLI with `federation-generator` and choose either the Query or Mutation generators.
+2. Now we can fire up our CLI with `galactagraph-generator` and choose either the Query or Mutation generators.
 3. Follow the GUI to create your operation of choice, then fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
 
 ### QUERY GENERATOR
@@ -306,6 +305,7 @@ Unfortunately the Federation structure is still new and, even if it was adopted 
 3. Code re-usability is a major issue, since every subgraph will undoubtedly share some types, utility functions or just general code. GalactaGraph solves this using a private package to share code, but it's more of a work-around than a solution.
 4. Starting the entire federation when it has 5+ services can become a chore manually, so custom starting scripts (like GalactaGraph has) are a MUST.
 5. Linking models depending on the scope is a way of thinking and it's not easy to resolve on-the-fly. The Apollo Team has a great [article](https://www.apollographql.com/docs/federation/enterprise-guide/federated-schema-design/) about this very problem.
+6. Custom Directives just don't work with the system as of now, which is a shame, since they're a very powerful GraphQL feature.
 
 <br />
 
@@ -313,8 +313,8 @@ Unfortunately the Federation structure is still new and, even if it was adopted 
 
 ---
 
-The GalactaGraph boilerplate has a kinda strict folder structure with rules that assure the correct function of the CLI, scripts and Schema&Resolvers mergers. Let's look at the rules that NEED to be followed to ensure that nothing breaks:
+The GalactaGraph boilerplate has a strict folder structure with rules that assure the correct function of the CLI, scripts and Schema&Resolvers mergers. Let's look at the rules that NEED to be followed to ensure that nothing breaks:
 
 - You may see several comments that ask you not to be removed, like `[IMPORT NEW VALUE] // <- DO NOT REMOVE - ...`; this lines are used by the CLI to find the right spot to generate queries/migrations/models ecc... Please do not touch them! 🚯
-- The schema generated with Codegen is handled by the [@graphql-tools](https://www.graphql-tools.com/docs/introduction) library to remove redundant code. To ensure this, the files that are used to generate the usable/publishable code are `*.graphql` and `*.resolver.ts`. Please use these extensions when you want to add a type or resolver to your micro-service
+- The schema generated with Codegen is handled by the [@graphql-tools](https://www.graphql-tools.com/docs/introduction) library to remove redundant code. To ensure this, the files that are used to generate the usable/publishable code are `*.graphql`, `*.resolver.ts` and `*.reference.ts`. Please use these extensions when you want to add a type, resolver or reference to your micro-service
 - To ensure that starting, building, testing and dockerizing the entire federation is as easy as pushing a button, GalactaGraph created a handful of `.bash` scripts that need to remain untouched unless you know what you're doing

@@ -55,6 +55,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
     - [v.3.0.5](#v305)
     - [v.4.0.0](#v400)
     - [v.5.0.0](#v500)
+    - [v.6.0.0](#v600)
 11. [License](#license)
 
 </h3>
@@ -95,7 +96,7 @@ The CLI can also create new Models, Mutation and Query types, along with their P
 Every created service runs with the GraphQL Codegen Engine, allowing to generate typescript code at runtime from the .graphl files used to define the subgraph schemas.
 </p>
 <p style=margin-left:20px>
-As of now, you need to start the micro-service in question and fire up the codegen command on another terminal to generate the typescript files.
+As of now, you need to start the micro-service in question and fire up the codegen command on another terminal to generate the typescript types.
 </p>
 
 <br />
@@ -157,11 +158,13 @@ federation-service/
 |    |         ├─── Models/
 |    |         |    ├─── ExampleModel/
 |    |         |    |    ├─── ExampleModel.graphql
+|    |         |    |    ├─── ExampleModel.reference.ts
 |    |         |    |    └─── ExampleModel.resolver.ts
-|    |         |    └─── Entry.graphql
+|    |         |    └─── entry.graphql
 |    |         ├─── Mutation/...
 |    |         ├─── Query/...
 |    |         ├─── Utils/...
+|    |         ├─── permissions.ts
 |    |         └─── schema.ts
 |    └─── services/...   # Business Logic and Data-Access
 └─── configuration files...
@@ -176,10 +179,10 @@ Docker is a great tool to run your applications in a containerized environment, 
 </p>
 <p style=margin-left:20px>
 GalactaGraph takes care of the Dockerfile and docker-compose.yml files, so you can start your micro-service in a containerized environment in just a few seconds.
-When generating a new service with the CLI tool, the necessary lines of code are scaffolded for you on the fly!
-
-This way you can start the entire eco-system instance with every service+gateway in their own container, allowing you to leverage other tools like Kubernetes or ECS to scale and manage your application. (v5.0.0)
-
+When generating a new service with the CLI tool, the necessary lines of code are scaffolded for you on-the-fly! ✨
+</p>
+<p style=margin-left:20px>
+This way you can start the entire eco-system instance with every service in their own container, allowing you to leverage other tools such as a Container Orchestrator to manage your application. (v5.0.0)
 </p>
 
 <br />
@@ -195,7 +198,6 @@ Security is a mandatory part of any GraphQL application, and GalactaGraph comes 
 - Request URL Encoding for XSS Attacks
 - Anti-Parameter Pollution middleware
 - Anti-DDos middleware
-- Query Rate Limiting (v4.0.0) (UNAVAILABLE FOR NOW)
 - Server Rate Limiting (v5.0.0)
 - Query Complexity Evaluator using [graphql-query-complexity](https://github.com/slicknode/graphql-query-complexity) (v5.0.0)
 - Helmet HTTP Headers middleware (v5.0.0)
@@ -209,33 +211,30 @@ This is a great starting point to build your own security policies on top of our
 ### 🤝 **_Built-in Authentication_**
 
 <p style=margin-left:20px>
-The boilerplate comes pre-configured with a federation-auth microservice and the necessary logic on the gateway to share a JWT token between gateway and every part of the subgraph.
+The boilerplate comes pre-configured with a <code>federation-auth</code> and <code>federation-lang</code> microservice and the necessary logic on the gateway to share a JWT token between gateway and every part of the subgraph.
 </p>
-<p style=margin-left:20px>
 
-> This code, under the `federation-auth` folder, is set-up to give you a simple `User` model with email, password and audit data, and with the `login` and `register` mutations ready-to-go. Learn more about JWT authentication [here](https://jwt.io/)
-
-</p>
+> This code, under the `federation-auth` folder, is set-up to give you a simple `User` model with email, password and audit data, and with the `login` and `register` mutations ready-to-go. <br>
+> The code under the `federation-lang` folder is used totally optional and used to demonstrate how to divide the application logic into a linked web of micro-services. <br><br>
+> Learn more about the JWT authentication logics used in the boilerplate, [here](https://jwt.io/).
 
 <br />
 
-### 🛂 **_Built-in Authorization_** [V. 2.0.0] (UNAVAILABLE FOR NOW)
+### 🛂 **_Built-in Authorization_** [V. 5.0.0]
 
 <p style=margin-left:20px>
-
-The boilerplate also has a handy `@auth` directive already configured and injected in every service that let's you easily add authorization to your GraphQL API on a per-field basis! The directive is already set-up to respond to the token in the header, so that you can immediately start to use it on your model fields that need protection!
-
+The boilerplate has the <code>graphql-shield</code> already configured and injected in every service that let's you easily add authorization to your GraphQL API using the handy <code>permissions.ts</code> file! The logics are already set-up to recognize if a user is authenticated, giving you the immediate freedom of securing your models, queries and mutations behind a strong authorization layer.
 </p>
+
+> If you want to learn more about graphql-shield, go [here](https://www.graphql-shield.com/).
 
 <br />
 
 ### 🐶 **_Pre-Commit hooks with Prettier and ESLint_** [V. 4.0.0]
 
 <p style=margin-left:20px>
-
-This project comes packed in with the [Husky package](https://github.com/typicode/husky) already configured to check and format every file on pre-commit.
+This project comes packed with the <a herf="https://github.com/typicode/husky">Husky package</a> already configured to check and format every file on pre-commit.
 This way, you'll always be able to format the codebase based on your Prettier and ESLint configurations!
-
 </p>
 
 <br />
@@ -260,7 +259,7 @@ This way, you'll always be able to format the codebase based on your Prettier an
 - Go to the root of the `server/` in the command line
 - Follow the guide to register and run your gateway with all of the services through [Apollo Studio](https://www.apollographql.com/docs/federation/quickstart/); Register the API key, the subgraphs through the rover module and create your project in Apollo Studio with the **Managed Mode**. When prompted to publish your federated schema, fill the data in the micro-service and gateway `.env` files and do one of the following steps:
 
-  - **[ONLY FOR THE FIRST TIME]** Go to the `federation-auth` service, fire up the command `yarn dev`, then open up another terminal and fire up the command `yarn apollo:update`
+  - **[ONLY FOR THE FIRST TIME]** Go to the `federation-auth` service, fire up the command `yarn dev`, then open up another terminal and fire up the command `yarn apollo:update`. Do this for the `federation-lang` service too.
   - **[FOR EVERY OTHER TIME]** In the gateway `package.json` there are several commands powered by bash files that can help you with the setup. Fire up the `yarn federation:dev` command and the `yarn federation:publish` command on another terminal to start and update the entire supergraph on Apollo Studio.
 
 <br />
@@ -277,7 +276,7 @@ The following steps are needed to install the utility:
 - Install [Plop](https://plopjs.com/) using `yarn global add plop`
 - Install the tool using `npm i -g`
 
-After succesfully installing the utility, go to the **root** of your federation micro-service or gateway and fire up the command `federation-generator`. Follow the GUI to choose your code generator of choice.
+After succesfully installing the utility, go to the **root** of your federation micro-service or gateway and fire up the command `galactagraph-generator`. Follow the GUI to choose your code generator of choice.
 
 These are the currently available generators
 
@@ -308,10 +307,10 @@ These are the currently available generators
 
 ---
 
-This project has a local package called `federation-utils`, under `GG_utilities`. Shared code can be added there, and a new tarball can be created and updated on every project with the following procedure:
+This project has a local package called `galactagraph-utils`, under `GG_utilities`. Shared code can be added there, and a new tarball can be created and updated on every project with the following procedure:
 
 - Edit your **utils** project
-- Fire up the command `yarn patch:local` or `yarn minor:local` or yarn `major:local`
+- Fire up the command `yarn patch:local` or `yarn minor:local` or `yarn major:local`
 
 <br />
 
@@ -319,13 +318,13 @@ This project has a local package called `federation-utils`, under `GG_utilities`
 
 ---
 
-### Without Docker
+### With NPM/Yarn
 
 - Go to the root of the gateway and start the federation ecosystem with `yarn federation:dev`
 
 ### With Docker
 
-- Go to the root of the project and start the dockerized ecosystem with `yarn docker:up` (for the docker version, check the `POSTGRESQL_DATABASES` url in your `.env` files and make sure that every database you need is correctly written there)
+- Go to the root of the project and start the dockerized ecosystem with `yarn docker:up` (check the `POSTGRESQL_DATABASES` url in your `.env` files and make sure that every database you need is correctly written there)
 
 ### Optional Steps
 
@@ -347,9 +346,8 @@ This project has a local package called `federation-utils`, under `GG_utilities`
 
 ### Back-End
 
-- Go into the `env.test` and `env.docker.test` file and change the `DATABASE_URL` connection string. Add the database name to the `POSTGRESQL_DATABASES` key in the `.env.docker.test` file in the gateway
 - Create your test under the micro-service folder `__tests__/(integration or unit)` with the pattern `*.test.ts or *.unit.test.ts`
-- Go to the root of the project and fire the testing command: `yarn federation:test` or `yarn federation:docker:test`
+- Go to the root of the project and fire the testing command: `yarn federation:test`
 
 <br />
 
@@ -489,6 +487,23 @@ extend type Language @key(fields: "languageId") {
 // ^^^^^^^^^^^ REMOVE THIS CODE FROM 'entry.graphql' AND ADD IT TO A NEW 'Extensions/Language/Language.graphql' FILE
 
 ```
+
+<br />
+
+### v6.0.0
+
+The migration from `v5.0.0` to `v6.0.0` solves tons of issues with the previous versions, like adding Authorization back, fixing performance bugs, removing faulty directives and improving the Docker set-up.
+<br /> Let's see how to upgrade:
+
+> The new version has several changes, so we'd suggest you to check your codebase and the boilerplate with a DIFF tool to avoid missing some stuff
+
+- **[OPTIONAL]** Add the new `federation-lang` service and check the `federation-auth` diff to link the two projects.
+- You can safely copy and paste over the generator package
+- Check the diff to change nearly every `federation-` appendix to `galactagraph-`.
+- Check the `GG_Utilities` package and rebuild it (remove directives, added graphql-shield rules) to get up to speed with the new version.
+- Add the new `permissions.ts` file to every service and code your custom authorization rules.
+- Extrapolate the `__resolveReference` functions to their own `.reference.ts` file (needed to make graphql-shield work correctly).
+- Check your `Dockerfile`, `docker-compose.yaml` and `schema.ts` files for differences. Same thing with the package.json files. Rebuild every solution to make sure that everything is up-to-date.
 
 <br />
 
