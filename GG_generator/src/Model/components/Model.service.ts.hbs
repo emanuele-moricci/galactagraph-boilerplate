@@ -2,7 +2,6 @@ import { prismaContext } from '@config/prismaConfig';
 import { {{capital ModelName}} } from '@prisma/client';
 
 {{#if wantQuery}}
-
 /**
  * Function that returns all of the {{capitalPlural ModelName}} present in the database.
  *
@@ -11,11 +10,10 @@ import { {{capital ModelName}} } from '@prisma/client';
  * @returns {Promise<{{capital ModelName}}[]>} The {{capital ModelName}} List.
  */
 export const getAll{{capitalPlural ModelName}} = async (): Promise<{{capital ModelName}}[]> => {
-  return await prismaContext.prisma.{{firstLower ModelName}}.findMany();
+  return prismaContext.prisma.{{firstLower ModelName}}.findMany();
 };
 
 {{/if}}
-
 /**
  * Function that returns a {{capital ModelName}} by its ID.
  *
@@ -26,11 +24,10 @@ export const getAll{{capitalPlural ModelName}} = async (): Promise<{{capital Mod
  * @returns {Promise<{{capital ModelName}} | null>} The found {{capital ModelName}}.
  */
 export const get{{capital ModelName}}ById = async ({{firstLower ModelName}}Id: number): Promise<{{capital ModelName}} | null> => {
-  return await prismaContext.prisma.{{firstLower ModelName}}.findUnique({ where: { {{firstLower ModelName}}Id } });
+  return prismaContext.prisma.{{firstLower ModelName}}.findUnique({ where: { {{firstLower ModelName}}Id } });
 };
 
 {{#if wantMutation}}
-
 /**
  * Function that creates a {{capital ModelName}} with some input data and returns it.
  *
@@ -41,9 +38,6 @@ export const get{{capital ModelName}}ById = async ({{firstLower ModelName}}Id: n
  * @returns {Promise<{{capital ModelName}}>} The {{capital ModelName}}.
  */
 export const create{{capital ModelName}} = async (input): Promise<{{capital ModelName}}> => {
-  return await prismaContext.prisma.{{firstLower ModelName}}.create({
-    data: input,
-  });
+  return prismaContext.prisma.{{firstLower ModelName}}.create({ data: input });
 };
-
 {{/if}}

@@ -6,12 +6,13 @@ import { getApolloServerContext } from '@config/apolloConfig';
 
 import { bgCyan, blue } from 'chalk';
 import dotenv from 'dotenv-safe';
+
 dotenv.config();
 
 const startServer = () => {
   const server = new ApolloServer({
-    schema: schema,
-    context: async ({ req }) => await getApolloServerContext(req),
+    schema,
+    context: async ({ req }) => getApolloServerContext(req),
   });
 
   const app = express();

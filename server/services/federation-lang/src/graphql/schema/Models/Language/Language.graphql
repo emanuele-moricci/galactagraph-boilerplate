@@ -1,0 +1,46 @@
+"""
+The Language Model: stores all of the configured languages for the platform
+"""
+type Language @key(fields: "languageId") {
+  """
+  language id
+  """
+  languageId: ID!
+
+  """
+  language code
+  """
+  code: String!
+
+  """
+  language name
+  """
+  name: String!
+
+  """
+  language native
+  """
+  native: String!
+
+  """
+  created at
+  """
+  created_at: DateTime!
+
+  """
+  updated at
+  """
+  updated_at: DateTime!
+
+  """
+  deleted row
+  """
+  deleted: Boolean!
+}
+
+extend type Query {
+  """
+  Get all Languages query
+  """
+  Language: [Language]
+}

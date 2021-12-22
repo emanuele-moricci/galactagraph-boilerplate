@@ -1,0 +1,13 @@
+overwrite: true
+schema: 'http://localhost:4002/graphql'
+generates:
+  src/graphql/generated/graphql.ts:
+    plugins:
+      - add:
+          content: 'import IPrismaContext from "@config/prismaConfig";'
+      - 'typescript'
+      - 'typescript-resolvers'
+    config:
+      contextType: IPrismaContext
+      useIndexSignature: true
+      federation: true

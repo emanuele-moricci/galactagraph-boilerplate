@@ -30,10 +30,12 @@ describe('userService tests', () => {
   it('should create a user', async () => {
     const email = 'jestuser@test.com';
     const password = 'Jestu!120';
+    const languageId = 1;
 
     const user = await createUser({
       email,
       password,
+      languageId,
     });
 
     expect(user.email).toEqual(email);

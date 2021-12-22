@@ -15,7 +15,7 @@ _________                                     .__               __  .__
  * 
  */
 import { RemoteGraphQLDataSource } from '@apollo/gateway';
-import { cryptObject, verifyToken } from 'federation-utils';
+import { cryptObject, verifyToken } from 'galactagraph-utils';
 
 /**
  * The function responsable to hash the context, crypt it and bounce it to the subgraphs.

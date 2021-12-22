@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 
 import bcrypt from 'bcryptjs';
 
-import { PaginationAndSearchArgs } from 'federation-utils';
+import { PaginationAndSearchArgs } from 'galactagraph-utils';
 
 /**
  * Function that returns all of the Users present in the database.
@@ -39,6 +39,27 @@ export const getUserById = async (userId: number): Promise<User | null> => {
   });
 
   return user;
+};
+
+/**
+ * Function that returns a list of Users with the same language.
+ *
+ * @param {number} languageId The language ID.
+ *
+ * @async
+ * @function getUsersByLanguageId.
+ * @returns {Promise<User[]>} The Users list.
+ */
+export const getUsersByLanguageId = async (
+  languageId: number
+): Promise<User[]> => {
+  const users = await prismaContext.prisma.user.findMany({
+    where: {
+      languageId,
+    },
+  });
+
+  return users;
 };
 
 /**

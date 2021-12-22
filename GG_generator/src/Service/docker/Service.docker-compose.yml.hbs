@@ -1,14 +1,9 @@
 {{ parsedServiceName }}:
-    container_name: {{ parsedServiceName }}
     build:
       context: './services/{{ parsedServiceName }}'
-      target: base
     ports:
       - '{{ ServicePort }}:{{ ServicePort }}'
     depends_on:
-      - db
-      - federation-gateway
-    links:
       - db
       - federation-gateway
     networks:

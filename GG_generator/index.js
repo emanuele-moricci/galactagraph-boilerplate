@@ -7,11 +7,18 @@ const argv = require("minimist")(args);
 const chalk = require("chalk");
 const { font } = require("ascii-art");
 
-font("FEDERATION | GENERATOR", "doom", (_, rendered) => {
+font("GALACTAGRAPH", "doom", (_, rendered) => {
   console.log(
-    chalk.cyan(rendered) +
+    "\n\n" +
+      chalk.cyan(rendered) +
+      chalk.blueBright(
+        "Welcome to the GalactaGraph Generator, a micro solution that can generate lots of code to scaffold generic actions (like building a service or implementing a model) to leave you to the actual development of your project! \n\n\n"
+      ) +
       chalk.grey(
-        "❗️ For this command to work you HAVE to be on the root of a federation project, under /services/*. If your path is incorrect please abort now. \n"
+        "❓ Check our Generator Guide at https://github.com/emanuele-moricci/galactagraph-boilerplate#how-to-generate \n"
+      ) +
+      chalk.grey(
+        "❗️ For this command to work you HAVE to be on the root of a GalactaGraph gateway OR micro-services (under /server/* OR server/services/*). If your path is incorrect please abort now. \n"
       )
   );
   Plop.launch(

@@ -162,6 +162,12 @@ module.exports = {
       },
       {
         type: "add",
+        path: `${schemaPath}/permissions.ts`,
+        templateFile: `${__dirname}/src/graphql/Service.permissions.ts.hbs`,
+        abortOnFail: true,
+      },
+      {
+        type: "add",
         path: `${schemaPath}/Query/query.resolver.ts`,
         templateFile: `${__dirname}/src/graphql/Service.query.resolver.ts.hbs`,
         abortOnFail: true,

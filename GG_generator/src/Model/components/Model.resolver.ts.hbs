@@ -1,14 +1,12 @@
 import { {{ capital ModelName }} } from '@prisma/client';
 
-import { {{#if wantQuery}} getAll{{ capitalPlural ModelName }}, {{/if}}get{{capital ModelName}}ById{{#if wantMutation}}, create{{ capital ModelName }} {{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
-
-import { I{{ capital ModelName }}Ref } from '@fed-schema/Utils/refs';
+import { {{#if wantQuery}}getAll{{ capitalPlural ModelName }}{{/if}}{{#if (and wantQuery wantMutation)}}, {{/if}}{{#if wantMutation}}create{{ capital ModelName }}{{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
 
 const resolver = {
   {{#if wantQuery}}
   Query: {
     {{ capital ModelName }}: async (_source, _args, _context, _info): Promise<{{ capital ModelName }}[]> => {
-      return await getAll{{ capitalPlural ModelName }}();
+      return getAll{{ capitalPlural ModelName }}();
     },
   },
   {{/if}}
@@ -16,18 +14,11 @@ const resolver = {
   Mutation: {
     create{{ capital ModelName }}: {
       resolve: async (_, { input }): Promise<{{ capital ModelName }}> => {
-        return await create{{ capital ModelName }}(input);
+        return create{{ capital ModelName }}(input);
       },
     },
   },
   {{/if}}
-  {{ capital ModelName }}: {
-    __resolveReference: async ({
-      {{ firstLower ModelName }}Id,
-    }: I{{ capital ModelName }}Ref): Promise<{{ capital ModelName }} | null> => {
-      return await get{{capital ModelName}}ById(parseInt({{ firstLower ModelName }}Id));
-    }
-  },
 };
 
 export default resolver;

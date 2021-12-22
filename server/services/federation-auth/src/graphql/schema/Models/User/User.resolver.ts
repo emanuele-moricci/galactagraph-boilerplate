@@ -1,9 +1,8 @@
 import { User } from '@prisma/client';
 
-import { getAllUsers, getUserById } from '@src/services/userService';
+import { getAllUsers } from '@src/services/userService';
 
-import { IUserRef } from '@fed-schema/Utils/refs';
-import { PaginationAndSearchArgs } from 'federation-utils';
+import { PaginationAndSearchArgs } from 'galactagraph-utils';
 
 const resolver = {
   Query: {
@@ -12,9 +11,6 @@ const resolver = {
     },
   },
   User: {
-    __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
-      return getUserById(parseInt(userId));
-    },
     password: (): string => '',
   },
 };

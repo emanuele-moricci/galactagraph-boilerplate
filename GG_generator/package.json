@@ -1,6 +1,6 @@
 {
-  "name": "federation-generator",
-  "version": "1.0.0",
+  "name": "galactagraph-generator",
+  "version": "1.1.0",
   "description": "Micro-generator project",
   "author": "Emanuele Moricci",
   "license": "MIT",
@@ -13,7 +13,7 @@
   },
   "scripts": {},
   "bin": {
-    "federation-generator": "./index.js"
+    "galactagraph-generator": "./index.js"
   },
   "dependencies": {
     "ansi-regex": "^5.0.1",

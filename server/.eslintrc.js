@@ -49,6 +49,10 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-implicit-any': 'off',
     'no-implicit-any': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/prisma/db/seeders/*'] },
+    ],
   },
   settings: {
     'import/parsers': {

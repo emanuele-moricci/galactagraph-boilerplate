@@ -1,9 +1,10 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 async function seed{{ capitalPlural ModelName }}() {
   await prisma.{{ firstLower ModelName }}.create({
-    data: { },
+    data: {},
   });
 }
 

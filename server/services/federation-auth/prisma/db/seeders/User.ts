@@ -19,6 +19,10 @@ async function seedUsers(): Promise<void> {
     return {
       email: isAdmin ? 'admin@federation.com' : faker.internet.email(),
       password: isAdmin ? adminPass : userPass,
+      languageId: faker.datatype.number({
+        min: 1,
+        max: 5,
+      }),
     };
   });
 
