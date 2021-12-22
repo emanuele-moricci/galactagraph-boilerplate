@@ -14,7 +14,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/gateway.js",
     "format": "npx prettier --config .prettierrc --write . & npx eslint --config .eslintrc.js --fix .",
-    "docker:up": "docker-compose up -d --build && ./bin/galactagraph-bash/prepare-federation-docker.sh",
+    "docker:up": "docker-compose --env-file ./.env.docker.test up -d --build && ./bin/galactagraph-bash/prepare-federation-docker.sh",
     "docker:down": "docker compose down",
     "federation:dev": "./bin/galactagraph-bash/start-federation-dev.sh",
     "federation:test": "./bin/galactagraph-bash/start-federation-test.sh",
