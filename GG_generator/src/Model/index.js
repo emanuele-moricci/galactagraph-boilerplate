@@ -85,12 +85,6 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${modelPath}/${capitalizedModelName}.reference.ts`,
-        templateFile: `${__dirname}/components/Model.reference.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
         path: `${servicePath}/${firstLowerModelName}Service.ts`,
         templateFile: `${__dirname}/components/Model.service.ts.hbs`,
         abortOnFail: true,

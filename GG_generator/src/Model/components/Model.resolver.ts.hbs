@@ -1,6 +1,6 @@
 import { {{ capital ModelName }} } from '@prisma/client';
 
-import { {{#if wantQuery}}getAll{{ capitalPlural ModelName }}{{/if}}{{#if (and wantQuery wantMutation)}}, {{/if}}{{#if wantMutation}}create{{ capital ModelName }}{{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
+import { get{{capital ModelName}}ById{{#if wantQuery}}, getAll{{ capitalPlural ModelName }}{{/if}}{{#if wantMutation}}, create{{ capital ModelName }}{{/if}} } from '@src/services/{{ firstLower ModelName }}Service';
 import { I{{ capital ModelName }}Ref } from '@fed-schema/Utils/refs';
 
 import { PaginationAndSearchArgs } from 'galactagraph-utils';
@@ -13,8 +13,8 @@ class {{ capital ModelName }}Resolver implements ResolverClass<{{ capital ModelN
   };
 
   {{#if wantQuery}}
-  get = (_source, args: PaginationAndSearchArgs, _context, _info) => {
-    return getAll{{ capitalPlural ModelName }}(args);
+  get = (_source, _args, _context, _info) => {
+    return getAll{{ capitalPlural ModelName }}();
   };
   {{/if}}
 
