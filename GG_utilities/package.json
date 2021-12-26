@@ -1,6 +1,6 @@
 {
   "name": "galactagraph-utils",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -35,7 +35,9 @@
   "dependencies": {
     "@graphql-tools/load-files": "^6.5.2",
     "@graphql-tools/utils": "^8.5.3",
+    "@types/reflect-metadata": "^0.1.0",
     "ansi-regex": "^5.0.1",
+    "apollo-graphql": "^0.9.5",
     "browserslist": "^4.16.5",
     "cli": "^1.0.0",
     "dataloader": "^2.0.0",
@@ -46,6 +48,7 @@
     "graphql-shield": "^7.5.0",
     "jsonwebtoken": "^8.5.1",
     "path-parse": "^1.0.7",
+    "reflect-metadata": "^0.1.13",
     "tmpl": "^1.0.5",
     "ws": "^7.4.6"
   }
