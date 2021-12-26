@@ -1,10 +1,10 @@
 import { QueryResolver, OperationClass } from 'galactagraph-utils/lib/classes';
 
-@QueryResolver('{{ firstLower QueryName }}')
+@QueryResolver('{{ firstLower QueryName }}') // CHANGE THE QUERY RETURN TYPE
 class {{ capital QueryName }}Query implements OperationClass<any> {
   resolve = (_source, _args, _context, _info): Promise<any> => {
     // CHANGE THE TYPINGS AND ADD THE LOGIC!
-    return "WIP"
+    return Promise.resolve(() => 'WIP');
   };
 }
 
