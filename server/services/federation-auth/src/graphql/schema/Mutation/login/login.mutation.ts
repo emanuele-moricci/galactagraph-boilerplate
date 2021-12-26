@@ -7,7 +7,7 @@ import { signToken } from 'galactagraph-utils';
 import {
   MutationResolver,
   OperationClass,
-} from '@src/_decoratorTests/decorators';
+} from 'galactagraph-utils/lib/classes';
 
 @MutationResolver('login')
 class LoginMutation implements OperationClass<LoginPayload> {
@@ -17,17 +17,22 @@ class LoginMutation implements OperationClass<LoginPayload> {
     _context,
     _info
   ): Promise<LoginPayload | null> => {
-    const { userId, email } = await getUserByEmailAndPassword(
-      input.email,
-      input.password
-    );
+    try {
+      const { userId, email } = await getUserByEmailAndPassword(
+        input.email,
+        input.password
+      );
 
-    const token = signToken(
-      { userId, email },
-      process.env.AUTH_JWT_SECRET ?? ''
-    );
+      const token = signToken(
+        { userId, email },
+        process.env.AUTH_JWT_SECRET ?? ''
+      );
 
-    return { token };
+      return { token };
+    } catch (error) {
+      console.error(error);
+      return { token: '' };
+    }
   };
 }
 

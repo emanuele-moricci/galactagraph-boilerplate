@@ -2,7 +2,7 @@ import { User } from '@prisma/client';
 import IApolloServerContext from '@src/config/apolloConfig';
 
 import { getUserById } from '@src/services/userService';
-import { QueryResolver, OperationClass } from '@src/_decoratorTests/decorators';
+import { QueryResolver, OperationClass } from 'galactagraph-utils/lib/classes';
 
 @QueryResolver('me')
 class MeQuery implements OperationClass<User> {

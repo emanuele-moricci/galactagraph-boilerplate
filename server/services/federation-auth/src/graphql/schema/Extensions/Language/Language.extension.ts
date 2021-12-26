@@ -6,11 +6,9 @@ import { IUserRef, ILanguageRef } from '@fed-schema/Utils/refs';
 import {
   ExtensionClass,
   ExtensionResolver,
-} from '@src/_decoratorTests/decorators';
-import {
   ResolveRelationship,
   ConnectRelationship,
-} from '@src/_decoratorTests/extDecorators';
+} from 'galactagraph-utils/lib/classes';
 
 @ExtensionResolver('Language', 'User')
 class LanguageExtension

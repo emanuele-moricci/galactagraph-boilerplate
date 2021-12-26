@@ -7,7 +7,7 @@ import { signToken } from 'galactagraph-utils';
 import {
   MutationResolver,
   OperationClass,
-} from '@src/_decoratorTests/decorators';
+} from 'galactagraph-utils/lib/classes';
 
 @MutationResolver('register')
 class RegisterMutation implements OperationClass<RegisterPayload> {

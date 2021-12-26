@@ -1,5 +1,4 @@
 import path from 'path';
-import 'reflect-metadata';
 
 import { GraphQLResolverMap, addResolversToSchema } from 'apollo-graphql';
 import { buildSubgraphSchema } from '@apollo/subgraph';
@@ -12,10 +11,10 @@ import { applyMiddleware } from 'graphql-middleware';
 import {
   resolvers as commonResolvers,
   commonTypeDefs,
+  configPath,
 } from 'galactagraph-utils';
+import { parseClasses } from 'galactagraph-utils/lib/classes';
 
-import parseClasses from '@src/_decoratorTests/classCompiler';
-import configPath from '@src/_decoratorTests/resolverConfig';
 import IApolloServerContext from '@src/config/apolloConfig';
 
 import permissions from './permissions';
