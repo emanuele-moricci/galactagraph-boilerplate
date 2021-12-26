@@ -11,17 +11,17 @@ import {
 
 @ExtensionResolver('{{ capital external }}', '{{ capital home }}')
 class {{ capital external }}{{ capital home }}Extension
-  implements ExtensionClass<{{ capital external }}, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref>
+  implements ExtensionClass<any, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref> // GENERATE THE TYPE '{{ capital external }}' WITH CODEGEN ON START
 {
 {{#if (or (eq many "homeMany") (eq many "bothMany"))}}
-  @ResolveRelationship({{ firstLowerPlural external }})
+  @ResolveRelationship('{{ firstLowerPlural external }}')
   resolve = ({ {{ firstLowerPlural external }} }: I{{ capital home }}Ref): any[] => // ADD THE EXTERNAL ID LIST TO THE MODEL REF AND RETURN THE '{{ capital external }}[]' EXTERNAL MODELS
     {{ firstLowerPlural external }}.map(id => ({
       __typename: '{{ capital external }}',
       {{ firstLower external }}Id: id,
     }));
 {{else}}
-  @ResolveRelationship({{ firstLower external }})
+  @ResolveRelationship('{{ firstLower external }}')
   resolve = ({ {{ firstLower external }}Id }: I{{ capital home }}Ref): any => ({ // ADD THE EXTERNAL ID TO THE MODEL REF AND RETURN THE '{{ capital external }}' EXTERNAL MODEL
     __typename: '{{ capital external }}',
     {{ firstLower external }}Id,
@@ -29,13 +29,13 @@ class {{ capital external }}{{ capital home }}Extension
 {{/if}}
 
 {{#if (or (eq many "extMany") (eq many "bothMany"))}}
-  @ConnectRelationship({{ firstLowerPlural home }})
+  @ConnectRelationship('{{ firstLowerPlural home }}')
   connect = ({ {{ firstLower external }}IdId }: I{{ capital external }}IdRef): Promise<{{ capital home}}[]> => {
     // ADD YOUR RESOLVER LOGIC HERE
   };
 {{else}}
-  @ConnectRelationship({{ firstLower home }})
-  connect = ({ {{ firstLower external }}Id }: I{{ capital external }}Ref): Promise<{{ capital home }}> => {
+  @ConnectRelationship('{{ firstLower home }}')
+  connect = ({ {{ firstLower external }}Id }: I{{ capital external }}Ref): Promise<{{ capital home }} | null> => {
     // ADD YOUR RESOLVER LOGIC HERE
   };
 {{/if}}
