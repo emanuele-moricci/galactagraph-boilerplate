@@ -11,7 +11,7 @@ import {
 } from 'galactagraph-utils/lib/classes';
 
 @ExtensionResolver('Language', 'User')
-class LanguageExtension
+class LanguageUserExtension
   implements ExtensionClass<Language, ILanguageRef, User, IUserRef>
 {
   @ResolveRelationship('language')
@@ -26,4 +26,4 @@ class LanguageExtension
   };
 }
 
-export default new LanguageExtension();
+export default new LanguageUserExtension();

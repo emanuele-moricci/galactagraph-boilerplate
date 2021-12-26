@@ -4,9 +4,9 @@ import {
   getAllLanguages,
   getLanguageById,
 } from '@src/services/languageService';
+import { ILanguageRef } from '../../Utils/refs';
 
 import { ResolverClass, ModelResolver } from 'galactagraph-utils/lib/classes';
-import { ILanguageRef } from '../../Utils/refs';
 
 @ModelResolver('Language')
 class LanguageResolver implements ResolverClass<Language, ILanguageRef> {

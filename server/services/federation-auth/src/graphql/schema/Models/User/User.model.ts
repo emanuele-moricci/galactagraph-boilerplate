@@ -1,10 +1,10 @@
 import { User } from '@prisma/client';
 
 import { getAllUsers, getUserById } from '@src/services/userService';
+import { IUserRef } from '../../Utils/refs';
 
 import { PaginationAndSearchArgs } from 'galactagraph-utils';
 import { ResolverClass, ModelResolver } from 'galactagraph-utils/lib/classes';
-import { IUserRef } from '../../Utils/refs';
 
 @ModelResolver('User')
 class UserResolver implements ResolverClass<User, IUserRef> {
