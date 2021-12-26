@@ -168,14 +168,20 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${schemaPath}/Query/query.resolver.ts`,
-        templateFile: `${__dirname}/src/graphql/Service.query.resolver.ts.hbs`,
+        path: `${schemaPath}/Query/.gitkeep`,
+        templateFile: `${__dirname}/src/graphql/Service.gitkeep.hbs`,
         abortOnFail: true,
       },
       {
         type: "add",
-        path: `${schemaPath}/Mutation/mutation.resolver.ts`,
-        templateFile: `${__dirname}/src/graphql/Service.mutation.resolver.ts.hbs`,
+        path: `${schemaPath}/Mutation/.gitkeep`,
+        templateFile: `${__dirname}/src/graphql/Service.gitkeep.hbs`,
+        abortOnFail: true,
+      },
+      {
+        type: "add",
+        path: `${schemaPath}/Extensions/.gitkeep`,
+        templateFile: `${__dirname}/src/graphql/Service.gitkeep.hbs`,
         abortOnFail: true,
       },
       {
