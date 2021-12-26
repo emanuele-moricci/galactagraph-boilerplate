@@ -73,7 +73,7 @@
     "dotenv-cli": "^4.0.0",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
-    "galactagraph-utils": "./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz",
+    "galactagraph-utils": "./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz",
     "graphql": "^15.5.0",
     "graphql-middleware": "^6.1.13",
     "graphql-scalars": "^1.12.0",
