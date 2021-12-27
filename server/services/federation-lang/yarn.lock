@@ -1744,6 +1744,13 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
+"@types/reflect-metadata@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/reflect-metadata/-/reflect-metadata-0.1.0.tgz#592805bdf6d63dd7229773218afeba37ac2eab16"
+  integrity sha512-bXltFLY3qhzCnVYP5iUpeSICagQ8rc9K2liS+8M0lBcz54BHs3O6W5UvqespVSuebo1BXLi+/y9ioELAW9SC2A==
+  dependencies:
+    reflect-metadata "*"
+
 "@types/serve-static@*":
   version "1.13.10"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.10.tgz#f5e0ce8797d2d7cc5ebeda48a52c96c4fa47a8d9"
@@ -4062,13 +4069,15 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz:
-  version "1.1.0"
-  resolved "./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz#7432a76118ef7f6342fb28dc6bdb87b00504298e"
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz:
+  version "2.0.0"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz#8609f81eb18ba914cf578141fa9960ba916eff15"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
+    "@types/reflect-metadata" "^0.1.0"
     ansi-regex "^5.0.1"
+    apollo-graphql "^0.9.5"
     browserslist "^4.16.5"
     cli "^1.0.0"
     dataloader "^2.0.0"
@@ -4079,6 +4088,30 @@ galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz:
     graphql-shield "^7.5.0"
     jsonwebtoken "^8.5.1"
     path-parse "^1.0.7"
+    reflect-metadata "^0.1.13"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
+
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz:
+  version "2.0.1"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz#f7867d1ce11dc5e76502b7389d2af4dea659aa2a"
+  dependencies:
+    "@graphql-tools/load-files" "^6.5.2"
+    "@graphql-tools/utils" "^8.5.3"
+    "@types/reflect-metadata" "^0.1.0"
+    ansi-regex "^5.0.1"
+    apollo-graphql "^0.9.5"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "^15.0.0"
+    graphql-middleware "^6.1.13"
+    graphql-rate-limit-directive "^2.0.0"
+    graphql-scalars "1.12.0"
+    graphql-shield "^7.5.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    reflect-metadata "^0.1.13"
     tmpl "^1.0.5"
     ws "^7.4.6"
 
@@ -4332,11 +4365,6 @@ graphql-ws@^5.4.1:
   version "5.5.5"
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.5.5.tgz#f375486d3f196e2a2527b503644693ae3a8670a9"
   integrity sha512-hvyIS71vs4Tu/yUYHPvGXsTgo0t3arU820+lT5VjZS2go0ewp2LqyCgxEN56CzOG7Iys52eRhHBiD1gGRdiQtw==
-
-graphql@15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.3.tgz#c72349017d5c9f5446a897fe6908b3186db1da00"
-  integrity sha512-sM+jXaO5KinTui6lbK/7b7H/Knj9BpjGxZ+Ki35v7YbUJxxdBCUqNM0h3CRVU1ZF9t5lNiBzvBCSYPvIwxPOQA==
 
 graphql@^15.0.0, graphql@^15.5.0:
   version "15.8.0"
@@ -6731,6 +6759,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+reflect-metadata@*, reflect-metadata@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
+  integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
 regenerator-runtime@^0.13.4:
   version "0.13.9"

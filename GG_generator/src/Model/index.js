@@ -64,13 +64,13 @@ module.exports = {
     const modelPath = `${componentPath}/${capitalizedModelName}`;
 
     /**
-     * Adds the main Model Class, under 'graphql/schema/Models/<MODEL_NAME>.graphql' and 'graphql/schema/Models/<MODEL_NAME>.resolver.ts' and 'graphql/schema/Models/<MODEL_NAME>.reference.ts'
+     * Adds the main Model Class, under 'graphql/schema/Models/<MODEL_NAME>.graphql' and 'graphql/schema/Models/<MODEL_NAME>.model.ts''
      * Also adds the Model Service, under 'services/<MODEL_NAME>service.ts'
      * Also adds the Prisma Model, under 'prisma/schema.prisma' and migrates it automatically
      *
      */
     const actions = [
-      // GraphQL/TS resolvers&Types
+      // GraphQL/TS models&Types
       {
         type: "add",
         path: `${modelPath}/${capitalizedModelName}.graphql`,
@@ -79,14 +79,8 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${modelPath}/${capitalizedModelName}.resolver.ts`,
+        path: `${modelPath}/${capitalizedModelName}.model.ts`,
         templateFile: `${__dirname}/components/Model.resolver.ts.hbs`,
-        abortOnFail: true,
-      },
-      {
-        type: "add",
-        path: `${modelPath}/${capitalizedModelName}.reference.ts`,
-        templateFile: `${__dirname}/components/Model.reference.ts.hbs`,
         abortOnFail: true,
       },
       {

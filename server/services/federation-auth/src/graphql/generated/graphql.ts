@@ -24,7 +24,6 @@ export type Scalars = {
 
 
 
-
 export type Language = {
   __typename?: 'Language';
   languageId: Scalars['ID'];
@@ -255,11 +254,6 @@ export type ExtendsDirectiveArgs = {  };
 
 export type ExtendsDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = ExtendsDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type RateLimitDirectiveArgs = {   limit?: Scalars['Int'];
-  duration?: Scalars['Int']; };
-
-export type RateLimitDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = RateLimitDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
@@ -338,7 +332,6 @@ export type IResolvers<ContextType = IPrismaContext> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = IPrismaContext> = ResolversObject<{
   auth?: AuthDirectiveResolver<any, any, ContextType>;
   extends?: ExtendsDirectiveResolver<any, any, ContextType>;
-  rateLimit?: RateLimitDirectiveResolver<any, any, ContextType>;
 }>;
 
 

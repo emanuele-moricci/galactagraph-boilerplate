@@ -54,7 +54,7 @@ module.exports = {
     const queryPath = `${rootPath}/${firstLowerQueryName}`;
 
     /**
-     * Adds the main Query Class, under 'graphql/schema/Query/<MODEL_NAME>/<MODEL_NAME>.graphql' and 'graphql/schema/Query/<MODEL_NAME>/<MODEL_NAME>.resolver.ts'
+     * Adds the main Query Class, under 'graphql/schema/Query/<MODEL_NAME>/<MODEL_NAME>.graphql' and 'graphql/schema/Query/<MODEL_NAME>/<MODEL_NAME>.query.ts'
      *
      */
     const actions = [
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${queryPath}/${firstLowerQueryName}.resolver.ts`,
+        path: `${queryPath}/${firstLowerQueryName}.query.ts`,
         templateFile: `${__dirname}/Query.resolver.ts.hbs`,
         abortOnFail: true,
       },

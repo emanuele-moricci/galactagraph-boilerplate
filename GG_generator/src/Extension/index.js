@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${firstServicePath}/Extensions/${secondModel}/${secondModel}.resolver.ts`,
+        path: `${firstServicePath}/Extensions/${secondModel}/${secondModel}.extension.ts`,
         templateFile: `${__dirname}/Extension.resolver.ts.hbs`,
         abortOnFail: true,
         data: {

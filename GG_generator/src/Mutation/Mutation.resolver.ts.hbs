@@ -1,12 +1,39 @@
-const resolver = {
-  Mutation: {
-    {{ firstLower MutationName }}: {
-      resolve: async (_, { input }): Promise<any> => {
-        // CHANGE THE RETURN TYPE AND ADD THE LOGIC!
-        return "WIP"
-      },
-    },
-  },
-};
+// import { {{ capital MutationName }}Input, {{ capital MutationName }}Payload } from '@src/graphql/generated/graphql';
 
-export default resolver;
+import {
+  MutationResolver,
+  OperationClass,
+} from 'galactagraph-utils/lib/classes';
+
+/**
+ * `{{ capital MutationName }} Mutation`
+ *
+ * The Class resolver for the `{{ capital MutationName }}` mutation.
+ *
+ * It uses the @MutationResolver decorator to define the `mutation` logics for the Class.
+ *
+ * @interface `OperationClass<any>`
+ * @class `{{ capital MutationName }}Mutation`
+ *
+ * @method `resolve` - The method used to resolve the `{{ capital MutationName }}` mutation logics.
+ */
+@MutationResolver('{{ firstLower MutationName }}')
+class {{ capital MutationName }}Mutation implements OperationClass<any> {
+  resolve = async (
+    _source,
+    { input }: { input: any },
+    _context,
+    _info
+  ): Promise<any> => {
+    try {
+      // CHANGE THE TYPINGS AND ADD THE LOGIC!
+
+      return 'Success!';
+    } catch (error) {
+      console.error(error);
+      return 'Error!';
+    }
+  };
+}
+
+export default new {{ capital MutationName }}Mutation();

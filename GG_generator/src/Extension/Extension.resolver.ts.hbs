@@ -2,31 +2,56 @@ import { {{ capital home }} } from '@prisma/client';
 // import { {{ capital external }} } from '@src/graphql/generated/graphql'; // GENERATE THE TYPE WITH CODEGEN ON START
 import { I{{ capital home }}Ref, I{{ capital external }}Ref } from '@fed-schema/Utils/refs';
 
-const resolver = {
-  {{ capital home }}: {
+import {
+  ExtensionClass,
+  ExtensionResolver,
+  ResolveRelationship,
+  ConnectRelationship,
+} from 'galactagraph-utils/lib/classes';
+
+/**
+ * `{{ capital external }}-{{ capital home }} Extension`
+ *
+ * The Class resolver for the `{{ capital external }}-{{ capital home }}` extension.
+ *
+ * It uses the @ExtensionResolver decorator to define the `extension` logics for the Class.
+ *
+ * @interface `ExtensionClass<any, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref>`
+ * @class `{{ capital external }}{{ capital home }}Extension`
+ *
+ * @method `resolve` - The method used to resolve the `{{ capital external }}` model in the `{{ capital home }}` model.
+ * @method `connect` - The method used to connect the `{{ capital home }}` model to the `{{ capital external }}` model.
+ */
+@ExtensionResolver('{{ capital external }}', '{{ capital home }}')
+class {{ capital external }}{{ capital home }}Extension
+  implements ExtensionClass<any, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref> // GENERATE THE TYPE '{{ capital external }}' WITH CODEGEN ON START
+{
 {{#if (or (eq many "homeMany") (eq many "bothMany"))}}
-    {{ firstLowerPlural external }}: ({ {{ firstLowerPlural external }} }: I{{ capital home }}Ref): any[] => // ADD THE EXTERNAL ID TO THE MODEL REF AND RETURN THE '{{ capital external }}' EXTERNAL MODEL
-      {{ firstLowerPlural external }}.map(id => ({
-        __typename: '{{ capital external }}',
-        {{ firstLower external }}Id: id,
-      })),
-{{else}}
-    {{ firstLower external }}: ({ {{ firstLower external }}Id }: I{{ capital home }}Ref): any => ({ // ADD THE EXTERNAL ID TO THE MODEL REF AND RETURN THE '{{ capital external }}' EXTERNAL MODEL
+  @ResolveRelationship('{{ firstLowerPlural external }}')
+  resolve = ({ {{ firstLowerPlural external }} }: I{{ capital home }}Ref): any[] => // ADD THE EXTERNAL ID LIST TO THE MODEL REF AND RETURN THE '{{ capital external }}[]' EXTERNAL MODELS
+    {{ firstLowerPlural external }}.map(id => ({
       __typename: '{{ capital external }}',
-      {{ firstLower external }}Id: {{ firstLower external }}Id,
-    }),
-{{/if}}
-  },
-  {{ capital external }}: {
-{{#if (or (eq many "extMany") (eq many "bothMany"))}}
-    {{ firstLowerPlural home }}: async ({ {{ firstLower external }}IdId }: I{{ capital external }}IdRef): Promise<{{ capital home}}[]> => {
-      // ADD YOUR RESOLVER LOGIC HERE
-    },
+      {{ firstLower external }}Id: id,
+    }));
 {{else}}
-    {{ firstLower home }}: async ({ {{ firstLower external }}Id }: I{{ capital external }}Ref): Promise<{{ capital home }}> => {
-      // ADD YOUR RESOLVER LOGIC HERE
-    },
+  @ResolveRelationship('{{ firstLower external }}')
+  resolve = ({ {{ firstLower external }}Id }: I{{ capital home }}Ref): any => ({ // ADD THE EXTERNAL ID TO THE MODEL REF AND RETURN THE '{{ capital external }}' EXTERNAL MODEL
+    __typename: '{{ capital external }}',
+    {{ firstLower external }}Id,
+  });
 {{/if}}
-  },
-};
-export default resolver;
+
+{{#if (or (eq many "extMany") (eq many "bothMany"))}}
+  @ConnectRelationship('{{ firstLowerPlural home }}')
+  connect = ({ {{ firstLower external }}IdId }: I{{ capital external }}IdRef): Promise<{{ capital home}}[]> => {
+    // ADD YOUR RESOLVER LOGIC HERE
+  };
+{{else}}
+  @ConnectRelationship('{{ firstLower home }}')
+  connect = ({ {{ firstLower external }}Id }: I{{ capital external }}Ref): Promise<{{ capital home }} | null> => {
+    // ADD YOUR RESOLVER LOGIC HERE
+  };
+{{/if}}
+}
+
+export default new {{ capital external }}{{ capital home }}Extension();

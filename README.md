@@ -50,12 +50,13 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 8. [How to Test](#how-to-test)
 9. [How-To Guides](#how-to-guides)
 10. [Migrating versions](#migrating-versions)
-    - [v.2.0.0](#v200)
-    - [v.3.0.0](#v300)
-    - [v.3.0.5](#v305)
-    - [v.4.0.0](#v400)
-    - [v.5.0.0](#v500)
-    - [v.6.0.0](#v600)
+    - [v 2.0.0](#v200)
+    - [v 3.0.0](#v300)
+    - [v 3.0.5](#v305)
+    - [v 4.0.0](#v400)
+    - [v 5.0.0](#v500)
+    - [v 6.0.0](#v600)
+    - [v 7.0.0](#v700)
 11. [License](#license)
 
 </h3>
@@ -65,7 +66,7 @@ This boilerplate is designed to get you up-and-running with GraphQL+Apollo Feder
 
 ---
 
-GalactaGraph is an Apollo Federation boilerplate that aims to reduce the countless hours spent setting up and bootstrapping a NodeJS+GraphQL application with a Federated Schema.
+GalactaGraph is an Apollo Federation boilerplate that aims to reduce the countless hours spent setting up and bootstrapping a `NodeJS + GraphQL` application with a Federated Schema.
 
 It is designed to be used with the [Prisma](https://www.prisma.io) ORM and a Postgres database, and offers typescript generation at runtime using [GraphQL Codegen](https://www.graphql-code-generator.com/).
 
@@ -142,31 +143,30 @@ server/
 
 ########### MICRO-SERVICE
 federation-service/
-|
+│
 ├─── prisma/    # The prisma config+seeders goes here!
-|    ├─── db/
-|    |    ├─── seeders/...
-|    |    └─── seeder.ts
-|    └─── schema.prisma
+│    ├─── db/
+│    │    ├─── seeders/...
+│    │    └─── seeder.ts
+│    └─── schema.prisma
 ├─── src/       # Main starting-point for the micro-service
-|    ├─── __tests__/...
-|    ├─── config/...
-|    ├─── graphql/       # The service main structure
-|    |    ├─── generated/...
-|    |    └─── schema/   # Collection of Models/Resolvers
-|    |         ├─── Extensions/ # Here you can link models from different subgraphs
-|    |         ├─── Models/
-|    |         |    ├─── ExampleModel/
-|    |         |    |    ├─── ExampleModel.graphql
-|    |         |    |    ├─── ExampleModel.reference.ts
-|    |         |    |    └─── ExampleModel.resolver.ts
-|    |         |    └─── entry.graphql
-|    |         ├─── Mutation/...
-|    |         ├─── Query/...
-|    |         ├─── Utils/...
-|    |         ├─── permissions.ts
-|    |         └─── schema.ts
-|    └─── services/...   # Business Logic and Data-Access
+│    ├─── __tests__/...
+│    ├─── config/...
+│    ├─── graphql/       # The service main structure
+│    │    ├─── generated/...
+│    │    └─── schema/   # Collection of Models/Resolvers
+│    │         ├─── Extensions/ # Here you can link models from different subgraphs
+│    │         ├─── Models/
+│    │         │    ├─── ExampleModel/
+│    │         │    │    ├─── ExampleModel.graphql
+│    │         │    │    └─── ExampleModel.model.ts
+│    │         │    └─── entry.graphql
+│    │         ├─── Mutation/...
+│    │         ├─── Query/...
+│    │         ├─── Utils/...
+│    │         ├─── permissions.ts
+│    │         └─── schema.ts
+│    └─── services/...   # Business Logic and Data-Access
 └─── configuration files...
 ```
 
@@ -220,13 +220,22 @@ The boilerplate comes pre-configured with a <code>federation-auth</code> and <co
 
 <br />
 
-### 🛂 **_Built-in Authorization_** [V. 5.0.0]
+### 🛂 **_Built-in Authorization_** [V. 6.0.0]
 
 <p style=margin-left:20px>
 The boilerplate has the <code>graphql-shield</code> already configured and injected in every service that let's you easily add authorization to your GraphQL API using the handy <code>permissions.ts</code> file! The logics are already set-up to recognize if a user is authenticated, giving you the immediate freedom of securing your models, queries and mutations behind a strong authorization layer.
 </p>
 
 > If you want to learn more about graphql-shield, go [here](https://www.graphql-shield.com/).
+
+<br />
+
+### 🔰 **_Opinionated Class-Based file structure for resolvers_** [V. 7.0.0]
+
+<p style=margin-left:20px>
+This project comes with a very opinionated file structure for the resolvers that will be parsed and used by the Apollo GraphQL library.
+The trade-off is that the resolvers will need to be labeled with specific extensions (namely `.model.ts`, `.query.ts`, `.mutation.ts` and `.extension.ts`) and be written in a specific way, but this allows for a much better defined and undersandable structure, that still leaves room for customization and improvements.
+</p>
 
 <br />
 
@@ -504,6 +513,25 @@ The migration from `v5.0.0` to `v6.0.0` solves tons of issues with the previous 
 - Add the new `permissions.ts` file to every service and code your custom authorization rules.
 - Extrapolate the `__resolveReference` functions to their own `.reference.ts` file (needed to make graphql-shield work correctly).
 - Check your `Dockerfile`, `docker-compose.yaml` and `schema.ts` files for differences. Same thing with the package.json files. Rebuild every solution to make sure that everything is up-to-date.
+
+<br />
+
+### v7.0.0
+
+The migration from `v6.0.0` to `v7.0.0` restricts the GalactaGraph boilerplate to use an opinionated Class-Based structure for its resolvers.
+<br /> Let's see how to upgrade:
+
+> The new version has several changes, so we'd suggest you to check your codebase and the boilerplate with a DIFF tool to avoid missing some stuff
+
+- You can safely copy and paste over the generator package
+- You can safely copy and paste over the utilities package
+- Re-install the `federation-utils` package in every micro-service from the new source (fire up the command `yarn publish:local` from the package)
+- Check every `.resolver.ts` file and:
+  - Change their extension to `.model.ts`, `.query.ts`, `.mutation.ts` or `.extension.ts` depending on their function
+  - Change their code to match the new `Class-Based` structure. You can look at the examples or generate an example entity with the generator to see how it's done.
+  - Remove every `.reference.ts` files. We don't need'em anymore.
+- Check and update every `schema.ts` file to match the new version.
+- **[OPTIONAL]** Extract every generic query or mutation from the generic Query and Mutation folders into their own sub-folders, for clarity.
 
 <br />
 

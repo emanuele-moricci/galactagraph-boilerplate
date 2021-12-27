@@ -24,7 +24,6 @@ export type Scalars = {
 
 
 
-
 /** The Language Model: stores all of the configured languages for the platform */
 export type Language = {
   __typename?: 'Language';
@@ -154,7 +153,6 @@ export type ResolversTypes = ResolversObject<{
   _Any: ResolverTypeWrapper<Scalars['_Any']>;
   _Entity: ResolversTypes['Language'];
   _Service: ResolverTypeWrapper<_Service>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -168,7 +166,6 @@ export type ResolversParentTypes = ResolversObject<{
   _Any: Scalars['_Any'];
   _Entity: ResolversParentTypes['Language'];
   _Service: _Service;
-  Int: Scalars['Int'];
 }>;
 
 export type AuthDirectiveArgs = {  };
@@ -178,11 +175,6 @@ export type AuthDirectiveResolver<Result, Parent, ContextType = IPrismaContext, 
 export type ExtendsDirectiveArgs = {  };
 
 export type ExtendsDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = ExtendsDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type RateLimitDirectiveArgs = {   limit?: Scalars['Int'];
-  duration?: Scalars['Int']; };
-
-export type RateLimitDirectiveResolver<Result, Parent, ContextType = IPrismaContext, Args = RateLimitDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
@@ -236,7 +228,6 @@ export type IResolvers<ContextType = IPrismaContext> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = IPrismaContext> = ResolversObject<{
   auth?: AuthDirectiveResolver<any, any, ContextType>;
   extends?: ExtendsDirectiveResolver<any, any, ContextType>;
-  rateLimit?: RateLimitDirectiveResolver<any, any, ContextType>;
 }>;
 
 

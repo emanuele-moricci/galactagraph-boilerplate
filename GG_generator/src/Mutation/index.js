@@ -54,7 +54,7 @@ module.exports = {
     const mutationPath = `${rootPath}/${firstLowerMutationName}`;
 
     /**
-     * Adds the main Mutation Class, under 'graphql/schema/Mutation/<MODEL_NAME>/<MODEL_NAME>.graphql' and 'graphql/schema/Mutation/<MODEL_NAME>/<MODEL_NAME>.resolver.ts'
+     * Adds the main Mutation Class, under 'graphql/schema/Mutation/<MODEL_NAME>/<MODEL_NAME>.graphql' and 'graphql/schema/Mutation/<MODEL_NAME>/<MODEL_NAME>.mutation.ts'
      *
      */
     const actions = [
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         type: "add",
-        path: `${mutationPath}/${firstLowerMutationName}.resolver.ts`,
+        path: `${mutationPath}/${firstLowerMutationName}.mutation.ts`,
         templateFile: `${__dirname}/Mutation.resolver.ts.hbs`,
         abortOnFail: true,
       },
