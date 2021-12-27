@@ -4357,13 +4357,15 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz:
-  version "1.1.0"
-  resolved "./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz#7432a76118ef7f6342fb28dc6bdb87b00504298e"
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz:
+  version "2.0.0"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz#8609f81eb18ba914cf578141fa9960ba916eff15"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"
+    "@types/reflect-metadata" "^0.1.0"
     ansi-regex "^5.0.1"
+    apollo-graphql "^0.9.5"
     browserslist "^4.16.5"
     cli "^1.0.0"
     dataloader "^2.0.0"
@@ -4374,12 +4376,13 @@ galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v1.1.0.tgz:
     graphql-shield "^7.5.0"
     jsonwebtoken "^8.5.1"
     path-parse "^1.0.7"
+    reflect-metadata "^0.1.13"
     tmpl "^1.0.5"
     ws "^7.4.6"
 
-galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz:
-  version "2.0.0"
-  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz#8609f81eb18ba914cf578141fa9960ba916eff15"
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz:
+  version "2.0.1"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz#f7867d1ce11dc5e76502b7389d2af4dea659aa2a"
   dependencies:
     "@graphql-tools/load-files" "^6.5.2"
     "@graphql-tools/utils" "^8.5.3"

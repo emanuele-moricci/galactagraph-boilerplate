@@ -9,6 +9,18 @@ import {
   OperationClass,
 } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `Register Mutation`
+ *
+ * The Class resolver for the `Register` mutation.
+ *
+ * It uses the @MutationResolver decorator to define the `mutation` logics for the Class.
+ *
+ * @interface `OperationClass<RegisterPayload>`
+ * @class `RegisterMutation`
+ *
+ * @method `resolve` - The method used to resolve the `Register` mutation logics.
+ */
 @MutationResolver('register')
 class RegisterMutation implements OperationClass<RegisterPayload> {
   resolve = async (

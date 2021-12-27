@@ -6,6 +6,20 @@ import { IUserRef } from '../../Utils/refs';
 import { PaginationAndSearchArgs } from 'galactagraph-utils';
 import { ResolverClass, ModelResolver } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `User Resolver`
+ *
+ * The Class resolver for the `User` model.
+ *
+ * It uses the @ModelResolver decorator to define the `model` logics for the Class.
+ *
+ * @interface `ResolverClass<User, IUserRef>`
+ * @class `UserResolver`
+ *
+ * @method `reference` - The method used to resolve the `User` Model reference.
+ * @method `get` - The method used to get the list of every `User` Model.
+ * @method `password` - The method used to hide the password from every `User` query.
+ */
 @ModelResolver('User')
 class UserResolver implements ResolverClass<User, IUserRef> {
   reference = ({ userId }: IUserRef) => {

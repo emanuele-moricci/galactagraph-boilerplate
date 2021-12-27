@@ -75,13 +75,19 @@ const parseExtensionResolver = (model: ExtensionClass<any, any>): any => {
   const resolve = Reflect.getMetadata('resolver:resolve', model);
   const connect = Reflect.getMetadata('resolver:connect', model);
 
+  const connectObj = connect
+    ? {
+        [left]: {
+          [connect]: model.connect,
+        },
+      }
+    : {};
+
   return {
     [right]: {
       [resolve]: model.resolve,
     },
-    [left]: {
-      [connect]: model.connect,
-    },
+    ...connectObj,
   };
 };
 
@@ -97,8 +103,22 @@ const parseModelReference = (
   };
 };
 
+/**
+ * Function takes every class file and parses them
+ * into the required resolvers objects readable by the Apollo GraphQL library.
+ * Allowed extension names:
+ * - `.model.ts`      => ResolverClass<T, TRef>
+ * - `.query.ts`      => OperationClass<T>
+ * - `.mutation.ts`   => OperationClass<T>
+ * - `.extension.ts`  => ExtensionClass<T1, T1Ref, T2, T2Ref>
+ *
+ * @param {PaginationAndSearchArgs} models - The pagination and search arguments.
+ *
+ * @function parseClasses.
+ * @returns {ParsedResponse} The object containing every parsed class.
+ */
 const parseClasses = (
-  models: ResolverClass[] | OperationClass[] | ExtensionClass[]
+  models: (ResolverClass | OperationClass | ExtensionClass)[]
 ): ParsedResponse => {
   const parsedModels: any = [];
   const parsedQueries: any = [];

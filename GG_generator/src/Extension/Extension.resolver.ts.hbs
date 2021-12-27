@@ -9,6 +9,19 @@ import {
   ConnectRelationship,
 } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `{{ capital external }}-{{ capital home }} Extension`
+ *
+ * The Class resolver for the `{{ capital external }}-{{ capital home }}` extension.
+ *
+ * It uses the @ExtensionResolver decorator to define the `extension` logics for the Class.
+ *
+ * @interface `ExtensionClass<any, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref>`
+ * @class `{{ capital external }}{{ capital home }}Extension`
+ *
+ * @method `resolve` - The method used to resolve the `{{ capital external }}` model in the `{{ capital home }}` model.
+ * @method `connect` - The method used to connect the `{{ capital home }}` model to the `{{ capital external }}` model.
+ */
 @ExtensionResolver('{{ capital external }}', '{{ capital home }}')
 class {{ capital external }}{{ capital home }}Extension
   implements ExtensionClass<any, I{{ capital external }}Ref, {{ capital home }}, I{{ capital home }}Ref> // GENERATE THE TYPE '{{ capital external }}' WITH CODEGEN ON START

@@ -6,6 +6,20 @@ import { I{{ capital ModelName }}Ref } from '@fed-schema/Utils/refs';
 import { PaginationAndSearchArgs } from 'galactagraph-utils';
 import { ResolverClass, ModelResolver } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `{{ capital ModelName }} Resolver`
+ *
+ * The Class resolver for the `{{ capital ModelName }}` model.
+ *
+ * It uses the @ModelResolver decorator to define the `model` logics for the Class.
+ *
+ * @interface `ResolverClass<{{ capital ModelName }}, I{{ capital ModelName }}Ref>`
+ * @class `{{ capital ModelName }}Resolver`
+ *
+ * @method `reference` - The method used to resolve the `{{ capital ModelName }}` Model reference.
+ {{#if wantQuery}}* @method `get` - The method used to get the list of every `{{ capital ModelName }}` Model.{{/if}}
+ {{#if wantMutation}}* @method `set` - The method used to create a `{{ capital ModelName }}` Model.{{/if}}
+ */
 @ModelResolver('{{ capital ModelName }}')
 class {{ capital ModelName }}Resolver implements ResolverClass<{{ capital ModelName }}, I{{ capital ModelName }}Ref> {
   reference = ({ {{ firstLower ModelName }}Id }: I{{ capital ModelName }}Ref) => {

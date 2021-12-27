@@ -4092,6 +4092,29 @@ galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.0.tgz:
     tmpl "^1.0.5"
     ws "^7.4.6"
 
+galactagraph-utils@./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz:
+  version "2.0.1"
+  resolved "./bin/galactagraph-utils/galactagraph-utils-v2.0.1.tgz#f7867d1ce11dc5e76502b7389d2af4dea659aa2a"
+  dependencies:
+    "@graphql-tools/load-files" "^6.5.2"
+    "@graphql-tools/utils" "^8.5.3"
+    "@types/reflect-metadata" "^0.1.0"
+    ansi-regex "^5.0.1"
+    apollo-graphql "^0.9.5"
+    browserslist "^4.16.5"
+    cli "^1.0.0"
+    dataloader "^2.0.0"
+    graphql "^15.0.0"
+    graphql-middleware "^6.1.13"
+    graphql-rate-limit-directive "^2.0.0"
+    graphql-scalars "1.12.0"
+    graphql-shield "^7.5.0"
+    jsonwebtoken "^8.5.1"
+    path-parse "^1.0.7"
+    reflect-metadata "^0.1.13"
+    tmpl "^1.0.5"
+    ws "^7.4.6"
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"

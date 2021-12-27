@@ -1,5 +1,17 @@
 import { QueryResolver, OperationClass } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `{{ capital QueryName }} Query`
+ *
+ * The Class resolver for the `{{ capital QueryName }}` query.
+ *
+ * It uses the @QueryResolver decorator to define the `query` logics for the Class.
+ *
+ * @interface `OperationClass<any>`
+ * @class `{{ capital QueryName }}Query`
+ *
+ * @method `resolve` - The method used to resolve the `{{ capital QueryName }}` query logics.
+ */
 @QueryResolver('{{ firstLower QueryName }}')
 class {{ capital QueryName }}Query implements OperationClass<any> {
   resolve = (_source, _args, _context, _info): Promise<any> => {

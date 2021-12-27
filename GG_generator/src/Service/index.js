@@ -159,6 +159,9 @@ module.exports = {
         path: `${schemaPath}/schema.ts`,
         templateFile: `${__dirname}/src/graphql/Service.schema.ts.hbs`,
         abortOnFail: true,
+        data: {
+          parsedServiceName: serviceName,
+        },
       },
       {
         type: "add",

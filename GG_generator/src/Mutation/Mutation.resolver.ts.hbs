@@ -5,6 +5,18 @@ import {
   OperationClass,
 } from 'galactagraph-utils/lib/classes';
 
+/**
+ * `{{ capital MutationName }} Mutation`
+ *
+ * The Class resolver for the `{{ capital MutationName }}` mutation.
+ *
+ * It uses the @MutationResolver decorator to define the `mutation` logics for the Class.
+ *
+ * @interface `OperationClass<any>`
+ * @class `{{ capital MutationName }}Mutation`
+ *
+ * @method `resolve` - The method used to resolve the `{{ capital MutationName }}` mutation logics.
+ */
 @MutationResolver('{{ firstLower MutationName }}')
 class {{ capital MutationName }}Mutation implements OperationClass<any> {
   resolve = async (
