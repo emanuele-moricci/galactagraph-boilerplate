@@ -24,17 +24,14 @@ Here you can find some cool examples on how to navigate around the GraphQL Apoll
 
 <h3>
 
-- [Welcome to the GalactaGraph How-To Documentation!](#welcome-to-the-galactagraph-how-to-documentation)
-        - [Created by Emanuele Moricci with ❤️ and 🍕](#created-by-emanuele-moricci-with-️-and-)
-  - [Index](#index)
-  - [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
-  - [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
-    - [QUERY GENERATOR](#query-generator)
-    - [MUTATION GENERATOR](#mutation-generator)
-  - [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
-  - [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
-  - [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
-  - [Do's and Don'ts](#dos-and-donts)
+- [How to Create a Service with a Model](#how-to-create-a-service-with-a-model)
+- [How to Create a Query or Mutation](#how-to-create-a-query-or-mutation)
+  - [QUERY GENERATOR](#query-generator)
+  - [MUTATION GENERATOR](#mutation-generator)
+- [How to link two models in the same subgraph](#how-to-link-two-models-in-the-same-subgraph)
+- [How to link two models from different subgraphs](#how-to-link-two-models-from-different-subgraphs)
+- [Some drawbacks of the Federation structure](#some-drawbacks-of-the-federation-structure)
+- [Do's and Don'ts](#dos-and-donts)
 
 </h3>
 
@@ -79,25 +76,27 @@ model User {
 ```
 
 In the `schema/Models` you'll find the new folder with the configured Model schema, a resolver file and a reference file. The files will change depending on what you choose in the generator wizard. You can choose to have a pre-made 'getAll' query, 'create' mutation and unit&integration tests to cover your changes.
-<br /> This is an example of the reference file. It contains the resolver that links the newly generated model with the whole Graph.
+<br /> This is an example of the `User Model Class` file. It contains the resolver that links the newly generated model with the whole Graph and a handy function to get the list of every user in the database.
 
 ```typescript
-
 ...
 
-const reference = {
-  ...
-  User: {
-    __resolveReference: async ({ userId }: IUserRef): Promise<User | null> => {
-      return getUserById(parseInt(userId));
-    },
-  },
-  ...
-};
+@ModelResolver('User')
+class UserResolver implements ResolverClass<User, IUserRef> {
+  reference = ({ userId }: IUserRef) => {
+    return getUserById(parseInt(userId));
+  };
 
-export default reference;
+  get = (_source, args, _context, _info) => {
+    return getAllUsers(args);
+  };
 
+  set = (_source, args, _context, _info) => {
+    return createUser(args);
+  };
+}
 
+export default new UserResolver();
 ```
 
 <br />
@@ -112,6 +111,8 @@ The project uses `graphql-tools` to merge schemas and resolvers together automat
 2. Now we can fire up our CLI with `galactagraph-generator` and choose either the Query or Mutation generators.
 3. Follow the GUI to create your operation of choice, then fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
 
+<br />
+
 ### QUERY GENERATOR
 
 The query generator will create a .graphql and a resolver.ts file under `schema/Query/<QUERY_NAME>` or `schema/Models/<MODEL_NAME>/queries/<QUERY_NAME>`, depending if you want a model or non-model query.
@@ -123,24 +124,26 @@ extend type Query {
   """
   function to get all values
   """
-  getAllValues: String """ SUBSTITUTE THIS WITH THE CORRECT RETURN TYPE """
+  getAllValues: Value[]
 }
 
 
 ```
 
 ```typescript
-const resolver = {
-  Query: {
-    getAllValues: async (_source, _args, _context, _info): Promise<string> => {
-      // CHANGE THE RETURN TYPE AND ADD THE LOGIC!
-      return 'WIP';
-    },
-  },
-};
+...
 
-export default resolver;
+@QueryResolver('getAllValues')
+class GetAllValuesQuery implements OperationClass<Value[]> {
+  resolve = (_source, _args, _context, _info) => {
+    return getAllValues();
+  };
+}
+
+export default new GetAllValuesQuery();
 ```
+
+<br />
 
 ### MUTATION GENERATOR
 
@@ -153,22 +156,22 @@ extend type Mutation {
   """
   Creates a Value
   """
-  createValue(input: createValueInput): createValuePayload
+  createValue(input: CreateValueInput): CreateValuePayload
 }
 
 """
-createValue input
+CreateValue input
 """
-input createValueInput {
+input CreateValueInput {
   """
   Fill the mutation object input
   """
 }
 
 """
-createValue payload
+CreateValue payload
 """
-type createValuePayload {
+type CreateValuePayload {
   """
   Fill the mutation return payload
   """
@@ -178,119 +181,107 @@ type createValuePayload {
 ```
 
 ```typescript
-const resolver = {
-  Mutation: {
-    createValue: {
-      resolve: async (_, { input }): Promise<any> => {
-        // CHANGE THE RETURN TYPE AND ADD THE LOGIC!
-        return 'WIP';
-      },
-    },
-  },
-};
+...
 
-export default resolver;
+@MutationResolver('createValue')
+class CreateValueMutation implements OperationClass<CreateValuePayload> {
+  resolve = async (
+    _source, { input }: { input: CreateValueInput }, _context, _info
+  ): Promise<CreateValuePayload | null> => {
+    try {
+      const value = await createValue(input);
+
+      return { value };
+    } catch (error) {
+      console.error(error);
+      return { value: null };
+    }
+  };
+}
+
+export default new CreateValueMutation();
 ```
 
 <br />
 
-## How to link two models in the same subgraph
+## How to link two models in the same or different subgraphs
 
 ---
 
 In GraphQL, the models can connect between eachother with relationships like in a relational database (1:1, 1:N, N:N), so let's explore how to create this link in GalactaGraph:
 
 1. [OPTIONAL] Create a new model following our handy [guide](#how-to-create-a-service-with-a-model)
-2. In the `schema.prisma` file, connect the two models as you see fit (Example in 1:1)
+2. In the `schema.prisma` file, connect the two models as you see fit (Example in 1:1 for different subgraphs)
 
 ```graphql
 
+"""
+First SubGraph
+"""
 model User {
   userId         Int      @id @default(autoincrement())
 
   ...
 
-  profile       Profile
+  profileId      Int
+
+  """
+  1:1 in the same subgraph would be
+  profile        Profile
+  """
+
+  """
+  1:N in the same subgraph would be
+  profileIds     Int[]
+  """
 
   ...
 }
 
+"""
+Second SubGraph (in this case, no edits are needed)
+"""
 model Profile {
   profileId     Int      @id @default(autoincrement())
 
-  ...
-
-  user          User
-
+  """
+  1:1 in the same subgraph would be
+  user        User
+  """
   ...
 }
 
 ```
 
 3. Generate, migrate and seed accordingly
-4. Update your `<MODEL_NAME>.graphql` files to reflect the change
-5. Your `resolver.ts` files will have to resolve the newly added field, let's see an example:
+4. Use the `galactagraph-generator` to link the two models together.
+   In this case, the result output (in the `Extensions` folder of one of the two/both micro-services) will be this:
 
 ```typescript
 ...
-User: {
-    ...
-    profile: async ({ userId }: IUserRef): Promise<Profile | null> => {
-      return getProfileByUserId(parseInt(userId));
-    },
-  },
-...
+
+@ExtensionResolver('Profile', 'User')
+class ProfileUserExtension
+  implements ExtensionClass<Profile, IProfileRef, User, IUserRef>
+{
+  @ResolveRelationship('profile')
+  resolve = ({ profileId }: IUserRef): Profile => ({
+    __typename: 'Profile',
+    profileId,
+  });
+
+  @ConnectRelationship('users')
+  connect = ({ profileId }: IProfileRef): Promise<User[]> => {
+    // ADD YOUR RESOLVER LOGIC HERE
+  };
+}
+
+export default new ProfileUserExtension();
 
 ```
 
 5. Create your functions in the `<MODEL_NAME>Service.ts` files (or anywhere you want really) and return the correct data!
 6. Fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
-
-<br />
-
-## How to link two models from different subgraphs
-
----
-
-One of the best features of a Federated API is that you can communicate between subgraphs with ease, and with GalactaGraph the process has been streamlined even more! You can find a clear example at the [federation-project repo](https://github.com/emanuele-moricci/federation-project), but if you want a clear-cut bullet list, here it is:
-
-1. [OPTIONAL] Create a new model following our handy [guide](#how-to-create-a-service-with-a-model)
-2. In the `schema.prisma` file, connect the two models as you see fit. In the case of the 1:1 or 1:N example you can use the <MODEL_NAME>Id like this:
-
-```graphql
-model User {
-  userId         Int      @id @default(autoincrement())
-
-  ...
-
-  languageId     Int
-
-  ...
-}
-```
-
-3. Now update your `<MODEL_NAME>.graphql` file adding the actual model with the chosen relationship, like so:
-
-```graphql
-
-type User ... {
-  ...
-
-  """
-  user language
-  """
-  language: Language
-
-  ...
-}
-
-```
-
-4. Go to the Gateway Root in the command line and fire up the `federation-generator` command. Choose the `Extension` generator and follow the prompt to link the two models.
-5. Now open the generated files, namely the `*.resolver.ts` and `*.graphql` files created under the `Externals/<MODEL_NAME>` folder.
-6. As you can see, we resolve the Model1->Model2 and Model2->Model1 fields in the first model subgraph and leave the Federation to merge them all together. Now to finish the procedure, add your own Resolver+Service code!
-7. Create your functions in the `<MODEL_NAME>Service.ts` files (or anywhere you want really) and return the correct data!
-8. Fire up the entire federation at the gateway root with the `yarn federation:dev` command and in another terminal fire up the `yarn federation:publish` command to generate the Typescript code and push your edits to the Federated Supergraph
 
 <br />
 
@@ -316,5 +307,5 @@ Unfortunately the Federation structure is still new and, even if it was adopted 
 The GalactaGraph boilerplate has a strict folder structure with rules that assure the correct function of the CLI, scripts and Schema&Resolvers mergers. Let's look at the rules that NEED to be followed to ensure that nothing breaks:
 
 - You may see several comments that ask you not to be removed, like `[IMPORT NEW VALUE] // <- DO NOT REMOVE - ...`; this lines are used by the CLI to find the right spot to generate queries/migrations/models ecc... Please do not touch them! 🚯
-- The schema generated with Codegen is handled by the [@graphql-tools](https://www.graphql-tools.com/docs/introduction) library to remove redundant code. To ensure this, the files that are used to generate the usable/publishable code are `*.graphql`, `*.resolver.ts` and `*.reference.ts`. Please use these extensions when you want to add a type, resolver or reference to your micro-service
-- To ensure that starting, building, testing and dockerizing the entire federation is as easy as pushing a button, GalactaGraph created a handful of `.bash` scripts that need to remain untouched unless you know what you're doing
+- The schema generated with Codegen is handled by the [@graphql-tools](https://www.graphql-tools.com/docs/introduction) library to remove redundant code. To ensure this, the files that are used to generate the usable/publishable code are `*.graphql`, `*.model.ts`, `*.query.ts`, `*.mutation.ts` and `*.extension.ts`. Please use these extensions when you want to add a type, resolver or reference to your micro-service
+- To ensure that starting, building, testing and dockerising the entire federation is as easy as pushing a button, GalactaGraph created a handful of `.bash` scripts that need to remain untouched unless you know what you're doing
